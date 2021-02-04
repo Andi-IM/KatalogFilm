@@ -1,6 +1,5 @@
 package id.airham.moviecatalogue.ui.movie
 
-import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -9,8 +8,6 @@ import com.bumptech.glide.request.RequestOptions
 import id.airham.moviecatalogue.R
 import id.airham.moviecatalogue.data.MovieEntity
 import id.airham.moviecatalogue.databinding.ItemMoviesBinding
-import id.airham.moviecatalogue.ui.detail.DetailContentActivity
-import id.airham.moviecatalogue.ui.detail.DetailContentActivity.Companion.EXTRA_TYPE
 
 /**
  *  Kelas ini merupakan adapter untuk recyclerview yang ditampilkan pada MovieFragment.
@@ -25,11 +22,16 @@ import id.airham.moviecatalogue.ui.detail.DetailContentActivity.Companion.EXTRA_
 
 class MovieAdapter : RecyclerView.Adapter<MovieAdapter.MovieViewHolder>() {
     private var listMovies = ArrayList<MovieEntity>()
+    var clickListener: ItemOnClickListener? = null
 
-    fun setMovies(movies: List<MovieEntity>?){
+    interface ItemOnClickListener {
+        fun onclick(type: String, id: String)
+    }
+
+    fun setMovies(movies: List<MovieEntity>?) {
         if (movies == null) return
-            this.listMovies.clear()
-            this.listMovies.addAll(movies)
+        this.listMovies.clear()
+        this.listMovies.addAll(movies)
     }
 
     override fun onCreateViewHolder(
@@ -46,32 +48,36 @@ class MovieAdapter : RecyclerView.Adapter<MovieAdapter.MovieViewHolder>() {
     }
 
     override fun onBindViewHolder(holder: MovieViewHolder, position: Int) {
-        holder.bind(listMovies[position])
+        holder.bind(listMovies[position], clickListener)
     }
 
     override fun getItemCount(): Int = listMovies.size
 
-    class MovieViewHolder(private val binding: ItemMoviesBinding) :
-        RecyclerView.ViewHolder(binding.root)  {
-        fun bind(movie: MovieEntity){
-            with(binding){
+    inner class MovieViewHolder(private val binding: ItemMoviesBinding) :
+        RecyclerView.ViewHolder(binding.root) {
+        fun bind(movie: MovieEntity, onClick: ItemOnClickListener?) {
+            with(binding) {
                 movieName.text = movie.originalTitle
                 val getStarRating = 5 * (movie.voteAverage.toFloat() / 10)
                 movieRating.rating = getStarRating
-                movieReleaseDate.text = itemView.resources.getString(R.string.release_date, movie.releaseDate)
+                movieReleaseDate.text =
+                    itemView.resources.getString(R.string.release_date, movie.releaseDate)
                 Glide.with(itemView.context)
-                    .load(movie.posterPath)
+                    .load("https://image.tmdb.org/t/p/w342/${movie.posterPath}")
                     .apply(
                         RequestOptions.placeholderOf(R.drawable.ic_loading)
-                        .error(R.drawable.ic_error))
+                            .error(R.drawable.ic_error)
+                    )
                     .into(movieImage)
-                itemView.setOnClickListener {
-                    val intent = Intent(itemView.context, DetailContentActivity::class.java)
-                    intent.putExtra(EXTRA_TYPE, movie.type)
-                    intent.putExtra(DetailContentActivity.EXTRA_ID, movie.id)
-                    itemView.context.startActivity(intent)
+
+                if (onClick != null) {
+                    itemView.setOnClickListener {
+                        onClick.onclick(movie.type, movie.id)
+                    }
                 }
+
             }
         }
     }
 }
+

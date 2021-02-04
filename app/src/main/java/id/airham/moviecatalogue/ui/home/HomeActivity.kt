@@ -1,7 +1,7 @@
 package id.airham.moviecatalogue.ui.home
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
 import id.airham.moviecatalogue.R
 import id.airham.moviecatalogue.databinding.ActivityHomeBinding
 
@@ -22,7 +22,7 @@ class HomeActivity : AppCompatActivity() {
         val activityHomeBinding = ActivityHomeBinding.inflate(layoutInflater)
         setContentView(activityHomeBinding.root)
 
-        val sectionPagerAdapter= SectionsPagerAdapter(this, supportFragmentManager)
+        val sectionPagerAdapter = SectionsPagerAdapter(this, supportFragmentManager)
         activityHomeBinding.viewPager.adapter = sectionPagerAdapter
         activityHomeBinding.tabLayout.setupWithViewPager(activityHomeBinding.viewPager)
 

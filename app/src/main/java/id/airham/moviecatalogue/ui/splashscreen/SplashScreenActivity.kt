@@ -15,6 +15,11 @@ import id.airham.moviecatalogue.ui.home.HomeActivity
 
 class SplashScreenActivity : AppCompatActivity() {
     private lateinit var activitySplashScreenBinding: ActivitySplashScreenBinding
+
+    companion object {
+        const val DELAY_TIME_IN_MILIS = 2000
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         activitySplashScreenBinding = ActivitySplashScreenBinding.inflate(layoutInflater)
@@ -23,7 +28,7 @@ class SplashScreenActivity : AppCompatActivity() {
         Handler(Looper.getMainLooper()).postDelayed({
             startActivity(Intent(this@SplashScreenActivity, HomeActivity::class.java))
             finish()
-        }, 2000)
+        }, DELAY_TIME_IN_MILIS.toLong())
 
     }
 }

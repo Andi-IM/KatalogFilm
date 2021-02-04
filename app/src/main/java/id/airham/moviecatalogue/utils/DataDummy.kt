@@ -2,6 +2,8 @@ package id.airham.moviecatalogue.utils
 
 import id.airham.moviecatalogue.data.MovieEntity
 import id.airham.moviecatalogue.data.TvShowEntity
+import id.airham.moviecatalogue.data.source.remote.response.MovieItem
+import id.airham.moviecatalogue.data.source.remote.response.TvShowItem
 
 /**
  *  Ini merupakan Data Dummy yang dipersiapkan untuk diambil oleh kelas Movie dan TvShow
@@ -13,430 +15,894 @@ import id.airham.moviecatalogue.data.TvShowEntity
  */
 
 object DataDummy {
-    fun generateMovies(): List<MovieEntity>{
+    fun generateMovies(): List<MovieEntity> {
         val movies = ArrayList<MovieEntity>()
 
+        /**
+         *  isi dari movie Entity
+         *   id, original_title, overview, poster_path, release_date, vote_average
+         *
+         *   JANGAN ASAL-ASALAN / KEBALIK hehe
+         */
         movies.add(
-            MovieEntity("m1",
-            "A Star Is Born",
-            "Seorang bintang musik country yang karirnya mulai memudar, Jackson Maine (Bradley Cooper) menemukan sebuah talenta yang sangat berbakat di dalam diri dari seorang musisi muda bernama Ally (Lady Gaga). Maine berhasil mengorbitkan Ally menjadi seorang bintang muda yang menjanjikan. Namun keduanya terlibat hubungan yang lebih jauh dari sekedar mentor dan anak didik. Seiring dengan meroketnya karir dari Ally dan dirinya, Maine mengalami dilema mengenai masalah ini.",
-            "https://www.themoviedb.org/t/p/w220_and_h330_face/wrFpXMNBRj2PBiN4Z5kix51XaIZ.jpg",
-            "05/10/2018",
-            7.5
-        )
-        )
-
-        movies.add(
-            MovieEntity("m2",
-            "Alita: Battle Angel",
-            "Ketika Alita terbangun tanpa ingatan tentang siapa dia di dunia masa depan yang tidak dia kenal, dia ditangkap oleh Ido, seorang dokter yang penuh kasih yang menyadari bahwa di suatu tempat dalam cangkang cyborg yang ditinggalkan ini adalah hati dan jiwa seorang wanita muda dengan luar biasa. lalu.",
-            "https://www.themoviedb.org/t/p/w300_and_h450_bestv2/xRWht48C2V8XNfzvPehyClOvDni.jpg",
-            "14/02/2019",
-            8.0
-        )
-        )
-
-        movies.add(
-            MovieEntity("m3",
-            "Aquaman",
-            "Once home to the most advanced civilization on Earth, Atlantis is now an underwater kingdom ruled by the power-hungry King Orm. With a vast army at his disposal, Orm plans to conquer the remaining oceanic people and then the surface world. Standing in his way is Arthur Curry, Orm's half-human, half-Atlantean brother and true heir to the throne.",
-            "https://www.themoviedb.org/t/p/w300_and_h450_bestv2/xLPffWMhMj1l50ND3KchMjYoKmE.jpg",
-            "21/12/2018",
-            6.9
-        )
+            MovieEntity(
+                "775996",
+                "Outside the Wire",
+                "In the near future, a drone pilot is sent into a deadly militarized zone and must work with an android officer to locate a doomsday device.",
+                "/e6SK2CAbO3ENy52UTzP3lv32peC.jpg",
+                "2021-01-15",
+                6.5
+            )
         )
 
         movies.add(
             MovieEntity(
-            "m4",
-            "Bohemian Rhapsody",
-            "Singer Freddie Mercury, guitarist Brian May, drummer Roger Taylor and bass guitarist John Deacon take the music world by storm when they form the rock 'n' roll band Queen in 1970. Hit songs become instant classics. When Mercury's increasingly wild lifestyle starts to spiral out of control, Queen soon faces its greatest challenge yet – finding a way to keep the band together amid the success and excess.",
-            "https://www.themoviedb.org/t/p/w300_and_h450_bestv2/lHu1wtNaczFPGFDTrjCSzeLPTKN.jpg",
-            "02/11/2018",
-            8.0
-        )
-        )
-
-        movies.add(
-            MovieEntity(
-            "m5",
-            "Cold Pursuit ",
-            "The quiet family life of Nels Coxman, a snowplow driver, is upended after his son's murder. Nels begins a vengeful hunt for Viking, the drug lord he holds responsible for the killing, eliminating Viking's associates one by one. As Nels draws closer to Viking, his actions bring even more unexpected and violent consequences, as he proves that revenge is all in the execution.",
-            "https://www.themoviedb.org/t/p/w220_and_h330_face/hXgmWPd1SuujRZ4QnKLzrj79PAw.jpg",
-            "08/02/2019",
-            5.6
-        )
+                "464052",
+                "Wonder Woman 1984",
+                "Wonder Woman comes into conflict with the Soviet Union during the Cold War in the 1980s and finds a formidable foe by the name of the Cheetah.",
+                "/8UlWHLMpgZm9bx6QYh0NFoq67TZ.jpg",
+                "2020-12-16",
+                7.0
+            )
         )
 
         movies.add(
             MovieEntity(
-            "m6",
-            "Creed II",
-            "Between personal obligations and training for his next big fight against an opponent with ties to his family's past, Adonis Creed is up against the challenge of his life.",
-            "https://www.themoviedb.org/t/p/w220_and_h330_face/v3QyboWRoA4O9RbcsqH8tJMe8EB.jpg",
-            "21/11/2018",
-            6.9
-        )
-        )
-
-        movies.add(
-            MovieEntity(
-            "m7",
-            "Fantastic Beasts: The Crimes of Grindelwald",
-            "Gellert Grindelwald telah melarikan diri dari penjara dan telah mulai mengumpulkan pengikut ke tujuannya — meninggikan penyihir di atas semua makhluk non-magis. Satu-satunya yang bisa menghentikannya adalah penyihir yang pernah disebutnya sebagai sahabat terdekatnya, Albus Dumbledore. Namun, Dumbledore akan perlu mencari bantuan dari penyihir yang telah menggagalkan Grindelwald sebelumnya, mantan muridnya, Newt Scamander, yang setuju untuk membantu, tidak menyadari bahaya yang ada di depan. Garis-garis digambar saat cinta dan kesetiaan diuji, bahkan di antara teman-teman dan keluarga sejati, di dunia sihir yang semakin terbagi.",
-            "https://www.themoviedb.org/t/p/w220_and_h330_face/2MokCu61LzWw872lPzq1VCJXTD1.jpg",
-            "16/11/2018",
-            7.4
-        )
+                "651571",
+                "Breach",
+                "A hardened mechanic must stay awake and maintain an interstellar ark fleeing the dying planet Earth with a few thousand lucky souls on board... the last of humanity. Unfortunately, humans are not the only passengers. A shapeshifting alien creature has taken residence, its only goal is to kill as many people as possible. The crew must think quickly to stop this menace before it destroys mankind.",
+                "/13B6onhL6FzSN2KaNeQeMML05pS.jpg",
+                "2020-12-17",
+                5.0
+            )
         )
 
         movies.add(
             MovieEntity(
-            "m8",
-            "Glass",
-            "In a series of escalating encounters, former security guard David Dunn uses his supernatural abilities to track Kevin Wendell Crumb, a disturbed man who has twenty-four personalities. Meanwhile, the shadowy presence of Elijah Price emerges as an orchestrator who holds secrets critical to both men.",
-            "https://www.themoviedb.org/t/p/w220_and_h330_face/svIDTNUoajS8dLEo7EosxvyAsgJ.jpg",
-            "18/01/2019",
-            6.6
-        )
-        )
-
-        movies.add(
-            MovieEntity(
-            "m9",
-            "How to Train Your Dragon",
-            "As the son of a Viking leader on the cusp of manhood, shy Hiccup Horrendous Haddock III faces a rite of passage: he must kill a dragon to prove his warrior mettle. But after downing a feared dragon, he realizes that he no longer wants to destroy it, and instead befriends the beast – which he names Toothless – much to the chagrin of his warrior father",
-            "https://www.themoviedb.org/t/p/w220_and_h330_face/ij0xoc13hGhrYIlXGGuPXWTh3vi.jpg",
-            "26/03/2010",
-            7.8
-        )
+                "508442",
+                "Soul",
+                "Joe Gardner is a middle school teacher with a love for jazz music. After a successful gig at the Half Note Club, he suddenly gets into an accident that separates his soul from his body and is transported to the You Seminar, a center in which souls develop and gain passions before being transported to a newborn child. Joe must enlist help from the other souls-in-training, like 22, a soul who has spent eons in the You Seminar, in order to get back to Earth.",
+                "/hm58Jw4Lw8OIeECIq5qyPYhAeRJ.jpg",
+                "2020-12-25",
+                8.3
+            )
         )
 
         movies.add(
             MovieEntity(
-            "m10",
-            "Avengers: Infinity War",
-            "Karena Avengers dan sekutunya terus melindungi dunia dari ancaman yang terlalu besar untuk ditangani oleh seorang pahlawan, bahaya baru telah muncul dari bayangan kosmik: Thanos. Seorang lalim penghujatan intergalaksi, tujuannya adalah untuk mengumpulkan semua enam Batu Infinity, artefak kekuatan yang tak terbayangkan, dan menggunakannya untuk menimbulkan kehendak memutar pada semua realitas. Segala sesuatu yang telah diperjuangkan oleh Avengers telah berkembang hingga saat ini - nasib Bumi dan keberadaannya sendiri tidak pernah lebih pasti.",
-            "https://www.themoviedb.org/t/p/w220_and_h330_face/7WsyChQLEftFiDOVTGkv3hFpyyt.jpg",
-            "27/04/2018",
-            8.3
-        )
-        )
-
-        movies.add(
-            MovieEntity(
-            "m11",
-            "Mary Queen of Scots",
-            "In 1561, Mary Stuart, widow of the King of France, returns to Scotland, reclaims her rightful throne and menaces the future of Queen Elizabeth I as ruler of England, because she has a legitimate claim to the English throne. Betrayals, rebellions, conspiracies and their own life choices imperil both Queens. They experience the bitter cost of power, until their tragic fate is finally fulfilled.",
-            "https://www.themoviedb.org/t/p/w220_and_h330_face/b5RMzLAyq5QW6GtN9sIeAEMLlBI.jpg",
-            "21/12/2018",
-            6.6
-        )
+                "560144",
+                "Skylines",
+                "When a virus threatens to turn the now earth-dwelling friendly alien hybrids against humans, Captain Rose Corley must lead a team of elite mercenaries on a mission to the alien world in order to save what's left of humanity.",
+                "/2W4ZvACURDyhiNnSIaFPHfNbny3.jpg",
+                "2020-10-25",
+                5.8
+            )
         )
 
         movies.add(
             MovieEntity(
-            "m12",
-            "Master Z: Ip Man Legacy",
-            "Following his defeat by Master Ip, Cheung Tin Chi tries to make a life with his young son in Hong Kong, waiting tables at a bar that caters to expats. But it's not long before the mix of foreigners, money, and triad leaders draw him once again to the fight.",
-            "https://www.themoviedb.org/t/p/w220_and_h330_face/8Huk4Glpqkbwmjd1uZ3KAxh0wdL.jpg",
-            "26/12/2018",
-            5.7
-        )
-        )
-
-        movies.add(
-            MovieEntity(
-            "m13",
-            "Mortal Engines",
-            "Many thousands of years in the future, Earth’s cities roam the globe on huge wheels, devouring each other in a struggle for ever diminishing resources. On one of these massive traction cities, the old London, Tom Natsworthy has an unexpected encounter with a mysterious young woman from the wastelands who will change the course of his life forever.",
-            "https://www.themoviedb.org/t/p/w220_and_h330_face/gLhYg9NIvIPKVRTtvzCWnp1qJWG.jpg",
-            "14/12/2018",
-            6.1
-        )
+                "373571",
+                "Godzilla: King of the Monsters",
+                "Follows the heroic efforts of the crypto-zoological agency Monarch as its members face off against a battery of god-sized monsters, including the mighty Godzilla, who collides with Mothra, Rodan, and his ultimate nemesis, the three-headed King Ghidorah. When these ancient super-species, thought to be mere myths, rise again, they all vie for supremacy, leaving humanity's very existence hanging in the balance.",
+                "/mzOHg7Q5q9yUmY0b9Esu8Qe6Nnm.jpg",
+                "2019-05-29",
+                6.6
+            )
         )
 
         movies.add(
             MovieEntity(
-            "m14",
-            "Overlord",
-            "France, June 1944. On the eve of D-Day, some American paratroopers fall behind enemy lines after their aircraft crashes while on a mission to destroy a radio tower in a small village near the beaches of Normandy. After reaching their target, the surviving paratroopers realise that, in addition to fighting the Nazi troops that patrol the village, they also must fight against something else.",
-            "https://www.themoviedb.org/t/p/w220_and_h330_face/13j4J1u3lYnEo1Ct3XOvXkeYbFe.jpg",
-            "09/11/2018",
-            6.7
-        )
-        )
-
-        movies.add(
-            MovieEntity(
-            "m15",
-            "Ralph Breaks the Internet",
-            "Video game bad guy Ralph and fellow misfit Vanellope von Schweetz must risk it all by traveling to the World Wide Web in search of a replacement part to save Vanellope's video game, Sugar Rush. In way over their heads, Ralph and Vanellope rely on the citizens of the internet — the netizens — to help navigate their way, including an entrepreneur named Yesss, who is the head algorithm and the heart and soul of trend-making site BuzzzTube.",
-            "https://www.themoviedb.org/t/p/w220_and_h330_face/6jBuc4l7ixM8S5PCcSYvGKDmIX9.jpg",
-            "21/11/2018",
-            7.2
-        )
+                "399566",
+                "Godzilla vs. Kong",
+                "In a time when monsters walk the Earth, humanity’s fight for its future sets Godzilla and Kong on a collision course that will see the two most powerful forces of nature on the planet collide in a spectacular battle for the ages.",
+                "/soM5eNHxxS3a0AqgvDgm2djJXZp.jpg",
+                "2021-03-25",
+                0.0
+            )
         )
 
         movies.add(
             MovieEntity(
-            "m16",
-            "Robin Hood",
-            "A war-hardened Crusader and his Moorish commander mount an audacious revolt against the corrupt English crown.",
-            "https://www.themoviedb.org/t/p/w220_and_h330_face/AiRfixFcfTkNbn2A73qVJPlpkUo.jpg",
-            "21/11/2018",
-            5.9
-        )
-        )
-
-        movies.add(
-            MovieEntity(
-            "m17",
-            "Serenity",
-            "The quiet life of Baker Dill, a fishing boat captain who lives on the isolated Plymouth Island, where he spends his days obsessed with capturing an elusive tuna while fighting his personal demons, is interrupted when someone from his past comes to him searching for help.",
-            "https://www.themoviedb.org/t/p/w220_and_h330_face/hgWAcic93phg4DOuQ8NrsgQWiqu.jpg",
-            "25/01/2019",
-            5.4
-        )
+                "581387",
+                "백두산",
+                "Stagnant since 1903, at an elevation of 9000', a volcano erupts on the mythical and majestic Baekdu Mountain.",
+                "/zoeKREZ2IdAUnXISYCS0E6H5BVh.jpg",
+                "2019-12-19",
+                6.8
+            )
         )
 
         movies.add(
             MovieEntity(
-            "m18",
-            "Spider-Man: Into the Spider-Verse",
-            "Miles Morales is juggling his life between being a high school student and being a spider-man. When Wilson \"Kingpin\" Fisk uses a super collider, others from across the Spider-Verse are transported to this dimension.",
-            "https://www.themoviedb.org/t/p/w220_and_h330_face/3cZn1k8x0bikrDKEy9ZKJ6Vdj30.jpg",
-            "14/12/2018",
-            8.4
-        )
+                "539885",
+                "Ava",
+                "A black ops assassin is forced to fight for her own survival after a job goes dangerously wrong.",
+                "/qzA87Wf4jo1h8JMk9GilyIYvwsA.jpg",
+                "2020-07-02",
+                5.6
+            )
         )
 
         movies.add(
             MovieEntity(
-            "m19",
-            "T-34",
-            "In 1944, a courageous group of Russian soldiers managed to escape from German captivity in a half-destroyed legendary T-34 tank. Those were the times of unforgettable bravery, fierce fighting, unbreakable love, and legendary miracles.",
-            "https://www.themoviedb.org/t/p/w220_and_h330_face/dsrUtQdr4SnrSJwNuIjU90new4Y.jpg",
-            "01/01/2019 ",
-            6.8
+                "604822",
+                "急先锋",
+                "Covert security company Vanguard is the last hope of survival for an accountant after he is targeted by the world's deadliest mercenary organization.",
+                "/vYvppZMvXYheYTWVd8Rnn9nsmNp.jpg",
+                "2020-09-30",
+                6.7
+            )
         )
+
+        movies.add(
+            MovieEntity(
+                "553604",
+                "Honest Thief",
+                "A bank robber tries to turn himself in because he's falling in love and wants to live an honest life...but when he realizes the Feds are more corrupt than him, he must fight back to clear his name.",
+                "/zeD4PabP6099gpE0STWJrJrCBCs.jpg",
+                "2020-09-03",
+                6.6
+            )
+        )
+
+        movies.add(
+            MovieEntity(
+                "577922",
+                "Tenet",
+                "Armed with only one word - Tenet - and fighting for the survival of the entire world, the Protagonist journeys through a twilight world of international espionage on a mission that will unfold in something beyond real time.",
+                "/k68nPLbIST6NP96JmTxmZijEvCA.jpg",
+                "2020-08-22",
+                7.3
+            )
+        )
+
+        movies.add(
+            MovieEntity(
+                "737568",
+                "The Doorman",
+                "A former Marine turned doorman at a luxury New York City high-rise must outsmart and battle a group of art thieves and their ruthless leader — while struggling to protect her sister's family. As the thieves become increasingly desperate and violent, the doorman calls upon her deadly fighting skills to end the showdown.",
+                "/pklyUbh4k1DbHdnsOMASyw7C6NH.jpg",
+                "2020-10-01",
+                5.9
+            )
+        )
+
+        movies.add(
+            MovieEntity(
+                "495764",
+                "Birds of Prey (and the Fantabulous Emancipation of One Harley Quinn)",
+                "Harley Quinn joins forces with a singer, an assassin and a police detective to help a young girl who had a hit placed on her after she stole a rare diamond from a crime lord.",
+                "/h4VB6m0RwcicVEZvzftYZyKXs6K.jpg",
+                "2020-02-05",
+                7.1
+            )
+        )
+
+        movies.add(
+            MovieEntity(
+                "520946",
+                "100% Wolf",
+                "Freddy Lupin, heir to a proud family line of werewolves, is in for a shock when on his 14th birthday his first 'warfing' goes awry, turning him into a ferocious poodle. The pack elders give Freddy until the next moonrise to prove he has the heart of a wolf, or risk being cast out forever. With the help of an unlikely ally in a streetwise stray named Batty, Freddy must prove he's 100% Wolf.",
+                "/2VrvxK4yxNCU6KVgo5TADJeBEQu.jpg",
+                "2020-06-26",
+                6.5
+            )
+        )
+
+        movies.add(
+            MovieEntity(
+                "531499",
+                "The Tax Collector",
+                "David Cuevas is a family man who works as a gangland tax collector for high ranking Los Angeles gang members. He makes collections across the city with his partner Creeper making sure people pay up or will see retaliation. An old threat returns to Los Angeles that puts everything David loves in harm’s way.",
+                "/3eg0kGC2Xh0vhydJHO37Sp4cmMt.jpg",
+                "2020-08-07",
+                5.8
+            )
+        )
+
+        movies.add(
+            MovieEntity(
+                "529203",
+                "The Croods: A New Age",
+                "Searching for a safer habitat, the prehistoric Crood family discovers an idyllic, walled-in paradise that meets all of its needs. Unfortunately, they must also learn to live with the Bettermans -- a family that's a couple of steps above the Croods on the evolutionary ladder. As tensions between the new neighbors start to rise, a new threat soon propels both clans on an epic adventure that forces them to embrace their differences, draw strength from one another, and survive together.",
+                "/tK1zy5BsCt1J4OzoDicXmr0UTFH.jpg",
+                "2020-11-25",
+                7.7
+            )
+        )
+
+        movies.add(
+            MovieEntity(
+                "664767",
+                "Mortal Kombat Legends: Scorpion's Revenge",
+                "After the vicious slaughter of his family by stone-cold mercenary Sub-Zero, Hanzo Hasashi is exiled to the torturous Netherrealm. There, in exchange for his servitude to the sinister Quan Chi, he’s given a chance to avenge his family – and is resurrected as Scorpion, a lost soul bent on revenge. Back on Earthrealm, Lord Raiden gathers a team of elite warriors – Shaolin monk Liu Kang, Special Forces officer Sonya Blade and action star Johnny Cage – an unlikely band of heroes with one chance to save humanity. To do this, they must defeat Shang Tsung’s horde of Outworld gladiators and reign over the Mortal Kombat tournament.",
+                "/4VlXER3FImHeFuUjBShFamhIp9M.jpg",
+                "2020-04-12",
+                8.4
+            )
+        )
+
+        movies.add(
+            MovieEntity(
+                "755812",
+                "Miraculous World: New York, United HeroeZ",
+                "During a school field trip, Ladybug and Cat Noir meet the American superheroes, whom they have to save from an akumatised super-villain. They discover that Miraculous exist in the United States too.",
+                "/kIHgjAkuzvKBnmdstpBOo4AfZah.jpg",
+                "2020-09-26",
+                8.6
+            )
         )
 
         return movies
     }
 
-    fun generateTvs(): List<TvShowEntity>{
+    /**
+     *  isi dari TvShowEntity
+     *   id, original_name, overview, poster_path, first_air, vote_average
+     *
+     *   JANGAN ASAL-ASALAN / KEBALIK hehe
+     */
+
+
+    fun generateTvs(): List<TvShowEntity> {
         val tv = ArrayList<TvShowEntity>()
 
         tv.add(
             TvShowEntity(
-            "tv1",
-            "The Arrow",
-            "Panah adalah menceritakan kembali petualangan dari legendaris DC pahlawan Green Arrow",
-            "https://www.themoviedb.org/t/p/w220_and_h330_face/zfOb5lRt9SekVyl0gLfrXikQfxn.jpg",
-            "Oktober 15, 2019",
-            6.6
-        )
-        )
-
-        tv.add(
-            TvShowEntity(
-            "tv2",
-            "Doom Patrol",
-            "The Doom Patrol’s members each suffered horrible accidents that gave them superhuman abilities — but also left them scarred and disfigured. Traumatized and downtrodden, the team found purpose through The Chief, who brought them together to investigate the weirdest phenomena in existence — and to protect Earth from what they find.",
-            "https://www.themoviedb.org/t/p/w220_and_h330_face/nVN7Dt0Xr78gnJepRsRLaLYklbY.jpg",
-            "Juni 25, 2020",
-            7.6
-        )
-        )
-        tv.add(
-            TvShowEntity(
-            "tv3",
-            "ドラゴンボール",
-            "Dahulu kala di pegunungan, seorang master pertempuran yang dikenal sebagai Gohan menemukan seorang bocah aneh yang ia beri nama Goku. Gohan membesarkannya dan melatih Goku dalam seni bela diri sampai dia mati. Bocah muda dan sangat kuat itu sendirian, tetapi mudah dikelola. Kemudian suatu hari, Goku bertemu dengan seorang gadis remaja bernama Bulma, yang pencariannya untuk bola naga membawanya ke rumah Goku. Bersama-sama, mereka berangkat untuk menemukan ketujuh bola naga dalam sebuah petualangan yang akan mengubah hidup Goku selamanya. Lihat bagaimana Goku bertemu teman-teman seumur hidupnya Bulma, Yamcha, Krillin, Master Roshi dan banyak lagi.",
-            "https://www.themoviedb.org/t/p/w220_and_h330_face/dRdvbzJtQWcE6OkhR1BZrmN2hXp.jpg",
-            "Februari 25, 1986",
-            8.1
-        )
-        )
-        tv.add(
-            TvShowEntity(
-            "tv4",
-            "フェアリーテイル",
-            "Lucy is a 17-year-old girl, who wants to be a full-fledged mage. One day when visiting Harujion Town, she meets Natsu, a young man who gets sick easily by any type of transportation. But Natsu isn't just any ordinary kid, he's a member of one of the world's most infamous mage guilds: Fairy Tail.",
-            "https://www.themoviedb.org/t/p/w220_and_h330_face/h50lj7xO65qafNYZCrfQ7ztkMBD.jpg",
-            "April 15, 2011",
-            7.7
-        )
-        )
-        tv.add(
-            TvShowEntity(
-            "tv5",
-            "Family Guy",
-            "Seri animasi animasi Freakin 'Sweet yang sakit, terpelintir, dan salah, menampilkan petualangan keluarga Griffin yang disfungsional. Peter yang kikuk dan Lois yang sudah lama menderita memiliki tiga anak. Stewie (bayi yang brilian tetapi sadis yang bertekad membunuh ibunya dan mengambil alih dunia), Meg (yang tertua, dan merupakan gadis yang paling tidak populer di kota) dan Chris (anak tengah, dia tidak terlalu cerdas tetapi memiliki hasrat untuk film ). Anggota terakhir keluarga itu adalah Brian - anjing yang bisa bicara dan lebih dari sekadar hewan peliharaan, ia menjaga Stewie, sementara menghirup Martinis dan memilah-milah masalah hidupnya sendiri.",
-            "https://www.themoviedb.org/t/p/w220_and_h330_face/pneUOubHFd632I1lIO23J93Wn4A.jpg",
-            "Mei 21, 2006",
-            6.9
-        )
-        )
-        tv.add(
-            TvShowEntity(
-            "tv6",
-            "The Flash",
-            "Setelah akselerator partikel menyebabkan badai aneh, Penyelidik CSI Barry Allen disambar petir dan jatuh koma. Beberapa bulan kemudian dia terbangun dengan kekuatan kecepatan super, memberinya kemampuan untuk bergerak melalui Central City seperti malaikat penjaga yang tak terlihat. Meskipun awalnya senang dengan kekuatan barunya, Barry terkejut menemukan bahwa dia bukan satu-satunya \"manusia meta\" yang diciptakan setelah ledakan akselerator - dan tidak semua orang menggunakan kekuatan baru mereka untuk kebaikan. Barry bermitra dengan S.T.A.R. Lab dan mendedikasikan hidupnya untuk melindungi yang tidak bersalah. Untuk saat ini, hanya beberapa teman dekat dan rekan yang tahu bahwa Barry secara harfiah adalah manusia tercepat, tetapi tidak lama sebelum dunia mengetahui apa yang menjadi Barry Allen ... The Flash.",
-            "https://www.themoviedb.org/t/p/w220_and_h330_face/fki3kBlwJzFp8QohL43g9ReV455.jpg",
-            "April 19, 2016.",
-            7.6
-        )
-        )
-        tv.add(
-            TvShowEntity(
-            "tv7",
-            "Game of Thrones",
-            "Tujuh keluarga bangsawan berjuang untuk menguasai tanah mitos Westeros. Gesekan antara rumah-rumah mengarah ke perang skala penuh. Semua sementara kejahatan yang sangat kuno terbangun di utara terjauh. Di tengah-tengah perang, perintah militer yang diabaikan, Night's Watch, adalah yang berdiri di antara alam manusia dan kengerian es di luarnya.",
-            "https://www.themoviedb.org/t/p/w220_and_h330_face/gwPSoYUHAKmdyVywgLpKKA4BjRr.jpg",
-            "Desember 5, 2010.",
-            8.4
-        )
-        )
-        tv.add(
-            TvShowEntity(
-            "tv8",
-            "Gotham",
-            "Semua orang tahu nama Komisaris Gordon. Dia adalah salah satu musuh terbesar dunia kejahatan, seorang pria yang reputasinya identik dengan hukum dan ketertiban. Tapi apa yang diketahui tentang kisah Gordon dan kenaikannya dari detektif pemula ke Komisaris Polisi? Apa yang diperlukan untuk menavigasi berbagai lapisan korupsi yang diam-diam memerintah Kota Gotham, tempat bertelurnya penjahat paling ikonik di dunia? Dan keadaan apa yang menciptakan mereka - persona yang lebih besar dari kehidupan yang akan menjadi Catwoman, The Penguin, The Riddler, Two-Face dan The Joker?",
-            "https://www.themoviedb.org/t/p/w220_and_h330_face/4XddcRDtnNjYmLRMYpbrhFxsbuq.jpg",
-            "Agustus 18, 2014.",
-            7.5
-        )
-        )
-        tv.add(
-            TvShowEntity(
-            "tv9",
-            "Grey's Anatomy",
-            "Ikuti kehidupan pribadi dan profesional sekelompok dokter di Rumah Sakit Gray Sloan Memorial di Seattle.",
-            "https://www.themoviedb.org/t/p/w220_and_h330_face/mgOZSS2FFIGtfVeac1buBw3Cx5w.jpg",
-            "Januari 8, 2006.",
-            8.2
-        )
-        )
-        tv.add(
-            TvShowEntity(
-            "tv10",
-            "Hanna",
-            "This thriller and coming-of-age drama follows the journey of an extraordinary young girl as she evades the relentless pursuit of an off-book CIA agent and tries to unearth the truth behind who she is. Based on the 2011 Joe Wright film.",
-            "https://www.themoviedb.org/t/p/w220_and_h330_face/5nSSkcM3TgpllZ7yTyBOQEgAX36.jpg",
-            "Maret 27, 2019",
-            7.5
-        )
-        )
-        tv.add(
-            TvShowEntity(
-            "tv11",
-            "Marvel's Iron Fist",
-            "Danny Rand resurfaces 15 years after being presumed dead. Now, with the power of the Iron Fist, he seeks to reclaim his past and fulfill his destiny.",
-            "https://www.themoviedb.org/t/p/w220_and_h330_face/49XsMQpVsJEZfHiSipqXm9Wahf9.jpg",
-            "Maret 17, 2017",
-            6.5
-        )
+                "85271",
+                "WandaVision",
+                "Wanda Maximoff and Vision—two super-powered beings living idealized suburban lives—begin to suspect that everything is not as it seems.",
+                "/glKDfE6btIRcVB5zrjspRIs4r52.jpg",
+                "2021-01-15",
+                8.4
+            )
         )
 
         tv.add(
             TvShowEntity(
-            "tv12",
-            "ナルト 疾風伝",
-            "Naruto Shippuuden adalah kelanjutan dari serial TV animasi asli Naruto. Kisah ini berkisah tentang Uzumaki Naruto yang lebih tua dan sedikit lebih matang dan upayanya untuk menyelamatkan temannya Uchiha Sasuke dari cengkeraman Shinobi seperti ular, Orochimaru. Setelah 2 setengah tahun, Naruto akhirnya kembali ke desanya Konoha, dan mulai mewujudkan ambisinya, meskipun itu tidak akan mudah, karena Ia telah mengumpulkan beberapa musuh (lebih berbahaya), seperti organisasi shinobi. ; Akatsuki.",
-            "https://www.themoviedb.org/t/p/w220_and_h330_face/zAYRe2bJxpWTVrwwmBc00VFkAf4.jpg",
-            "Februari 6, 2008.",
-            8.6
+                "69050",
+                "Riverdale",
+                "Set in the present, the series offers a bold, subversive take on Archie, Betty, Veronica and their friends, exploring the surreality of small-town life, the darkness and weirdness bubbling beneath Riverdale’s wholesome facade.",
+                "/wRbjVBdDo5qHAEOVYoMWpM58FSA.jpg",
+                "2017-01-26",
+                8.6
+            )
         )
+        tv.add(
+            TvShowEntity(
+                "114695",
+                "Marvel Studios: Legends",
+                "Revisit the epic heroes, villains and moments from across the MCU in preparation for the stories still to come. Each dynamic segment feeds directly into the upcoming series — setting the stage for future events. This series weaves together the many threads that constitute the unparalleled Marvel Cinematic Universe.",
+                "/EpDuYIK81YtCUT3gH2JDpyj8Qk.jpg",
+                "2021-01-08",
+                7.7
+            )
+        )
+        tv.add(
+            TvShowEntity(
+                "79460",
+                "Legacies",
+                "In a place where young witches, vampires, and werewolves are nurtured to be their best selves in spite of their worst impulses, Klaus Mikaelson’s daughter, 17-year-old Hope Mikaelson, Alaric Saltzman’s twins, Lizzie and Josie Saltzman, among others, come of age into heroes and villains at The Salvatore School for the Young and Gifted.",
+                "/qTZIgXrBKURBK1KrsT7fe3qwtl9.jpg",
+                "2018-10-25",
+                8.6
+            )
+        )
+        tv.add(
+            TvShowEntity(
+                "71712",
+                "The Good Doctor",
+                "A young surgeon with Savant syndrome is recruited into the surgical unit of a prestigious hospital. The question will arise: can a person who doesn't have the ability to relate to people actually save their lives",
+                "/6tfT03sGp9k4c0J3dypjrI8TSAI.jpg",
+                "2017-09-25",
+                8.6
+            )
+        )
+        tv.add(
+            TvShowEntity(
+                "82856",
+                "The Mandalorian",
+                "After the fall of the Galactic Empire, lawlessness has spread throughout the galaxy. A lone gunfighter makes his way through the outer reaches, earning his keep as a bounty hunter.",
+                "/sWgBv7LV2PRoQgkxwlibdGXKz1S.jpg",
+                "2019-11-12",
+                8.5,
+            )
+        )
+        tv.add(
+            TvShowEntity(
+                "97175",
+                "Fate: The Winx Saga",
+                "The coming-of-age journey of five fairies attending Alfea, a magical boarding school in the Otherworld where they must learn to master their powers while navigating love, rivalries, and the monsters that threaten their very existence.",
+                "/oHj6guMrLfQcBzo3uxwBJc8Y736.jpg",
+                "2021-01-22",
+                8.6
+            )
+        )
+        tv.add(
+            TvShowEntity(
+                "77169",
+                "Cobra Kai",
+                "This Karate Kid sequel series picks up 30 years after the events of the 1984 All Valley Karate Tournament and finds Johnny Lawrence on the hunt for redemption by reopening the infamous Cobra Kai karate dojo. This reignites his old rivalry with the successful Daniel LaRusso, who has been working to maintain the balance in his life without mentor Mr. Miyagi.",
+                "/obLBdhLxheKg8Li1qO11r2SwmYO.jpg",
+                "2018-05-02",
+                8.2
+            )
+        )
+        tv.add(
+            TvShowEntity(
+                "44217",
+                "Vikings",
+                "The adventures of Ragnar Lothbrok, the greatest hero of his age. The series tells the sagas of Ragnar's band of Viking brothers and his family, as he rises to become King of the Viking tribes. As well as being a fearless warrior, Ragnar embodies the Norse traditions of devotion to the gods. Legend has it that he was a direct descendant of Odin, the god of war and warriors.",
+                "/bQLrHIRNEkE3PdIWQrZHynQZazu.jpg",
+                "2013-03-03",
+                8.0
+            )
+        )
+        tv.add(
+            TvShowEntity(
+                "79680",
+                "Snowpiercer",
+                "Set more than seven years after the world has become a frozen wasteland, the remnants of humanity inhabit a gigantic, perpetually-moving train that circles the globe as class warfare, social injustice and the politics of survival play out.",
+                "/95xQPSqwvQDRoB3rXUn4lRyJrBW.jpg",
+                "2020-05-17",
+                7.6
+            )
         )
 
         tv.add(
             TvShowEntity(
-            "tv13",
-            "NCIS",
-            "From murder and espionage to terrorism and stolen submarines, a team of special agents investigates any crime that has a shred of evidence connected to Navy and Marine Corps personnel, regardless of rank or position.",
-            "https://www.themoviedb.org/t/p/w220_and_h330_face/7j7bYIfUsfwGJv3ZyitmbSRbTua.jpg",
-            "April 22, 2003",
-            7.3
-        )
-        )
-
-        tv.add(
-            TvShowEntity(
-            "tv14",
-            "Riverdale",
-            "Set in the present, the series offers a bold, subversive take on Archie, Betty, Veronica and their friends, exploring the surreality of small-town life, the darkness and weirdness bubbling beneath Riverdale’s wholesome facade.",
-            "https://www.themoviedb.org/t/p/w220_and_h330_face/gskv297rlbyzLaTU1XZf8UBbxp0.jpg",
-            "Januari 26, 2017",
-            8.6
-        )
+                "96677",
+                "Lupin",
+                "Inspired by the adventures of Arsène Lupin, gentleman thief Assane Diop sets out to avenge his father for an injustice inflicted by a wealthy family.",
+                "/sgxawbFB5Vi5OkPWQLNfl3dvkNJ.jpg",
+                "2021-01-08",
+                8.0
+            )
         )
 
         tv.add(
             TvShowEntity(
-            "tv15",
-            "Shameless",
-            "Chicagoan Frank Gallagher is the proud single dad of six smart, industrious, independent kids, who without him would be... perhaps better off. When Frank's not at the bar spending what little money they have, he's passed out on the floor. But the kids have found ways to grow up in spite of him. They may not be like any family you know, but they make no apologies for being exactly who they are.",
-            "https://www.themoviedb.org/t/p/w220_and_h330_face/dLACsILtRnTgcxiPC2GKxfPrPvj.jpg",
-            "Desember 12, 2010",
-            7.9
-        )
-        )
-
-        tv.add(
-            TvShowEntity(
-            "tv16",
-            "Supergirl",
-            "Twenty-four-year-old Kara Zor-El, who was taken in by the Danvers family when she was 13 after being sent away from Krypton, must learn to embrace her powers after previously hiding them. The Danvers teach her to be careful with her powers, until she has to reveal them during an unexpected disaster, setting her on her journey of heroism.",
-            "https://www.themoviedb.org/t/p/w220_and_h330_face/vqBsgL9nd2v04ZvCqPzwtckDdFD.jpg",
-            "Oktober 26, 2015",
-            7.2
-        )
+                "1416",
+                "Grey's Anatomy",
+                "Follows the personal and professional lives of a group of doctors at Seattle’s Grey Sloan Memorial Hospital.",
+                "/clnyhPqj1SNgpAdeSS6a6fwE6Bo.jpg",
+                "2005-03-27",
+                8.2
+            )
         )
 
         tv.add(
             TvShowEntity(
-            "tv17",
-            "Supernatural",
-            "Dua bersaudara mencari ayah mereka yang hilang, pria yang melatih mereka untuk menjadi prajurit melawan kejahatan supernatural",
-            "https://www.themoviedb.org/t/p/w220_and_h330_face/h4R12N3WdXanb5Dm9vsOjaTpqjm.jpg",
-            "September 13, 2005",
-            8.2
-        )
-        )
-
-        tv.add(
-            TvShowEntity(
-            "tv18",
-            "The Simpsons",
-            "Bertempat di Springfield, kota rata-rata di Amerika, pertunjukan ini berfokus pada kejenakaan dan petualangan sehari-hari keluarga Simpson; Homer, Marge, Bart, Lisa dan Maggie, serta ribuan pemain virtual. Sejak awal, serial ini telah menjadi ikon budaya pop, menarik ratusan selebriti menjadi bintang tamu. Acara ini juga menjadi terkenal karena satirnya yang tak kenal takut terhadap kehidupan politik, media, dan Amerika secara umum.",
-            "https://www.themoviedb.org/t/p/w220_and_h330_face/k5UALlcA0EnviaCUn2wMjOWYiOO.jpg",
-            "Desember 16, 1989",
-            7.8
-        )
+                "63174",
+                "Lucifer",
+                "Bored and unhappy as the Lord of Hell, Lucifer Morningstar abandoned his throne and retired to Los Angeles, where he has teamed up with LAPD detective Chloe Decker to take down criminals. But the longer he's away from the underworld, the greater the threat that the worst of humanity could escape.",
+                "/4EYPN5mVIhKLfxGruy7Dy41dTVn.jpg",
+                "2016-01-25",
+                8.5
+            )
         )
 
         tv.add(
             TvShowEntity(
-            "tv19",
-            "The Umbrella Academy",
-            "A dysfunctional family of superheroes comes together to solve the mystery of their father's death, the threat of the apocalypse and more.",
-            "https://www.themoviedb.org/t/p/w220_and_h330_face/uYHdIs5O8tiU5p6MvUPd2jElOH6.jpg",
-            "Februari 15, 2019",
-            8.7
+                "79611",
+                "Charmed",
+                "Set in the fictional college town of Hilltowne, Charmed follows the lives of three sisters, Macy, Mel and Maggie Vera who, after the tragic death of their mother, discover they are three of the most powerful witches of all time.",
+                "/jyArBuSbEnSoQinAZBU6pZmmL6M.jpg",
+                "2018-10-14",
+                7.5
+            )
         )
+        tv.add(
+            TvShowEntity(
+                "46639",
+                "American Gods",
+                "An ex-con becomes the traveling partner of a conman who turns out to be one of the older gods trying to recruit troops to battle the upstart deities. Based on Neil Gaiman's fantasy novel.",
+                "/3KCAZaKHmoMIN9dHutqaMtubQqD.jpg",
+                "2017-04-30",
+                7.1
+            )
+        )
+        tv.add(
+            TvShowEntity(
+                "75006",
+                "The Umbrella Academy",
+                "A dysfunctional family of superheroes comes together to solve the mystery of their father's death, the threat of the apocalypse and more.",
+                "/scZlQQYnDVlnpxFTxaIv2g0BWnL.jpg",
+                "2019-02-15",
+                8.7
+            )
         )
 
         tv.add(
             TvShowEntity(
-            "tv20",
-            "The Walking Dead",
-            "Sheriff's deputy Rick Grimes awakens from a coma to find a post-apocalyptic world dominated by flesh-eating zombies. He sets out to find his family and encounters many other survivors along the way.",
-            "https://www.themoviedb.org/t/p/w220_and_h330_face/bjU4tLlyp8W4yTB0Hqn8J1IDUnD.jpg",
-            "Oktober 31, 2010",
-            8.0
+                "91239",
+                "Bridgerton",
+                "Wealth, lust, and betrayal set in the backdrop of Regency era England, seen through the eyes of the powerful Bridgerton family.",
+                "/qaewZKBKmXjb4ZfFBb1LCug6BE8.jpg",
+                "2020-12-25",
+                8.3
+            )
         )
+
+        tv.add(
+            TvShowEntity(
+                "79242",
+                "Chilling Adventures of Sabrina",
+                "As her 16th birthday nears, Sabrina must choose between the witch world of her family and the human world of her friends. Based on the Archie comic.",
+                "/yxMpoHO0CXP5o9gB7IfsciilQS4.jpg",
+                "2018-10-26",
+                8.4
+            )
+        )
+
+        tv.add(
+            TvShowEntity(
+                "89247",
+                "Batwoman",
+                "Kate Kane, armed with a passion for social justice and a flair for speaking her mind, soars onto the streets of Gotham as Batwoman, an out lesbian and highly trained street fighter primed to snuff out the failing city's criminal resurgence. But don't call her a hero yet. In a city desperate for a savior, Kate must overcome her own demons before embracing the call to be Gotham's symbol of hope",
+                "/xjyEpcuDbB1jy0ehNQMBiO8KOdr.jpg",
+                "2019-10-06",
+                7.3
+            )
+        )
+
+        tv.add(
+            TvShowEntity(
+                "86382",
+                "The Stand",
+                "In a world mostly wiped out by the plague and embroiled in an elemental struggle between good and evil, the fate of mankind rests on the frail shoulders of the 108-year-old Mother Abagail and a handful of survivors. Their worst nightmares are embodied in a man with a lethal smile and unspeakable powers: Randall Flagg, the Dark Man.",
+                "/w6XiuRK5QQaLNmIqDRCWOpEcHwi.jpg",
+                "2020-12-17",
+                7.2
+            )
+        )
+
+        return tv
+    }
+
+    /**
+     *  isi dari movie Entity
+     *   id, original_title, overview, poster_path, release_date, vote_average
+     *
+     *   JANGAN ASAL-ASALAN / KEBALIK hehe
+     */
+
+
+    fun generateRemoteDummyMovies(): List<MovieItem> {
+        val movies = ArrayList<MovieItem>()
+
+        movies.add(
+            MovieItem(
+                775996,
+                "Outside the Wire",
+                "In the near future, a drone pilot is sent into a deadly militarized zone and must work with an android officer to locate a doomsday device.",
+                "/e6SK2CAbO3ENy52UTzP3lv32peC.jpg",
+                "2021-01-15",
+                6.5
+            )
+        )
+
+        movies.add(
+            MovieItem(
+                464052,
+                "Wonder Woman 1984",
+                "Wonder Woman comes into conflict with the Soviet Union during the Cold War in the 1980s and finds a formidable foe by the name of the Cheetah.",
+                "/8UlWHLMpgZm9bx6QYh0NFoq67TZ.jpg",
+                "2020-12-16",
+                7.0
+            )
+        )
+
+        movies.add(
+            MovieItem(
+                651571,
+                "Breach",
+                "A hardened mechanic must stay awake and maintain an interstellar ark fleeing the dying planet Earth with a few thousand lucky souls on board... the last of humanity. Unfortunately, humans are not the only passengers. A shapeshifting alien creature has taken residence, its only goal is to kill as many people as possible. The crew must think quickly to stop this menace before it destroys mankind.",
+                "/13B6onhL6FzSN2KaNeQeMML05pS.jpg",
+                "2020-12-17",
+                5.0
+            )
+        )
+
+        movies.add(
+            MovieItem(
+                508442,
+                "Soul",
+                "Joe Gardner is a middle school teacher with a love for jazz music. After a successful gig at the Half Note Club, he suddenly gets into an accident that separates his soul from his body and is transported to the You Seminar, a center in which souls develop and gain passions before being transported to a newborn child. Joe must enlist help from the other souls-in-training, like 22, a soul who has spent eons in the You Seminar, in order to get back to Earth.",
+                "/hm58Jw4Lw8OIeECIq5qyPYhAeRJ.jpg",
+                "2020-12-25",
+                8.3
+            )
+        )
+
+        movies.add(
+            MovieItem(
+                560144,
+                "Skylines",
+                "When a virus threatens to turn the now earth-dwelling friendly alien hybrids against humans, Captain Rose Corley must lead a team of elite mercenaries on a mission to the alien world in order to save what's left of humanity.",
+                "/2W4ZvACURDyhiNnSIaFPHfNbny3.jpg",
+                "2020-10-25",
+                5.8
+            )
+        )
+
+        movies.add(
+            MovieItem(
+                373571,
+                "Godzilla: King of the Monsters",
+                "Follows the heroic efforts of the crypto-zoological agency Monarch as its members face off against a battery of god-sized monsters, including the mighty Godzilla, who collides with Mothra, Rodan, and his ultimate nemesis, the three-headed King Ghidorah. When these ancient super-species, thought to be mere myths, rise again, they all vie for supremacy, leaving humanity's very existence hanging in the balance.",
+                "/mzOHg7Q5q9yUmY0b9Esu8Qe6Nnm.jpg",
+                "2019-05-29",
+                6.6
+            )
+        )
+
+        movies.add(
+            MovieItem(
+                399566,
+                "Godzilla vs. Kong",
+                "In a time when monsters walk the Earth, humanity’s fight for its future sets Godzilla and Kong on a collision course that will see the two most powerful forces of nature on the planet collide in a spectacular battle for the ages.",
+                "/soM5eNHxxS3a0AqgvDgm2djJXZp.jpg",
+                "2021-03-25",
+                0.0
+            )
+        )
+
+        movies.add(
+            MovieItem(
+                581387,
+                "백두산",
+                "Stagnant since 1903, at an elevation of 9000', a volcano erupts on the mythical and majestic Baekdu Mountain.",
+                "/zoeKREZ2IdAUnXISYCS0E6H5BVh.jpg",
+                "2019-12-19",
+                6.8
+            )
+        )
+
+        movies.add(
+            MovieItem(
+                539885,
+                "Ava",
+                "A black ops assassin is forced to fight for her own survival after a job goes dangerously wrong.",
+                "/qzA87Wf4jo1h8JMk9GilyIYvwsA.jpg",
+                "2020-07-02",
+                5.6
+            )
+        )
+
+        movies.add(
+            MovieItem(
+                604822,
+                "急先锋",
+                "Covert security company Vanguard is the last hope of survival for an accountant after he is targeted by the world's deadliest mercenary organization.",
+                "/vYvppZMvXYheYTWVd8Rnn9nsmNp.jpg",
+                "2020-09-30",
+                6.7
+            )
+        )
+
+        movies.add(
+            MovieItem(
+                553604,
+                "Honest Thief",
+                "A bank robber tries to turn himself in because he's falling in love and wants to live an honest life...but when he realizes the Feds are more corrupt than him, he must fight back to clear his name.",
+                "/zeD4PabP6099gpE0STWJrJrCBCs.jpg",
+                "2020-09-03",
+                6.6
+            )
+        )
+
+        movies.add(
+            MovieItem(
+                577922,
+                "Tenet",
+                "Armed with only one word - Tenet - and fighting for the survival of the entire world, the Protagonist journeys through a twilight world of international espionage on a mission that will unfold in something beyond real time.",
+                "/k68nPLbIST6NP96JmTxmZijEvCA.jpg",
+                "2020-08-22",
+                7.3
+            )
+        )
+
+        movies.add(
+            MovieItem(
+                737568,
+                "The Doorman",
+                "A former Marine turned doorman at a luxury New York City high-rise must outsmart and battle a group of art thieves and their ruthless leader — while struggling to protect her sister's family. As the thieves become increasingly desperate and violent, the doorman calls upon her deadly fighting skills to end the showdown.",
+                "/pklyUbh4k1DbHdnsOMASyw7C6NH.jpg",
+                "2020-10-01",
+                5.9
+            )
+        )
+
+        movies.add(
+            MovieItem(
+                495764,
+                "Birds of Prey (and the Fantabulous Emancipation of One Harley Quinn)",
+                "Harley Quinn joins forces with a singer, an assassin and a police detective to help a young girl who had a hit placed on her after she stole a rare diamond from a crime lord.",
+                "/h4VB6m0RwcicVEZvzftYZyKXs6K.jpg",
+                "2020-02-05",
+                7.1
+            )
+        )
+
+        movies.add(
+            MovieItem(
+                520946,
+                "100% Wolf",
+                "Freddy Lupin, heir to a proud family line of werewolves, is in for a shock when on his 14th birthday his first 'warfing' goes awry, turning him into a ferocious poodle. The pack elders give Freddy until the next moonrise to prove he has the heart of a wolf, or risk being cast out forever. With the help of an unlikely ally in a streetwise stray named Batty, Freddy must prove he's 100% Wolf.",
+                "/2VrvxK4yxNCU6KVgo5TADJeBEQu.jpg",
+                "2020-06-26",
+                6.5
+            )
+        )
+
+        movies.add(
+            MovieItem(
+                531499,
+                "The Tax Collector",
+                "David Cuevas is a family man who works as a gangland tax collector for high ranking Los Angeles gang members. He makes collections across the city with his partner Creeper making sure people pay up or will see retaliation. An old threat returns to Los Angeles that puts everything David loves in harm’s way.",
+                "/3eg0kGC2Xh0vhydJHO37Sp4cmMt.jpg",
+                "2020-08-07",
+                5.8
+            )
+        )
+
+        movies.add(
+            MovieItem(
+                529203,
+                "The Croods: A New Age",
+                "Searching for a safer habitat, the prehistoric Crood family discovers an idyllic, walled-in paradise that meets all of its needs. Unfortunately, they must also learn to live with the Bettermans -- a family that's a couple of steps above the Croods on the evolutionary ladder. As tensions between the new neighbors start to rise, a new threat soon propels both clans on an epic adventure that forces them to embrace their differences, draw strength from one another, and survive together.",
+                "/tK1zy5BsCt1J4OzoDicXmr0UTFH.jpg",
+                "2020-11-25",
+                7.7
+            )
+        )
+
+        movies.add(
+            MovieItem(
+                664767,
+                "Mortal Kombat Legends: Scorpion's Revenge",
+                "After the vicious slaughter of his family by stone-cold mercenary Sub-Zero, Hanzo Hasashi is exiled to the torturous Netherrealm. There, in exchange for his servitude to the sinister Quan Chi, he’s given a chance to avenge his family – and is resurrected as Scorpion, a lost soul bent on revenge. Back on Earthrealm, Lord Raiden gathers a team of elite warriors – Shaolin monk Liu Kang, Special Forces officer Sonya Blade and action star Johnny Cage – an unlikely band of heroes with one chance to save humanity. To do this, they must defeat Shang Tsung’s horde of Outworld gladiators and reign over the Mortal Kombat tournament.",
+                "/4VlXER3FImHeFuUjBShFamhIp9M.jpg",
+                "2020-04-12",
+                8.4
+            )
+        )
+
+        movies.add(
+            MovieItem(
+                755812,
+                "Miraculous World: New York, United HeroeZ",
+                "During a school field trip, Ladybug and Cat Noir meet the American superheroes, whom they have to save from an akumatised super-villain. They discover that Miraculous exist in the United States too.",
+                "/kIHgjAkuzvKBnmdstpBOo4AfZah.jpg",
+                "2020-09-26",
+                8.6
+            )
+        )
+
+        return movies
+    }
+
+    /**
+     *  isi dari TvShowItem
+     *   id, original_name, overview, poster_path, first_air_date, vote_average
+     *
+     *   JANGAN ASAL-ASALAN / KEBALIK hehe
+     */
+
+
+    fun generateRemoteDummyTvs(): List<TvShowItem> {
+        val tv = ArrayList<TvShowItem>()
+
+        tv.add(
+            TvShowItem(
+                85271,
+                "WandaVision",
+                "Wanda Maximoff and Vision—two super-powered beings living idealized suburban lives—begin to suspect that everything is not as it seems.",
+                "/glKDfE6btIRcVB5zrjspRIs4r52.jpg",
+                "2021-01-15",
+                8.4
+            )
+        )
+
+        tv.add(
+            TvShowItem(
+                69050,
+                "Riverdale",
+                "Set in the present, the series offers a bold, subversive take on Archie, Betty, Veronica and their friends, exploring the surreality of small-town life, the darkness and weirdness bubbling beneath Riverdale’s wholesome facade.",
+                "/wRbjVBdDo5qHAEOVYoMWpM58FSA.jpg",
+                "2017-01-26",
+                8.6
+            )
+        )
+        tv.add(
+            TvShowItem(
+                114695,
+                "Marvel Studios: Legends",
+                "Revisit the epic heroes, villains and moments from across the MCU in preparation for the stories still to come. Each dynamic segment feeds directly into the upcoming series — setting the stage for future events. This series weaves together the many threads that constitute the unparalleled Marvel Cinematic Universe.",
+                "/EpDuYIK81YtCUT3gH2JDpyj8Qk.jpg",
+                "2021-01-08",
+                7.7
+            )
+        )
+        tv.add(
+            TvShowItem(
+                79460,
+                "Legacies",
+                "In a place where young witches, vampires, and werewolves are nurtured to be their best selves in spite of their worst impulses, Klaus Mikaelson’s daughter, 17-year-old Hope Mikaelson, Alaric Saltzman’s twins, Lizzie and Josie Saltzman, among others, come of age into heroes and villains at The Salvatore School for the Young and Gifted.",
+                "/qTZIgXrBKURBK1KrsT7fe3qwtl9.jpg",
+                "2018-10-25",
+                8.6
+            )
+        )
+        tv.add(
+            TvShowItem(
+                71712,
+                "The Good Doctor",
+                "A young surgeon with Savant syndrome is recruited into the surgical unit of a prestigious hospital. The question will arise: can a person who doesn't have the ability to relate to people actually save their lives",
+                "/6tfT03sGp9k4c0J3dypjrI8TSAI.jpg",
+                "2017-09-25",
+                8.6
+            )
+        )
+        tv.add(
+            TvShowItem(
+                82856,
+                "The Mandalorian",
+                "After the fall of the Galactic Empire, lawlessness has spread throughout the galaxy. A lone gunfighter makes his way through the outer reaches, earning his keep as a bounty hunter.",
+                "/sWgBv7LV2PRoQgkxwlibdGXKz1S.jpg",
+                "2019-11-12",
+                8.5,
+            )
+        )
+        tv.add(
+            TvShowItem(
+                97175,
+                "Fate: The Winx Saga",
+                "The coming-of-age journey of five fairies attending Alfea, a magical boarding school in the Otherworld where they must learn to master their powers while navigating love, rivalries, and the monsters that threaten their very existence.",
+                "/oHj6guMrLfQcBzo3uxwBJc8Y736.jpg",
+                "2021-01-22",
+                8.6
+            )
+        )
+        tv.add(
+            TvShowItem(
+                77169,
+                "Cobra Kai",
+                "This Karate Kid sequel series picks up 30 years after the events of the 1984 All Valley Karate Tournament and finds Johnny Lawrence on the hunt for redemption by reopening the infamous Cobra Kai karate dojo. This reignites his old rivalry with the successful Daniel LaRusso, who has been working to maintain the balance in his life without mentor Mr. Miyagi.",
+                "/obLBdhLxheKg8Li1qO11r2SwmYO.jpg",
+                "2018-05-02",
+                8.2
+            )
+        )
+        tv.add(
+            TvShowItem(
+                44217,
+                "Vikings",
+                "The adventures of Ragnar Lothbrok, the greatest hero of his age. The series tells the sagas of Ragnar's band of Viking brothers and his family, as he rises to become King of the Viking tribes. As well as being a fearless warrior, Ragnar embodies the Norse traditions of devotion to the gods. Legend has it that he was a direct descendant of Odin, the god of war and warriors.",
+                "/bQLrHIRNEkE3PdIWQrZHynQZazu.jpg",
+                "2013-03-03",
+                8.0
+            )
+        )
+        tv.add(
+            TvShowItem(
+                79680,
+                "Snowpiercer",
+                "Set more than seven years after the world has become a frozen wasteland, the remnants of humanity inhabit a gigantic, perpetually-moving train that circles the globe as class warfare, social injustice and the politics of survival play out.",
+                "/95xQPSqwvQDRoB3rXUn4lRyJrBW.jpg",
+                "2020-05-17",
+                7.6
+            )
+        )
+        tv.add(
+            TvShowItem(
+                96677,
+                "Lupin",
+                "Inspired by the adventures of Arsène Lupin, gentleman thief Assane Diop sets out to avenge his father for an injustice inflicted by a wealthy family.",
+                "/sgxawbFB5Vi5OkPWQLNfl3dvkNJ.jpg",
+                "2021-01-08",
+                8.0
+            )
+        )
+
+        tv.add(
+            TvShowItem(
+                1416,
+                "Grey's Anatomy",
+                "Follows the personal and professional lives of a group of doctors at Seattle’s Grey Sloan Memorial Hospital.",
+                "/clnyhPqj1SNgpAdeSS6a6fwE6Bo.jpg",
+                "2005-03-27",
+                8.2
+            )
+        )
+
+        tv.add(
+            TvShowItem(
+                63174,
+                "Lucifer",
+                "Bored and unhappy as the Lord of Hell, Lucifer Morningstar abandoned his throne and retired to Los Angeles, where he has teamed up with LAPD detective Chloe Decker to take down criminals. But the longer he's away from the underworld, the greater the threat that the worst of humanity could escape.",
+                "/4EYPN5mVIhKLfxGruy7Dy41dTVn.jpg",
+                "2016-01-25",
+                8.5
+            )
+        )
+
+        tv.add(
+            TvShowItem(
+                79611,
+                "Charmed",
+                "Set in the fictional college town of Hilltowne, Charmed follows the lives of three sisters, Macy, Mel and Maggie Vera who, after the tragic death of their mother, discover they are three of the most powerful witches of all time.",
+                "/jyArBuSbEnSoQinAZBU6pZmmL6M.jpg",
+                "2018-10-14",
+                7.5
+            )
+        )
+
+        tv.add(
+            TvShowItem(
+                46639,
+                "American Gods",
+                "An ex-con becomes the traveling partner of a conman who turns out to be one of the older gods trying to recruit troops to battle the upstart deities. Based on Neil Gaiman's fantasy novel.",
+                "/3KCAZaKHmoMIN9dHutqaMtubQqD.jpg",
+                "2017-04-30",
+                7.1
+            )
+        )
+
+        tv.add(
+            TvShowItem(
+                75006,
+                "The Umbrella Academy",
+                "A dysfunctional family of superheroes comes together to solve the mystery of their father's death, the threat of the apocalypse and more.",
+                "/scZlQQYnDVlnpxFTxaIv2g0BWnL.jpg",
+                "2019-02-15",
+                8.7
+            )
+        )
+
+        tv.add(
+            TvShowItem(
+                91239,
+                "Bridgerton",
+                "Wealth, lust, and betrayal set in the backdrop of Regency era England, seen through the eyes of the powerful Bridgerton family.",
+                "/qaewZKBKmXjb4ZfFBb1LCug6BE8.jpg",
+                "2020-12-25",
+                8.3
+            )
+        )
+
+        tv.add(
+            TvShowItem(
+                79242,
+                "Chilling Adventures of Sabrina",
+                "As her 16th birthday nears, Sabrina must choose between the witch world of her family and the human world of her friends. Based on the Archie comic.",
+                "/yxMpoHO0CXP5o9gB7IfsciilQS4.jpg",
+                "2018-10-26",
+                8.4
+            )
+        )
+
+        tv.add(
+            TvShowItem(
+                89247,
+                "Batwoman",
+                "Kate Kane, armed with a passion for social justice and a flair for speaking her mind, soars onto the streets of Gotham as Batwoman, an out lesbian and highly trained street fighter primed to snuff out the failing city's criminal resurgence. But don't call her a hero yet. In a city desperate for a savior, Kate must overcome her own demons before embracing the call to be Gotham's symbol of hope",
+                "/xjyEpcuDbB1jy0ehNQMBiO8KOdr.jpg",
+                "2019-10-06",
+                7.3
+            )
+        )
+
+        tv.add(
+            TvShowItem(
+                86382,
+                "The Stand",
+                "In a world mostly wiped out by the plague and embroiled in an elemental struggle between good and evil, the fate of mankind rests on the frail shoulders of the 108-year-old Mother Abagail and a handful of survivors. Their worst nightmares are embodied in a man with a lethal smile and unspeakable powers: Randall Flagg, the Dark Man.",
+                "/w6XiuRK5QQaLNmIqDRCWOpEcHwi.jpg",
+                "2020-12-17",
+                7.2
+            )
         )
 
         return tv

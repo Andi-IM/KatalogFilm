@@ -3,17 +3,18 @@ package id.airham.moviecatalogue.ui.home
 import androidx.recyclerview.widget.RecyclerView
 import androidx.test.core.app.ActivityScenario
 import androidx.test.espresso.Espresso.onView
+import androidx.test.espresso.IdlingRegistry
 import androidx.test.espresso.action.ViewActions.click
 import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.contrib.RecyclerViewActions.actionOnItemAtPosition
 import androidx.test.espresso.contrib.RecyclerViewActions.scrollToPosition
 import androidx.test.espresso.matcher.ViewMatchers.*
-import androidx.test.internal.runner.junit4.AndroidJUnit4ClassRunner
 import id.airham.moviecatalogue.R
 import id.airham.moviecatalogue.utils.DataDummy
+import id.airham.moviecatalogue.utils.EspressoIdlingResource
+import org.junit.After
 import org.junit.Before
 import org.junit.Test
-import org.junit.runner.RunWith
 
 /**
  * Test Case HomeActivityTest
@@ -24,6 +25,7 @@ import org.junit.runner.RunWith
  *      -> memberi aksi klik pada data pertama rv_movie
  *      -> memastikan textView untuk name tampil sesuai dengan data yang diharapkan
  *      -> memastikan textView untuk date tampil sesuai dengan data yang diharapkan
+ *      -> memastikan textView untuk sipnosis tampil sesuai dengan data yang diharapkan
  * -> Menampikan TvShow
  *      -> memberi aksi klik pada tab "TV SHOW"
  *      -> Memastikan rv_tv_show dalam keadaan tampil
@@ -33,17 +35,22 @@ import org.junit.runner.RunWith
  *      -> memberi aksi klik pada data pertama rv_tv_show
  *      -> memastikan textView untuk name tampil sesuai dengan data yang diharapkan
  *      -> memastikan textView untuk date tampil sesuai dengan data yang diharapkan
+ *      -> memastikan textView untuk sipnosis tampil sesuai dengan data yang diharapkan
  */
 
-@RunWith(AndroidJUnit4ClassRunner::class)
 class HomeActivityTest {
-
     private val dummyMovie = DataDummy.generateMovies()
     private val dummyTvShow = DataDummy.generateTvs()
 
     @Before
     fun setUp() {
         ActivityScenario.launch(HomeActivity::class.java)
+        IdlingRegistry.getInstance().register(EspressoIdlingResource.getEspressoIdlingResource())
+    }
+
+    @After
+    fun tearDown(){
+        IdlingRegistry.getInstance().unregister(EspressoIdlingResource.getEspressoIdlingResource())
     }
 
     @Test
@@ -59,6 +66,8 @@ class HomeActivityTest {
         onView(withId(R.id.name)).check(matches(withText(dummyMovie[0].originalTitle)))
         onView(withId(R.id.date)).check(matches(isDisplayed()))
         onView(withId(R.id.date)).check(matches(withText(dummyMovie[0].releaseDate)))
+        onView(withId(R.id.sinopsis)).check(matches(isDisplayed()))
+        onView(withId(R.id.sinopsis)).check(matches(withText(dummyMovie[0].overview)))
     }
 
     @Test
@@ -76,5 +85,7 @@ class HomeActivityTest {
         onView(withId(R.id.name)).check(matches(withText(dummyTvShow[0].originalName)))
         onView(withId(R.id.date)).check(matches(isDisplayed()))
         onView(withId(R.id.date)).check(matches(withText(dummyTvShow[0].firstAirDate)))
+        onView(withId(R.id.sinopsis)).check(matches(isDisplayed()))
+        onView(withId(R.id.sinopsis)).check(matches(withText(dummyTvShow[0].overview)))
     }
 }

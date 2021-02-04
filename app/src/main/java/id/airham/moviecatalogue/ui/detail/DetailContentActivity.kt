@@ -1,6 +1,7 @@
 package id.airham.moviecatalogue.ui.detail
 
 import android.os.Bundle
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
@@ -12,6 +13,7 @@ import id.airham.moviecatalogue.databinding.ActivityDetailContentBinding
 import id.airham.moviecatalogue.databinding.ContentDetailContentBinding
 import id.airham.moviecatalogue.ui.detail.viewmodel.DetailMovieViewModel
 import id.airham.moviecatalogue.ui.detail.viewmodel.DetailTvViewModel
+import id.airham.moviecatalogue.viewmodel.ViewModelFactory
 
 /**
  *  Kelas ini merupakan activity yang mendapatkan data dari item movie atau tvShow
@@ -41,8 +43,9 @@ class DetailContentActivity : AppCompatActivity() {
         setSupportActionBar(findViewById(R.id.toolbar))
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
-        val movieViewModel = ViewModelProvider(this, ViewModelProvider.NewInstanceFactory())[DetailMovieViewModel::class.java]
-        val tvViewModel = ViewModelProvider(this, ViewModelProvider.NewInstanceFactory())[DetailTvViewModel::class.java]
+        val factory = ViewModelFactory.getInstance(this)
+        val movieViewModel = ViewModelProvider(this, factory)[DetailMovieViewModel::class.java]
+        val tvViewModel = ViewModelProvider(this, factory)[DetailTvViewModel::class.java]
 
         val isMovie = "movie"
         val isTvShow = "tvShow"
@@ -52,18 +55,27 @@ class DetailContentActivity : AppCompatActivity() {
             val id = extras.getString(EXTRA_ID).toString()
             val type = extras.getString(EXTRA_TYPE)
 
+            activityDetailContentBinding.progressBar.visibility = View.VISIBLE
+            activityDetailContentBinding.content.visibility = View.INVISIBLE
+
             if (type == isMovie) {
                 movieViewModel.setSelectedItem(id)
-                val movie = movieViewModel.getMovie()
-                supportActionBar?.title = movie.originalTitle
-                showMovie(movie)
+                movieViewModel.getMovie().observe(this, { item ->
+                    activityDetailContentBinding.progressBar.visibility = View.GONE
+                    activityDetailContentBinding.content.visibility = View.VISIBLE
+                    supportActionBar?.title = item.originalTitle
+                    showMovie(item)
+                })
             }
 
-            if (type == isTvShow){
+            if (type == isTvShow) {
                 tvViewModel.setSelectedItem(id)
-                val tvShow = tvViewModel.getTvShow()
-                supportActionBar?.title = tvShow.originalName
-                showTv(tvShow)
+                tvViewModel.getTvShow().observe(this, { item ->
+                    activityDetailContentBinding.progressBar.visibility = View.GONE
+                    activityDetailContentBinding.content.visibility = View.VISIBLE
+                    supportActionBar?.title = item.originalName
+                    showTv(item)
+                })
             }
         }
     }
@@ -73,9 +85,11 @@ class DetailContentActivity : AppCompatActivity() {
         detailContentBinding.sinopsis.text = movieEntity.overview
         detailContentBinding.date.text = movieEntity.releaseDate
         Glide.with(this)
-            .load(movieEntity.posterPath)
-            .apply(RequestOptions.placeholderOf(R.drawable.ic_loading)
-                .error(R.drawable.ic_error))
+            .load("https://image.tmdb.org/t/p/w342/${movieEntity.posterPath}")
+            .apply(
+                RequestOptions.placeholderOf(R.drawable.ic_loading)
+                    .error(R.drawable.ic_error)
+            )
             .into(detailContentBinding.poster)
     }
 
@@ -84,11 +98,13 @@ class DetailContentActivity : AppCompatActivity() {
         detailContentBinding.sinopsis.text = tvShowEntity.overview
         detailContentBinding.date.text = tvShowEntity.firstAirDate
         Glide.with(this)
-            .load(tvShowEntity.posterPath)
-            .apply(RequestOptions
-                .placeholderOf(R.drawable.ic_loading)
-                .error(R.drawable.ic_error)
-                .override(132,198))
+            .load("https://image.tmdb.org/t/p/w342/${tvShowEntity.posterPath}")
+            .apply(
+                RequestOptions
+                    .placeholderOf(R.drawable.ic_loading)
+                    .error(R.drawable.ic_error)
+                    .override(132, 198)
+            )
             .into(detailContentBinding.poster)
     }
 }

@@ -1,8 +1,9 @@
 package id.airham.moviecatalogue.ui.detail.viewmodel
 
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import id.airham.moviecatalogue.data.TvShowEntity
-import id.airham.moviecatalogue.utils.DataDummy
+import id.airham.moviecatalogue.data.source.ItemRepository
 
 /**
  *  Kelas ini merupakan ViewModel yang digunakan untuk mendpatkan data MovieEntity dari
@@ -13,20 +14,11 @@ import id.airham.moviecatalogue.utils.DataDummy
  *  Entitas TvShows.
  */
 
-class DetailTvViewModel : ViewModel() {
+class DetailTvViewModel(private val itemRepository: ItemRepository) : ViewModel() {
     private lateinit var itemId: String
-    fun setSelectedItem(itemId : String){
+    fun setSelectedItem(itemId: String) {
         this.itemId = itemId
     }
 
-    fun getTvShow() : TvShowEntity {
-        lateinit var tvShow: TvShowEntity
-        val tvShowEntities = DataDummy.generateTvs()
-        for (tvShowEntity in tvShowEntities){
-            if (tvShowEntity.id == itemId){
-                tvShow = tvShowEntity
-            }
-        }
-        return tvShow
-    }
+    fun getTvShow(): LiveData<TvShowEntity> = itemRepository.getTvShowOffline(itemId)
 }
