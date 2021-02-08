@@ -41,20 +41,6 @@ class MovieFragment : Fragment() {
             )[MovieViewModel::class.java]
             val movieAdapter = MovieAdapter()
 
-            fragmentMoviesBinding.progressBar.visibility = View.VISIBLE
-            viewModel.getMovies().observe(viewLifecycleOwner, { movies ->
-                fragmentMoviesBinding.progressBar.visibility = View.GONE
-                movieAdapter.setMovies(movies)
-                movieAdapter.notifyDataSetChanged()
-                movieAdapter.clickListener = (object : MovieAdapter.ItemOnClickListener {
-                    override fun onclick(type: String, id: String) {
-                        val intent = Intent(context, DetailContentActivity::class.java)
-                        intent.putExtra(EXTRA_TYPE, type)
-                        intent.putExtra(EXTRA_ID, id)
-                        startActivity(intent)
-                    }
-                })
-            })
 
             with(fragmentMoviesBinding.rvMovie) {
                 layoutManager = LinearLayoutManager(context)

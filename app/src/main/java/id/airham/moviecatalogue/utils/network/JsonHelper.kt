@@ -77,5 +77,35 @@ class JsonHelper(private val context: Context) {
         return list
     }
 
+    fun loadMovie(id: String): List<MovieItem> {
+        val list = ArrayList<MovieItem>()
+        try {
+            val responseObject = JSONObject(parsingfileToString("movie_response.json").toString())
+            val listArray = responseObject.getJSONArray("results")
+            for (item in 0 until listArray.length()){
+                val movie = listArray.getJSONObject(item)
+
+                val id = movie.getInt("id")
+                val originalTitle = movie.getString("original_title")
+                val overview = movie.getString("overview")
+                val posterPath = movie.getString("poster_path")
+                val releaseDate = movie.getString("release_date")
+                val voteAverage = movie.getDouble("vote_average")
+
+                val movieItem = MovieItem(
+                    id,
+                    originalTitle,
+                    overview,
+                    posterPath,
+                    releaseDate,
+                    voteAverage)
+                list.add(movieItem)
+            }
+        } catch (e: JSONException) {
+            e.printStackTrace()
+        }
+        return list
+    }
+
 
 }

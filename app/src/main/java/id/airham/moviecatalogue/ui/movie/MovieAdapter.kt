@@ -6,7 +6,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import id.airham.moviecatalogue.R
-import id.airham.moviecatalogue.data.MovieEntity
+import id.airham.moviecatalogue.data.source.local.entity.MovieEntity
 import id.airham.moviecatalogue.databinding.ItemMoviesBinding
 
 /**
@@ -25,7 +25,7 @@ class MovieAdapter : RecyclerView.Adapter<MovieAdapter.MovieViewHolder>() {
     var clickListener: ItemOnClickListener? = null
 
     interface ItemOnClickListener {
-        fun onclick(type: String, id: String)
+        fun onclick(type: String, id: Int)
     }
 
     fun setMovies(movies: List<MovieEntity>?) {

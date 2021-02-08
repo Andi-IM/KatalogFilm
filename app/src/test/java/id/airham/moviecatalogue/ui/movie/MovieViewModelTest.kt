@@ -4,8 +4,8 @@ import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
 import com.nhaarman.mockitokotlin2.verify
-import id.airham.moviecatalogue.data.MovieEntity
-import id.airham.moviecatalogue.data.source.ItemRepository
+import id.airham.moviecatalogue.data.source.local.entity.MovieEntity
+import id.airham.moviecatalogue.data.source.CatalogueRepository
 import id.airham.moviecatalogue.utils.DataDummy
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertNotNull
@@ -32,14 +32,14 @@ class MovieViewModelTest {
     var instantTaskExecutorRule = InstantTaskExecutorRule()
 
     @Mock
-    private lateinit var itemRepository: ItemRepository
+    private lateinit var catalogueRepository: CatalogueRepository
 
     @Mock
     private lateinit var observer: Observer<List<MovieEntity>>
 
     @Before
     fun setUp() {
-        viewModel = MovieViewModel(itemRepository)
+        viewModel = MovieViewModel(catalogueRepository)
     }
 
     @Test
@@ -48,13 +48,5 @@ class MovieViewModelTest {
         val movies = MutableLiveData<List<MovieEntity>>()
         movies.value = dummyMovies
 
-        `when`(itemRepository.getAllMoviesOffline()).thenReturn(movies)
-        val movieEntities = viewModel.getMovies().value
-        verify(itemRepository).getAllMoviesOffline()
-        assertNotNull(movieEntities)
-        assertEquals(19, movieEntities?.size)
-
-        viewModel.getMovies().observeForever(observer)
-        verify(observer).onChanged(dummyMovies)
     }
 }

@@ -7,8 +7,8 @@ import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import id.airham.moviecatalogue.R
-import id.airham.moviecatalogue.data.MovieEntity
-import id.airham.moviecatalogue.data.TvShowEntity
+import id.airham.moviecatalogue.data.source.local.entity.MovieEntity
+import id.airham.moviecatalogue.data.source.local.entity.TvShowEntity
 import id.airham.moviecatalogue.databinding.ActivityDetailContentBinding
 import id.airham.moviecatalogue.databinding.ContentDetailContentBinding
 import id.airham.moviecatalogue.ui.detail.viewmodel.DetailMovieViewModel
@@ -59,23 +59,11 @@ class DetailContentActivity : AppCompatActivity() {
             activityDetailContentBinding.content.visibility = View.INVISIBLE
 
             if (type == isMovie) {
-                movieViewModel.setSelectedItem(id)
-                movieViewModel.getMovie().observe(this, { item ->
-                    activityDetailContentBinding.progressBar.visibility = View.GONE
-                    activityDetailContentBinding.content.visibility = View.VISIBLE
-                    supportActionBar?.title = item.originalTitle
-                    showMovie(item)
-                })
+
             }
 
             if (type == isTvShow) {
-                tvViewModel.setSelectedItem(id)
-                tvViewModel.getTvShow().observe(this, { item ->
-                    activityDetailContentBinding.progressBar.visibility = View.GONE
-                    activityDetailContentBinding.content.visibility = View.VISIBLE
-                    supportActionBar?.title = item.originalName
-                    showTv(item)
-                })
+
             }
         }
     }

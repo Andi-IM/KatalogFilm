@@ -1,18 +1,15 @@
 package id.airham.moviecatalogue.data.source.remote
 
 import android.os.Handler
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import id.airham.moviecatalogue.data.source.local.entity.MovieEntity
 import id.airham.moviecatalogue.data.source.remote.response.MovieItem
-import id.airham.moviecatalogue.data.source.remote.response.MovieResponse
 import id.airham.moviecatalogue.data.source.remote.response.TvShowItem
-import id.airham.moviecatalogue.data.source.remote.response.TvShowResponse
 import id.airham.moviecatalogue.utils.EspressoIdlingResource
-import id.airham.moviecatalogue.utils.network.ApiConfig
 import id.airham.moviecatalogue.utils.network.JsonHelper
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
 
-class RemoteDataSource private constructor(private val jsonHelper: JsonHelper){
+class RemoteRepository private constructor(private val jsonHelper: JsonHelper){
 
     // tidak disarankan menggunakan handler
     private val handler = Handler()
@@ -20,11 +17,11 @@ class RemoteDataSource private constructor(private val jsonHelper: JsonHelper){
         private const val SERVICE_LATENCY_IN_MILLIS: Long = 2000
 
         @Volatile
-        private var instance: RemoteDataSource? = null
+        private var instance: RemoteRepository? = null
 
-        fun getInstance(helper: JsonHelper): RemoteDataSource =
+        fun getInstance(helper: JsonHelper): RemoteRepository =
             instance ?: synchronized(this) {
-                instance ?: RemoteDataSource(helper)
+                instance ?: RemoteRepository(helper)
             }
     }
 
@@ -70,27 +67,23 @@ class RemoteDataSource private constructor(private val jsonHelper: JsonHelper){
 
     // untuk tujuan pengetesan
     // all files goes offline
-    fun getAllMoviesOffline(callback: LoadMoviesCallback){
+    fun getAllMovies(): LiveData<ApiResponse<List<MovieItem>>> {
         EspressoIdlingResource.increment()
+        val resultMovieItem = MutableLiveData<ApiResponse<List<MovieItem>>>()
         handler.postDelayed({
-            callback.onAllMoviesReceived(jsonHelper.loadMovies())
+            resultMovieItem.value = ApiResponse.success(jsonHelper.loadMovies())
             EspressoIdlingResource.decrement()
         }, SERVICE_LATENCY_IN_MILLIS)
+        return resultMovieItem
     }
 
-    fun getAllTvShowsOffline(callback: LoadTvShowsCallback){
+    fun getAllTvShows(): LiveData<ApiResponse<List<TvShowItem>>>{
         EspressoIdlingResource.increment()
+        val resultTvShowItem = MutableLiveData<ApiResponse<List<TvShowItem>>>()
         handler.postDelayed({
-            callback.onAllTvShowsReceived(jsonHelper.loadTvShows())
+            resultTvShowItem.value = ApiResponse.success(jsonHelper.loadTvShows())
             EspressoIdlingResource.decrement()
         }, SERVICE_LATENCY_IN_MILLIS)
-    }
-
-    interface LoadMoviesCallback {
-        fun onAllMoviesReceived(movieResponse: List<MovieItem>)
-    }
-
-    interface LoadTvShowsCallback {
-        fun onAllTvShowsReceived(tvShowResponse: List<TvShowItem>)
+        return resultTvShowItem
     }
 }

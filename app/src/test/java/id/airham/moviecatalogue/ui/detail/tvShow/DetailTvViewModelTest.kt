@@ -4,8 +4,8 @@ import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
 import com.nhaarman.mockitokotlin2.verify
-import id.airham.moviecatalogue.data.TvShowEntity
-import id.airham.moviecatalogue.data.source.ItemRepository
+import id.airham.moviecatalogue.data.source.local.entity.TvShowEntity
+import id.airham.moviecatalogue.data.source.CatalogueRepository
 import id.airham.moviecatalogue.ui.detail.viewmodel.DetailTvViewModel
 import id.airham.moviecatalogue.utils.DataDummy
 import junit.framework.TestCase.assertNotNull
@@ -34,14 +34,14 @@ class DetailTvViewModelTest {
     var instantTaskExecutorRule = InstantTaskExecutorRule()
     
     @Mock
-    private lateinit var itemRepository: ItemRepository
+    private lateinit var catalogueRepository: CatalogueRepository
     
     @Mock
     private lateinit var tvShowObserver: Observer<TvShowEntity>
     
     @Before
     fun setUp() {
-        viewModel = DetailTvViewModel(itemRepository)
+        viewModel = DetailTvViewModel(catalogueRepository)
         viewModel.setSelectedItem(tvShowId)
     }
 
@@ -50,19 +50,7 @@ class DetailTvViewModelTest {
         val tvShow = MutableLiveData<TvShowEntity>()
         tvShow.value = dummyTvSerie
         
-        `when`(itemRepository.getTvShowOffline(tvShowId)).thenReturn(tvShow)
-        val tvShowEntity = viewModel.getTvShow().value as TvShowEntity
-        verify(itemRepository).getTvShowOffline(tvShowId)
-        assertNotNull(tvShowEntity)
-        assertEquals(dummyTvSerie.id, tvShowEntity.id)
-        assertEquals(dummyTvSerie.posterPath, tvShowEntity.posterPath)
-        assertEquals(dummyTvSerie.firstAirDate, tvShowEntity.firstAirDate)
-        assertEquals(dummyTvSerie.originalName, tvShowEntity.originalName)
-        assertEquals(dummyTvSerie.overview, tvShowEntity.overview)
-        assertEquals(dummyTvSerie.type, tvShowEntity.type)
-        assertEquals(dummyTvSerie.voteAverage, tvShowEntity.voteAverage,0.1)
 
-        viewModel.getTvShow().observeForever(tvShowObserver)
         verify(tvShowObserver).onChanged(dummyTvSerie)
     }
 }

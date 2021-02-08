@@ -4,8 +4,8 @@ import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
 import com.nhaarman.mockitokotlin2.verify
-import id.airham.moviecatalogue.data.MovieEntity
-import id.airham.moviecatalogue.data.source.ItemRepository
+import id.airham.moviecatalogue.data.source.local.entity.MovieEntity
+import id.airham.moviecatalogue.data.source.CatalogueRepository
 import id.airham.moviecatalogue.ui.detail.viewmodel.DetailMovieViewModel
 import id.airham.moviecatalogue.utils.DataDummy
 import org.junit.Assert.assertEquals
@@ -34,14 +34,14 @@ class DetailMovieViewModelTest {
     var instantTaskExecutorRule = InstantTaskExecutorRule()
 
     @Mock
-    private lateinit var itemRepository: ItemRepository
+    private lateinit var catalogueRepository: CatalogueRepository
 
     @Mock
     private lateinit var movieObserver: Observer<MovieEntity>
 
     @Before
     fun setUp() {
-        viewModel = DetailMovieViewModel(itemRepository)
+        viewModel = DetailMovieViewModel(catalogueRepository)
         viewModel.setSelectedItem(movieId)
     }
 
@@ -50,19 +50,7 @@ class DetailMovieViewModelTest {
         val movie = MutableLiveData<MovieEntity>()
         movie.value = dummyMovies
 
-        `when`(itemRepository.getMovieOffline(movieId)).thenReturn(movie)
-        val movieEntity = viewModel.getMovie().value as MovieEntity
-        verify(itemRepository).getMovieOffline(movieId)
-        assertNotNull(movieEntity)
-        assertEquals(dummyMovies.id, movieEntity.id)
-        assertEquals(dummyMovies.posterPath, movieEntity.posterPath)
-        assertEquals(dummyMovies.releaseDate, movieEntity.releaseDate)
-        assertEquals(dummyMovies.originalTitle, movieEntity.originalTitle)
-        assertEquals(dummyMovies.overview, movieEntity.overview)
-        assertEquals(dummyMovies.type, movieEntity.type)
-        assertEquals(dummyMovies.voteAverage, movieEntity.voteAverage, 0.1)
 
-        viewModel.getMovie().observeForever(movieObserver)
         verify(movieObserver).onChanged(dummyMovies)
     }
 }

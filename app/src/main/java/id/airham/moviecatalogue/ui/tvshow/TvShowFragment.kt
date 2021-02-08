@@ -39,21 +39,6 @@ class TvShowFragment : Fragment() {
             )[TvShowViewModel::class.java]
             val tvShowAdapter = TvShowAdapter()
 
-            fragmentTvShowBinding.progressBar.visibility = View.VISIBLE
-            viewModel.getTvShows().observe(viewLifecycleOwner, { tvShows ->
-                fragmentTvShowBinding.progressBar.visibility = View.GONE
-                tvShowAdapter.setTvShows(tvShows)
-                tvShowAdapter.notifyDataSetChanged()
-                tvShowAdapter.clickListener = (object : TvShowAdapter.ItemOnClickListener{
-                    override fun onclick(type: String, id: String) {
-                        val intent = Intent(context, DetailContentActivity::class.java)
-                        intent.putExtra(DetailContentActivity.EXTRA_TYPE, type)
-                        intent.putExtra(DetailContentActivity.EXTRA_ID, id)
-                        startActivity(intent)
-                    }
-                })
-            })
-
             with(fragmentTvShowBinding.rvTvShow) {
                 layoutManager = LinearLayoutManager(context)
                 setHasFixedSize(true)

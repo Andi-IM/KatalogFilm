@@ -3,14 +3,14 @@ package id.airham.moviecatalogue.viewmodel
 import android.content.Context
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import id.airham.moviecatalogue.data.source.ItemRepository
+import id.airham.moviecatalogue.data.source.CatalogueRepository
 import id.airham.moviecatalogue.di.Injection
 import id.airham.moviecatalogue.ui.detail.viewmodel.DetailMovieViewModel
 import id.airham.moviecatalogue.ui.detail.viewmodel.DetailTvViewModel
 import id.airham.moviecatalogue.ui.movie.MovieViewModel
 import id.airham.moviecatalogue.ui.tvshow.TvShowViewModel
 
-class ViewModelFactory private constructor(private val mItemRepository: ItemRepository) :
+class ViewModelFactory private constructor(private val mCatalogueRepository: CatalogueRepository) :
     ViewModelProvider.NewInstanceFactory() {
     companion object {
         @Volatile
@@ -26,16 +26,16 @@ class ViewModelFactory private constructor(private val mItemRepository: ItemRepo
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
         when {
             modelClass.isAssignableFrom(MovieViewModel::class.java) -> {
-                return MovieViewModel(mItemRepository) as T
+                return MovieViewModel(mCatalogueRepository) as T
             }
             modelClass.isAssignableFrom(DetailMovieViewModel::class.java) -> {
-                return DetailMovieViewModel(mItemRepository) as T
+                return DetailMovieViewModel(mCatalogueRepository) as T
             }
             modelClass.isAssignableFrom(DetailTvViewModel::class.java) -> {
-                return DetailTvViewModel(mItemRepository) as T
+                return DetailTvViewModel(mCatalogueRepository) as T
             }
             modelClass.isAssignableFrom(TvShowViewModel::class.java) -> {
-                return TvShowViewModel(mItemRepository) as T
+                return TvShowViewModel(mCatalogueRepository) as T
             }
             else -> throw Throwable("Unknown ViewModel class: " + modelClass.name)
         }

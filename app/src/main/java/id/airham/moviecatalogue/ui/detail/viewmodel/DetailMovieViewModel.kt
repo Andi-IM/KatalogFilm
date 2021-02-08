@@ -2,8 +2,10 @@ package id.airham.moviecatalogue.ui.detail.viewmodel
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
-import id.airham.moviecatalogue.data.MovieEntity
-import id.airham.moviecatalogue.data.source.ItemRepository
+import id.airham.moviecatalogue.data.source.local.entity.MovieEntity
+import id.airham.moviecatalogue.data.source.CatalogueRepository
+import id.airham.moviecatalogue.vo.Resource
+import kotlin.properties.Delegates
 
 /**
  *  Kelas ini merupakan ViewModel yang digunakan untuk mendpatkan data MovieEntity dari
@@ -14,11 +16,11 @@ import id.airham.moviecatalogue.data.source.ItemRepository
  *  Entitas Movie.
  */
 
-class DetailMovieViewModel(private val itemRepository: ItemRepository) : ViewModel() {
-    private lateinit var itemId: String
-    fun setSelectedItem(itemId: String) {
+class DetailMovieViewModel(private val catalogueRepository: CatalogueRepository) : ViewModel() {
+    private var itemId by Delegates.notNull<Int>()
+    fun setSelectedItem(itemId: Int) {
         this.itemId = itemId
     }
 
-    fun getMovie(): LiveData<MovieEntity> = itemRepository.getMovieOffline(itemId)
+    fun getMovie(): LiveData<Resource<MovieEntity>> = catalogueRepository.getMovie(itemId)
 }

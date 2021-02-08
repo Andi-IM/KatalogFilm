@@ -2,6 +2,7 @@ plugins {
     id 'com.android.application'
     id 'kotlin-android'
     id 'kotlin-parcelize'
+    id 'kotlin-kapt'
 }
 
 android {
@@ -44,7 +45,7 @@ android {
 
     externalNativeBuild {
         cmake {
-            path "CMakeLists.txt"
+            // path "CMakeLists.txt"
         }
     }
 }
@@ -81,4 +82,8 @@ dependencies {
     testImplementation "org.mockito:mockito-inline:$mockitoVersion"
     testImplementation "com.nhaarman.mockitokotlin2:mockito-kotlin:$mockitoKotlinVersion"
     androidTestUtil "androidx.test:orchestrator:$orchestratorVersion"
+
+    // Room
+    implementation "androidx.room:room-runtime:$roomRuntimeVersion"
+    kapt "androidx.room:room-compiler:$roomVersion"
 }

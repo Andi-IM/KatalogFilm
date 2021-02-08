@@ -6,7 +6,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import id.airham.moviecatalogue.R
-import id.airham.moviecatalogue.data.TvShowEntity
+import id.airham.moviecatalogue.data.source.local.entity.TvShowEntity
 import id.airham.moviecatalogue.databinding.ItemTvShowsBinding
 
 /**
@@ -25,7 +25,7 @@ class TvShowAdapter : RecyclerView.Adapter<TvShowAdapter.TvShowViewHolder>() {
     var clickListener: ItemOnClickListener? = null
 
     interface ItemOnClickListener {
-        fun onclick(type: String, id: String)
+        fun onclick(type: String, id: Int)
     }
 
 

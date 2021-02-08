@@ -4,8 +4,8 @@ import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
 import com.nhaarman.mockitokotlin2.verify
-import id.airham.moviecatalogue.data.TvShowEntity
-import id.airham.moviecatalogue.data.source.ItemRepository
+import id.airham.moviecatalogue.data.source.local.entity.TvShowEntity
+import id.airham.moviecatalogue.data.source.CatalogueRepository
 import id.airham.moviecatalogue.utils.DataDummy
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertNotNull
@@ -32,14 +32,14 @@ class TvShowViewModelTest {
     var instantTaskExecutorRule = InstantTaskExecutorRule()
 
     @Mock
-    private lateinit var itemRepository: ItemRepository
+    private lateinit var catalogueRepository: CatalogueRepository
 
     @Mock
     private lateinit var observer: Observer<List<TvShowEntity>>
 
     @Before
     fun setUp() {
-        viewModel = TvShowViewModel(itemRepository)
+        viewModel = TvShowViewModel(catalogueRepository)
     }
 
     @Test
@@ -48,13 +48,5 @@ class TvShowViewModelTest {
         val tvShows = MutableLiveData<List<TvShowEntity>>()
         tvShows.value = dummyTvShows
 
-        `when`(itemRepository.getAllTvShowsOffline()).thenReturn(tvShows)
-        val tvShowEntity = viewModel.getTvShows().value
-        verify(itemRepository).getAllTvShowsOffline()
-        assertNotNull(tvShowEntity)
-        assertEquals(20, tvShowEntity?.size)
-
-        viewModel.getTvShows().observeForever(observer)
-        verify(observer).onChanged(dummyTvShows)
     }
 }
