@@ -54,49 +54,4 @@ class FakeItemRepository(private val remoteDataSource: RemoteDataSource): ItemDa
         return tvShowResults
     }
 
-    fun getMovieOffline(movieId : String): LiveData<MovieEntity> {
-        val movieResult = MutableLiveData<MovieEntity>()
-        remoteDataSource.getAllMoviesOffline(object : RemoteDataSource.LoadMoviesCallback{
-            override fun onAllMoviesReceived(movieResponse: List<MovieItem>) {
-                lateinit var movie: MovieEntity
-                for (response in movieResponse) {
-                    if (response.id.toString() == movieId) {
-                        movie = MovieEntity(
-                            response.id.toString(),
-                            response.originalTitle,
-                            response.overview,
-                            response.posterPath,
-                            response.releaseDate,
-                            response.voteAverage
-                        )
-                    }
-                }
-                movieResult.postValue(movie)
-            }
-        })
-        return movieResult
-    }
-
-    fun getTvShowOffline(tvShowId: String): LiveData<TvShowEntity> {
-        val tvShowResult = MutableLiveData<TvShowEntity>()
-        remoteDataSource.getAllTvShowsOffline(object : RemoteDataSource.LoadTvShowsCallback {
-            override fun onAllTvShowsReceived(tvShowResponse: List<TvShowItem>) {
-                lateinit var tvShow: TvShowEntity
-                for (response in tvShowResponse) {
-                    if (response.id.toString() == tvShowId){
-                        tvShow = TvShowEntity(
-                            response.id.toString(),
-                            response.originalName,
-                            response.overview,
-                            response.posterPath,
-                            response.firstAirDate,
-                            response.voteAverage
-                        )
-                    }
-                }
-                tvShowResult.postValue(tvShow)
-            }
-        })
-        return tvShowResult
-    }
 }

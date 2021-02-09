@@ -2,16 +2,11 @@ package id.airham.moviecatalogue.data.source.remote
 
 import android.os.Handler
 import id.airham.moviecatalogue.data.source.remote.response.MovieItem
-import id.airham.moviecatalogue.data.source.remote.response.MovieResponse
 import id.airham.moviecatalogue.data.source.remote.response.TvShowItem
-import id.airham.moviecatalogue.data.source.remote.response.TvShowResponse
 import id.airham.moviecatalogue.utils.EspressoIdlingResource
-import id.airham.moviecatalogue.utils.network.ApiConfig
-import id.airham.moviecatalogue.utils.network.JsonHelper
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
+import id.airham.moviecatalogue.utils.JsonHelper
 
+@Suppress("DEPRECATION")
 class RemoteDataSource private constructor(private val jsonHelper: JsonHelper){
 
     // tidak disarankan menggunakan handler

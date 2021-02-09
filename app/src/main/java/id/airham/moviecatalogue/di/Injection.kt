@@ -3,7 +3,7 @@ package id.airham.moviecatalogue.di
 import android.content.Context
 import id.airham.moviecatalogue.data.source.ItemRepository
 import id.airham.moviecatalogue.data.source.remote.RemoteDataSource
-import id.airham.moviecatalogue.utils.network.JsonHelper
+import id.airham.moviecatalogue.utils.JsonHelper
 
 object Injection {
     fun provideRepository(context: Context) : ItemRepository{

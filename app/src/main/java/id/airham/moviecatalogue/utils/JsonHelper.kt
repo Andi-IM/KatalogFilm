@@ -1,11 +1,11 @@
-package id.airham.moviecatalogue.utils.network
+package id.airham.moviecatalogue.utils
 
 import android.content.Context
 import id.airham.moviecatalogue.data.source.remote.response.MovieItem
 import id.airham.moviecatalogue.data.source.remote.response.TvShowItem
-import okio.IOException
 import org.json.JSONException
 import org.json.JSONObject
+import java.io.IOException
 
 class JsonHelper(private val context: Context) {
     private fun parsingfileToString(filename: String): String? {
