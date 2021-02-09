@@ -3,11 +3,10 @@ package id.airham.moviecatalogue.data.source.remote
 import android.os.Handler
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import id.airham.moviecatalogue.data.source.local.entity.MovieEntity
 import id.airham.moviecatalogue.data.source.remote.response.MovieItem
 import id.airham.moviecatalogue.data.source.remote.response.TvShowItem
 import id.airham.moviecatalogue.utils.EspressoIdlingResource
-import id.airham.moviecatalogue.data.source.remote.network.JsonHelper
+import id.airham.moviecatalogue.utils.JsonHelper
 
 class RemoteRepository private constructor(private val jsonHelper: JsonHelper){
 

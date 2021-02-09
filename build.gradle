@@ -14,9 +14,6 @@ ext {
     idleResourceVersion = '3.3.0'
     androidxLegacyVersion = '1.0.0'
 
-    retrofitVersion = '2.9.0'
-    okhttpVersion = '4.9.0'
-
     materialVersion = '1.2.1'
     recyclerViewVersion = '1.1.0'
     glideVersion = '4.12.0'

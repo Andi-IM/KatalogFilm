@@ -42,12 +42,6 @@ android {
     kotlinOptions {
         jvmTarget = '1.8'
     }
-
-    externalNativeBuild {
-        cmake {
-            // path "CMakeLists.txt"
-        }
-    }
 }
 
 dependencies {
@@ -62,11 +56,6 @@ dependencies {
     implementation "com.google.android.material:material:$materialVersion"
     implementation "com.github.bumptech.glide:glide:$glideVersion"
     implementation "androidx.legacy:legacy-support-v4:$androidxLegacyVersion"
-
-    //network
-    implementation "com.squareup.retrofit2:retrofit:$retrofitVersion"
-    implementation "com.squareup.retrofit2:converter-gson:$retrofitVersion"
-    implementation "com.squareup.okhttp3:logging-interceptor:$okhttpVersion"
 
     //testing
     implementation "androidx.test.espresso:espresso-idling-resource:$idleResourceVersion"
