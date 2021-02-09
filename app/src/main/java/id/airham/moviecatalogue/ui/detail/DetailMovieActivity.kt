@@ -29,9 +29,9 @@ class DetailMovieActivity : AppCompatActivity() {
         const val EXTRA_ID = "extra_id"
     }
 
-    private var _activityDetailContentBinding: ActivityDetailMovieBinding? = null
-    private val mainBinding get() = _activityDetailContentBinding
-    private val contentBinding get() = _activityDetailContentBinding?.detailItem
+    private var _activityDetailMovieBinding: ActivityDetailMovieBinding? = null
+    private val mainBinding get() = _activityDetailMovieBinding
+    private val contentBinding get() = _activityDetailMovieBinding?.detailItem
 
     private lateinit var movieViewModel: DetailMovieViewModel
     private var menu: Menu? = null
@@ -39,7 +39,7 @@ class DetailMovieActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        _activityDetailContentBinding = ActivityDetailMovieBinding.inflate(layoutInflater)
+        _activityDetailMovieBinding = ActivityDetailMovieBinding.inflate(layoutInflater)
         setContentView(mainBinding?.root)
 
         setSupportActionBar(mainBinding?.toolbar)

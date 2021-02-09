@@ -1,3 +1,5 @@
+@file:Suppress("unused")
+
 package id.airham.moviecatalogue.data.source.remote
 
 import id.airham.moviecatalogue.data.source.remote.StatusResponse.ERROR

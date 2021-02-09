@@ -1,26 +1,19 @@
 package id.airham.moviecatalogue.ui.favorite
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.navigation.fragment.findNavController
-import id.airham.moviecatalogue.R
+import androidx.fragment.app.Fragment
 import id.airham.moviecatalogue.databinding.FragmentFavoriteBinding
 
 class FavoriteFragment : Fragment() {
-
-    companion object {
-        @JvmStatic
-        fun newInstance() = FavoriteFragment()
-    }
 
     private lateinit var binding: FragmentFavoriteBinding
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         // Inflate the layout for this fragment
         binding = FragmentFavoriteBinding.inflate(layoutInflater, container, false)
         return binding.root

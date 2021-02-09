@@ -1,12 +1,11 @@
 package id.airham.moviecatalogue.data.source
 
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import id.airham.moviecatalogue.data.source.local.LocalRepository
 import id.airham.moviecatalogue.data.source.local.entity.MovieEntity
 import id.airham.moviecatalogue.data.source.local.entity.TvShowEntity
-import id.airham.moviecatalogue.data.source.remote.RemoteRepository
 import id.airham.moviecatalogue.data.source.remote.ApiResponse
+import id.airham.moviecatalogue.data.source.remote.RemoteRepository
 import id.airham.moviecatalogue.data.source.remote.response.MovieItem
 import id.airham.moviecatalogue.data.source.remote.response.TvShowItem
 import id.airham.moviecatalogue.utils.AppExecutors

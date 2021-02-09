@@ -8,6 +8,7 @@ import id.airham.moviecatalogue.data.source.remote.response.TvShowItem
 import id.airham.moviecatalogue.utils.EspressoIdlingResource
 import id.airham.moviecatalogue.utils.JsonHelper
 
+@Suppress("DEPRECATION")
 class RemoteRepository private constructor(private val jsonHelper: JsonHelper){
 
     // tidak disarankan menggunakan handler
@@ -24,48 +25,6 @@ class RemoteRepository private constructor(private val jsonHelper: JsonHelper){
             }
     }
 
-    // ONLINE MODE
-    // NOT IN USE
-    /*fun getAllMovies(callback: LoadMoviesCallback) {
-        EspressoIdlingResource.increment()
-        val client = ApiConfig.getApiService().getAllMovie()
-        client.enqueue(object: Callback<MovieResponse>{
-            override fun onResponse(call: Call<MovieResponse>, response: Response<MovieResponse>){
-                if (response.isSuccessful){
-                    val listMovies = response.body()?.results as List<MovieItem>
-                    callback.onAllMoviesReceived(listMovies)
-                    EspressoIdlingResource.decrement()
-                }
-            }
-
-            override fun onFailure(call: Call<MovieResponse>, t: Throwable) {
-
-            }
-
-        })
-    }
-
-    fun getAllTvShows(callback: LoadTvShowsCallback) {
-        EspressoIdlingResource.increment()
-        val client = ApiConfig.getApiService().getAllTvShow()
-        client.enqueue(object : Callback<TvShowResponse>{
-            override fun onResponse(call: Call<TvShowResponse>, response: Response<TvShowResponse>){
-                if (response.isSuccessful){
-                    val listTvShows = response.body()?.results as List<TvShowItem>
-                    callback.onAllTvShowsReceived(listTvShows)
-                    EspressoIdlingResource.decrement()
-                }
-            }
-
-            override fun onFailure(call: Call<TvShowResponse>, t: Throwable) {
-
-            }
-
-        })
-    }*/
-
-    // untuk tujuan pengetesan
-    // all files goes offline
     fun getAllMovies(): LiveData<ApiResponse<List<MovieItem>>> {
         EspressoIdlingResource.increment()
         val resultMovieItem = MutableLiveData<ApiResponse<List<MovieItem>>>()
