@@ -2,7 +2,6 @@ package id.airham.moviecatalogue.ui.detail.viewmodel
 
 import androidx.lifecycle.ViewModel
 import id.airham.moviecatalogue.data.MovieEntity
-import id.airham.moviecatalogue.data.TvShowEntity
 import id.airham.moviecatalogue.utils.DataDummy
 
 /**

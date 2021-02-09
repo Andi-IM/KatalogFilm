@@ -5,7 +5,6 @@ import androidx.annotation.StringRes
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
-import androidx.fragment.app.FragmentPagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT
 import id.airham.moviecatalogue.R
 import id.airham.moviecatalogue.ui.movie.MovieFragment
 import id.airham.moviecatalogue.ui.tvshow.TvShowFragment
@@ -31,7 +30,7 @@ class SectionsPagerAdapter(private val mContext: Context, fm: FragmentManager):
             else -> Fragment()
         }
 
-    override fun getPageTitle(position: Int): CharSequence?
+    override fun getPageTitle(position: Int): CharSequence
     = mContext.resources.getString(TAB_TITLES[position])
 
     override fun getCount(): Int = 2
