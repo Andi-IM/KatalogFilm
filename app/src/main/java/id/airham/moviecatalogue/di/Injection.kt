@@ -6,7 +6,7 @@ import id.airham.moviecatalogue.data.source.local.LocalRepository
 import id.airham.moviecatalogue.data.source.local.room.CatalogueDatabase
 import id.airham.moviecatalogue.data.source.remote.RemoteRepository
 import id.airham.moviecatalogue.utils.AppExecutors
-import id.airham.moviecatalogue.utils.network.JsonHelper
+import id.airham.moviecatalogue.data.source.remote.network.JsonHelper
 
 object Injection {
     fun provideRepository(context: Context) : CatalogueRepository{

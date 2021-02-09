@@ -1,4 +1,4 @@
-package id.airham.moviecatalogue.utils.network
+package id.airham.moviecatalogue.data.source.remote.network
 
 import id.airham.moviecatalogue.data.source.remote.response.MovieResponse
 import id.airham.moviecatalogue.data.source.remote.response.TvShowResponse

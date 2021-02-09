@@ -4,12 +4,11 @@ import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
 import com.nhaarman.mockitokotlin2.verify
-import id.airham.moviecatalogue.data.source.local.entity.TvShowEntity
 import id.airham.moviecatalogue.data.source.CatalogueRepository
+import id.airham.moviecatalogue.data.source.local.entity.TvShowEntity
 import id.airham.moviecatalogue.ui.detail.viewmodel.DetailTvViewModel
 import id.airham.moviecatalogue.utils.DataDummy
-import junit.framework.TestCase.assertNotNull
-import org.junit.Assert.assertEquals
+import id.airham.moviecatalogue.vo.Resource
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
@@ -37,7 +36,7 @@ class DetailTvViewModelTest {
     private lateinit var catalogueRepository: CatalogueRepository
     
     @Mock
-    private lateinit var tvShowObserver: Observer<TvShowEntity>
+    private lateinit var tvShowObserver: Observer<Resource<TvShowEntity>>
     
     @Before
     fun setUp() {
@@ -47,10 +46,12 @@ class DetailTvViewModelTest {
 
     @Test
     fun getTvShow() {
-        val tvShow = MutableLiveData<TvShowEntity>()
-        tvShow.value = dummyTvSerie
+        val tvShowResource = Resource.success(dummyTvSerie)
+        val tvShow = MutableLiveData<Resource<TvShowEntity>>()
+        tvShow.value = tvShowResource
         
-
-        verify(tvShowObserver).onChanged(dummyTvSerie)
+        `when`(catalogueRepository.getTvShow(tvShowId)).thenReturn(tvShow)
+        viewModel.tvShow.observeForever(tvShowObserver)
+        verify(tvShowObserver).onChanged(tvShowResource)
     }
 }

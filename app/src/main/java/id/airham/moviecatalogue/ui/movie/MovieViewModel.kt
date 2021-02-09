@@ -12,6 +12,7 @@ import id.airham.moviecatalogue.vo.Resource
  */
 
 class MovieViewModel(private val catalogueRepository: CatalogueRepository) : ViewModel() {
-    fun getMovies(): LiveData<Resource<List<MovieEntity>>> = catalogueRepository.getAllMovies()
+    fun getMovies(): LiveData<Resource<List<MovieEntity>>> =
+        catalogueRepository.getAllMovies()
 }
 

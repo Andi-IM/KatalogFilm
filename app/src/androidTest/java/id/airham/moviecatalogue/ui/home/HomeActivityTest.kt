@@ -4,6 +4,9 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.test.core.app.ActivityScenario
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.IdlingRegistry
+import androidx.test.espresso.ViewAction
+import androidx.test.espresso.ViewInteraction
+import androidx.test.espresso.action.ViewActions
 import androidx.test.espresso.action.ViewActions.click
 import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.contrib.RecyclerViewActions.actionOnItemAtPosition
@@ -55,12 +58,15 @@ class HomeActivityTest {
 
     @Test
     fun loadMovies() {
+        onView(withId(R.id.navigation_home)).perform(click())
+        onView(withId(R.id.navigation_home)).check(matches(isDisplayed()))
         onView(withId(R.id.rv_movie)).check(matches(isDisplayed()))
         onView(withId(R.id.rv_movie)).perform(scrollToPosition<RecyclerView.ViewHolder>(dummyMovie.size))
     }
 
     @Test
     fun loadDetailMovie() {
+        onView(withId(R.id.navigation_home)).perform(click())
         onView(withId(R.id.rv_movie)).perform(actionOnItemAtPosition<RecyclerView.ViewHolder>(0, click()))
         onView(withId(R.id.name)).check(matches(isDisplayed()))
         onView(withId(R.id.name)).check(matches(withText(dummyMovie[0].originalTitle)))
@@ -72,14 +78,15 @@ class HomeActivityTest {
 
     @Test
     fun loadTvShows() {
-        onView(withText("TV SHOWS")).perform(click())
+        onView(withId(R.id.navigation_tv_show)).perform(click())
+        onView(withId(R.id.navigation_tv_show)).check(matches(isDisplayed()))
         onView(withId(R.id.rv_tv_show)).check(matches(isDisplayed()))
         onView(withId(R.id.rv_tv_show)).perform(scrollToPosition<RecyclerView.ViewHolder>(dummyTvShow.size))
     }
 
     @Test
     fun loadDetailTvShow() {
-        onView(withText("TV SHOWS")).perform(click())
+        onView(withId(R.id.navigation_tv_show)).perform(click())
         onView(withId(R.id.rv_tv_show)).perform(actionOnItemAtPosition<RecyclerView.ViewHolder>(0, click()))
         onView(withId(R.id.name)).check(matches(isDisplayed()))
         onView(withId(R.id.name)).check(matches(withText(dummyTvShow[0].originalName)))
@@ -87,5 +94,22 @@ class HomeActivityTest {
         onView(withId(R.id.date)).check(matches(withText(dummyTvShow[0].firstAirDate)))
         onView(withId(R.id.sinopsis)).check(matches(isDisplayed()))
         onView(withId(R.id.sinopsis)).check(matches(withText(dummyTvShow[0].overview)))
+    }
+
+    @Test
+    fun onMovieSetBookmark(){
+        onView(withId(R.id.navigation_home)).perform(click())
+        onView(withId(R.id.navigation_home)).check(matches(isDisplayed()))
+        onView(withId(R.id.rv_movie)).perform(actionOnItemAtPosition<RecyclerView.ViewHolder>(0, click()))
+        onView(withId(R.id.action_favorite)).perform(click())
+        onView(withId(R.id.action_favorite)).check(matches(isEnabled()))
+        onView(isRoot()).perform(ViewActions.pressBack())
+        onView(withId(R.id.navigation_favorite)).perform(click())
+        onView(withId(R.id.rv_fav_movie)).check(matches(isDisplayed()))
+    }
+
+    @Test
+    fun onTvShowSetBookmark(){
+
     }
 }

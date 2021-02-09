@@ -39,9 +39,9 @@ class FavTvFragment : Fragment() {
             adapter.notifyDataSetChanged()
         })
 
-        binding?.rvTvShow?.layoutManager = LinearLayoutManager(context)
-        binding?.rvTvShow?.setHasFixedSize(true)
-        binding?.rvTvShow?.adapter = adapter
+        binding?.rvFavTvShow?.layoutManager = LinearLayoutManager(context)
+        binding?.rvFavTvShow?.setHasFixedSize(true)
+        binding?.rvFavTvShow?.adapter = adapter
     }
 
 }

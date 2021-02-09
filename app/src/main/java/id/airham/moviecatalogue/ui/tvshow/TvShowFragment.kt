@@ -5,13 +5,13 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import id.airham.moviecatalogue.databinding.FragmentTvShowBinding
 import id.airham.moviecatalogue.ui.detail.DetailMovieActivity
 import id.airham.moviecatalogue.ui.detail.DetailTvShowActivity
+import id.airham.moviecatalogue.utils.Notify.showToast
 import id.airham.moviecatalogue.viewmodel.ViewModelFactory
 import id.airham.moviecatalogue.vo.Status
 
@@ -60,7 +60,7 @@ class TvShowFragment : Fragment() {
                         }
                         Status.ERROR -> {
                             fragmentTvShowBinding.progressBar.visibility = View.GONE
-                            Toast.makeText(context, "Terjadi kesalahan", Toast.LENGTH_SHORT).show()
+                            showToast(context, "Something Error")
                         }
                     }
                 }

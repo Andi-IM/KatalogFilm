@@ -1,11 +1,10 @@
 package id.airham.moviecatalogue.ui.detail
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
-import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
@@ -14,9 +13,16 @@ import id.airham.moviecatalogue.R
 import id.airham.moviecatalogue.data.source.local.entity.TvShowEntity
 import id.airham.moviecatalogue.databinding.ActivityDetailTvShowBinding
 import id.airham.moviecatalogue.ui.detail.viewmodel.DetailTvViewModel
+import id.airham.moviecatalogue.utils.Notify.showToast
 import id.airham.moviecatalogue.viewmodel.ViewModelFactory
 import id.airham.moviecatalogue.vo.Status
 
+/**
+ *  Kelas ini merupakan activity yang mendapatkan data dari item tvShow
+ *  data yang dikeluarkan (setidaknya) lebih rinci daripada item tvShow
+ *
+ *  semua data dikirimkan melalui putExtra
+ */
 class DetailTvShowActivity : AppCompatActivity() {
 
     companion object {
@@ -45,10 +51,9 @@ class DetailTvShowActivity : AppCompatActivity() {
         val extras = intent.extras
         if (extras != null) {
             val id = extras.getInt(EXTRA_ID)
-
             tvViewModel.setSelectedItem(id)
 
-            tvViewModel.getTvShow().observe(this, { tvShow ->
+            tvViewModel.tvShow.observe(this, { tvShow ->
                 if (tvShow != null) {
                     when (tvShow.status) {
                         Status.LOADING -> mainBinding?.progressBar?.visibility = View.VISIBLE
@@ -59,46 +64,12 @@ class DetailTvShowActivity : AppCompatActivity() {
                         }
                         Status.ERROR -> {
                             mainBinding?.progressBar?.visibility = View.GONE
-                            Toast.makeText(
-                                applicationContext,
-                                "Something Error",
-                                Toast.LENGTH_SHORT
-                            ).show()
+                            showToast(this, "Something Error")
                         }
                     }
                 }
             })
         }
-    }
-
-    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        menuInflater.inflate(R.menu.menu_detail, menu)
-        tvViewModel.getTvShow().observe(this, { tvShow ->
-            if (tvShow != null) {
-                when (tvShow.status) {
-                    Status.LOADING -> mainBinding?.progressBar?.visibility = View.VISIBLE
-                    Status.SUCCESS -> if (tvShow.data != null) {
-                        mainBinding?.progressBar?.visibility = View.GONE
-                        val state = tvShow.data.favorited
-                        setFavoriteState(state)
-                    }
-                    Status.ERROR -> {
-                        mainBinding?.progressBar?.visibility = View.GONE
-                        Toast.makeText(applicationContext, "Something Error", Toast.LENGTH_SHORT)
-                            .show()
-                    }
-                }
-            }
-        })
-        return true
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        if (item.itemId == R.id.action_favorite) {
-            tvViewModel.setFavorite()
-            return true
-        }
-        return super.onOptionsItemSelected(item)
     }
 
     private fun showTv(tvShowEntity: TvShowEntity) {
@@ -116,6 +87,36 @@ class DetailTvShowActivity : AppCompatActivity() {
                 )
                 .into(it)
         }
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.menu_detail, menu)
+        this.menu = menu
+        tvViewModel.tvShow.observe(this, { tvShow ->
+            if (tvShow != null) {
+                when (tvShow.status) {
+                    Status.LOADING -> mainBinding?.progressBar?.visibility = View.VISIBLE
+                    Status.SUCCESS -> if (tvShow.data != null) {
+                        mainBinding?.progressBar?.visibility = View.GONE
+                        val state = tvShow.data.favorited
+                        setFavoriteState(state)
+                    }
+                    Status.ERROR -> {
+                        mainBinding?.progressBar?.visibility = View.GONE
+                        showToast(this, "Something Error")
+                    }
+                }
+            }
+        })
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        if (item.itemId == R.id.action_favorite) {
+            tvViewModel.setFavorite()
+            return true
+        }
+        return super.onOptionsItemSelected(item)
     }
 
     private fun setFavoriteState(state: Boolean) {

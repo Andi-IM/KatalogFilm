@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModelProvider
@@ -14,19 +13,16 @@ import id.airham.moviecatalogue.R
 import id.airham.moviecatalogue.data.source.local.entity.MovieEntity
 import id.airham.moviecatalogue.databinding.ActivityDetailMovieBinding
 import id.airham.moviecatalogue.ui.detail.viewmodel.DetailMovieViewModel
+import id.airham.moviecatalogue.utils.Notify.showToast
 import id.airham.moviecatalogue.viewmodel.ViewModelFactory
 import id.airham.moviecatalogue.vo.Status
 
 /**
- *  Kelas ini merupakan activity yang mendapatkan data dari item movie atau tvShow
- *  data yang dikeluarkan (setidaknya) lebih rinci daripada item movie atau tvShow
+ *  Kelas ini merupakan activity yang mendapatkan data dari item movie
+ *  data yang dikeluarkan (setidaknya) lebih rinci daripada item movie
  *
  *  semua data dikirimkan melalui putExtra
- *
- *  sebelum melakukan draw data, data yang masuk dicek terlebih dahulu tipenya apa dengan logika
- *  boolean. jika tipenya berupa 'movie' maka showMovie(), jika tipenya berupa 'tvShow' maka showTv()
  */
-
 class DetailMovieActivity : AppCompatActivity() {
 
     companion object {
@@ -34,7 +30,6 @@ class DetailMovieActivity : AppCompatActivity() {
     }
 
     private var _activityDetailContentBinding: ActivityDetailMovieBinding? = null
-
     private val mainBinding get() = _activityDetailContentBinding
     private val contentBinding get() = _activityDetailContentBinding?.detailItem
 
@@ -56,10 +51,9 @@ class DetailMovieActivity : AppCompatActivity() {
         val extras = intent.extras
         if (extras != null) {
             val id = extras.getInt(EXTRA_ID)
-
             movieViewModel.setSelectedItem(id)
 
-            movieViewModel.getMovie().observe(this, { movie ->
+            movieViewModel.movie.observe(this, { movie ->
                 if (movie != null) {
                     when (movie.status) {
                         Status.LOADING -> mainBinding?.progressBar?.visibility = View.VISIBLE
@@ -70,17 +64,11 @@ class DetailMovieActivity : AppCompatActivity() {
                         }
                         Status.ERROR -> {
                             mainBinding?.progressBar?.visibility = View.GONE
-                            Toast.makeText(
-                                applicationContext,
-                                "Something Error",
-                                Toast.LENGTH_SHORT
-                            ).show()
+                            showToast(this, "Something Error")
                         }
                     }
                 }
             })
-
-
         }
     }
 
@@ -102,7 +90,7 @@ class DetailMovieActivity : AppCompatActivity() {
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.menu_detail, menu)
         this.menu = menu
-        movieViewModel.getMovie().observe(this, { movie ->
+        movieViewModel.movie.observe(this, { movie ->
             if (movie != null) {
                 when (movie.status) {
                     Status.LOADING -> mainBinding?.progressBar?.visibility = View.VISIBLE
@@ -113,8 +101,7 @@ class DetailMovieActivity : AppCompatActivity() {
                     }
                     Status.ERROR -> {
                         mainBinding?.progressBar?.visibility = View.GONE
-                        Toast.makeText(applicationContext, "Something Error", Toast.LENGTH_SHORT)
-                            .show()
+                        showToast(this, "Something Error")
                     }
                 }
             }

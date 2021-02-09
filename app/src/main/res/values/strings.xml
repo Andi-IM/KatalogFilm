@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">MovieCatalogue</string>
-    <string name="title_activity_detail_movie">DetailMovieActivity</string>
-    <string name="title_activity_detail_tv_show">DetailTvShowActivity</string>
+    <string name="title_activity_detail_movie">Detail Movie Activity</string>
+    <string name="title_activity_detail_tv_show">Detail TvShow Activity</string>
     <!-- Strings used for fragments for navigation -->
 
     <string name="dev_name">andi irham</string>

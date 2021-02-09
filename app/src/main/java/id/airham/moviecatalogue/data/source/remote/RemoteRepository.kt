@@ -7,7 +7,7 @@ import id.airham.moviecatalogue.data.source.local.entity.MovieEntity
 import id.airham.moviecatalogue.data.source.remote.response.MovieItem
 import id.airham.moviecatalogue.data.source.remote.response.TvShowItem
 import id.airham.moviecatalogue.utils.EspressoIdlingResource
-import id.airham.moviecatalogue.utils.network.JsonHelper
+import id.airham.moviecatalogue.data.source.remote.network.JsonHelper
 
 class RemoteRepository private constructor(private val jsonHelper: JsonHelper){
 

@@ -1,4 +1,4 @@
-package id.airham.moviecatalogue.utils.network
+package id.airham.moviecatalogue.data.source.remote.network
 
 import android.content.Context
 import id.airham.moviecatalogue.data.source.remote.response.MovieItem

@@ -2,6 +2,7 @@ package id.airham.moviecatalogue.ui.movie
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,6 +13,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import id.airham.moviecatalogue.databinding.FragmentMovieBinding
 import id.airham.moviecatalogue.ui.detail.DetailMovieActivity
 import id.airham.moviecatalogue.ui.detail.DetailMovieActivity.Companion.EXTRA_ID
+import id.airham.moviecatalogue.utils.Notify.showToast
 import id.airham.moviecatalogue.viewmodel.ViewModelFactory
 import id.airham.moviecatalogue.vo.Status
 
@@ -20,6 +22,8 @@ import id.airham.moviecatalogue.vo.Status
  */
 class MovieFragment : Fragment() {
     private lateinit var fragmentMoviesBinding: FragmentMovieBinding
+
+    private val TAG = this.javaClass.simpleName
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -59,7 +63,7 @@ class MovieFragment : Fragment() {
                         }
                         Status.ERROR -> {
                             fragmentMoviesBinding.progressBar.visibility = View.GONE
-                            Toast.makeText(context, "Terjadi kesalahan", Toast.LENGTH_SHORT).show()
+                            showToast(context, "Something Error")
                         }
                     }
                 }

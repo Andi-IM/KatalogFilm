@@ -39,9 +39,9 @@ class FavMovieFragment : Fragment() {
                 adapter.notifyDataSetChanged()
             })
 
-            binding?.rvMovie?.layoutManager = LinearLayoutManager(context)
-            binding?.rvMovie?.setHasFixedSize(true)
-            binding?.rvMovie?.adapter = adapter
+            binding?.rvFavMovie?.layoutManager = LinearLayoutManager(context)
+            binding?.rvFavMovie?.setHasFixedSize(true)
+            binding?.rvFavMovie?.adapter = adapter
         }
     }
 

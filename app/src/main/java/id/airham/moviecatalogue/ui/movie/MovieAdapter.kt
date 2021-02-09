@@ -4,6 +4,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.bumptech.glide.annotation.GlideModule
 import com.bumptech.glide.request.RequestOptions
 import id.airham.moviecatalogue.R
 import id.airham.moviecatalogue.data.source.local.entity.MovieEntity

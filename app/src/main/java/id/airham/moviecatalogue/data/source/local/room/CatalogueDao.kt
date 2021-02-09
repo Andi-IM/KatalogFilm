@@ -7,7 +7,7 @@ import id.airham.moviecatalogue.data.source.local.entity.TvShowEntity
 
 @Dao
 interface CatalogueDao {
-
+    // Movies
     @Query("SELECT * FROM movieEntities")
     fun getMovies(): LiveData<List<MovieEntity>>
 
@@ -24,6 +24,7 @@ interface CatalogueDao {
     @Update
     fun updateMovie(movie: MovieEntity)
 
+    // TV SHOW
     @Query("SELECT * FROM tvShowEntities")
     fun getTvShow(): LiveData<List<TvShowEntity>>
 

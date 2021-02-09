@@ -1,4 +1,4 @@
-package id.airham.moviecatalogue.utils.network
+package id.airham.moviecatalogue.data.source.remote.network
 
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor

@@ -1,15 +1,20 @@
 package id.airham.moviecatalogue.data.source
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
-import com.nhaarman.mockitokotlin2.any
-import com.nhaarman.mockitokotlin2.doAnswer
+import androidx.lifecycle.MutableLiveData
 import com.nhaarman.mockitokotlin2.verify
+import id.airham.moviecatalogue.data.source.local.LocalRepository
+import id.airham.moviecatalogue.data.source.local.entity.MovieEntity
+import id.airham.moviecatalogue.data.source.local.entity.TvShowEntity
 import id.airham.moviecatalogue.data.source.remote.RemoteRepository
+import id.airham.moviecatalogue.utils.AppExecutors
 import id.airham.moviecatalogue.utils.DataDummy
 import id.airham.moviecatalogue.utils.LiveDataTestUtil
-import org.junit.Assert.*
+import org.junit.Assert.assertEquals
+import org.junit.Assert.assertNotNull
 import org.junit.Rule
 import org.junit.Test
+import org.mockito.Mockito.`when`
 import org.mockito.Mockito.mock
 
 class CatalogueRepositoryTest {
@@ -18,33 +23,35 @@ class CatalogueRepositoryTest {
     var instantTaskExecutorRule = InstantTaskExecutorRule()
 
     private val remote = mock(RemoteRepository::class.java)
-    //private val itemRepository = FakeCatalogueRepository(remote)
-    private val movieResponses = DataDummy.generateRemoteDummyMovies()
-    private val tvShowResponses = DataDummy.generateRemoteDummyTvs()
+    private val local = mock(LocalRepository::class.java)
+    private val appExecutors = mock(AppExecutors::class.java)
 
-   /* @Test
+    private val catalogueRepository = FakeCatalogueRepository(remote, local, appExecutors)
+
+    private val movieResponses = DataDummy.generateMovies()
+    private val tvShowResponses = DataDummy.generateTvs()
+
+    @Test
     fun getAllMovies() {
-        doAnswer { invocation ->
-            (invocation.arguments[0] as RemoteRepository.LoadMoviesCallback)
-                .onAllMoviesReceived(movieResponses)
-            null
-        }.`when`(remote).getAllMovies(any())
-        val movieEntities = LiveDataTestUtil.getValue(itemRepository.getAllMovies())
-        verify(remote).getAllMovies(any())
-        assertNotNull(movieEntities)
-        assertEquals(movieResponses.size.toLong(), movieEntities.size.toLong())
+        val dummyMovies = MutableLiveData<List<MovieEntity>>()
+        dummyMovies.value = movieResponses
+        `when`(local.getAllMovies()).thenReturn(dummyMovies)
+
+        val movieEntities = LiveDataTestUtil.getValue(catalogueRepository.getAllMovies())
+        verify(local).getAllMovies()
+        assertNotNull(movieEntities.data)
+        assertEquals(movieResponses.size.toLong(), movieEntities.data?.size?.toLong())
     }
 
     @Test
     fun getAllTvShows() {
-        doAnswer { invocation ->
-            (invocation.arguments[0] as RemoteRepository.LoadTvShowsCallback)
-                .onAllTvShowsReceived(tvShowResponses)
-            null
-        }.`when`(remote).getAllTvShows(any())
-        val tvShowEntities = LiveDataTestUtil.getValue(itemRepository.getAllTvShows())
-        verify(remote).getAllTvShows(any())
-        assertNotNull(tvShowEntities)
-        assertEquals(tvShowResponses.size.toLong(), tvShowEntities.size.toLong())
-    }*/
+        val dummyTvShows = MutableLiveData<List<TvShowEntity>>()
+        dummyTvShows.value = tvShowResponses
+        `when`(local.getAllTvShows()).thenReturn(dummyTvShows)
+
+        val tvShowEntities = LiveDataTestUtil.getValue(catalogueRepository.getAllTvShows())
+        verify(local).getAllTvShows()
+        assertNotNull(tvShowEntities.data)
+        assertEquals(tvShowResponses.size.toLong(), tvShowEntities.data?.size?.toLong())
+    }
 }
