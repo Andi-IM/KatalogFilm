@@ -256,4 +256,10 @@ class CatalogueRepository private constructor(
             }
         }.asLiveData()
     }
+
+    override fun getFavoritedMovies(): LiveData<List<MovieEntity>> =
+        localRepository.getFavoritedMovies()
+
+    override fun getFavoritedTvShows(): LiveData<List<TvShowEntity>> =
+        localRepository.getFavoritedTvShows()
 }

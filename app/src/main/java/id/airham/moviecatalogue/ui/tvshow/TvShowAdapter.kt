@@ -25,7 +25,7 @@ class TvShowAdapter : RecyclerView.Adapter<TvShowAdapter.TvShowViewHolder>() {
     var clickListener: ItemOnClickListener? = null
 
     interface ItemOnClickListener {
-        fun onclick(type: String, id: Int)
+        fun onclick(id: Int)
     }
 
 
@@ -73,7 +73,7 @@ class TvShowAdapter : RecyclerView.Adapter<TvShowAdapter.TvShowViewHolder>() {
 
                 if (onClick != null) {
                     itemView.setOnClickListener {
-                        onClick.onclick(tvShow.type, tvShow.id)
+                        onClick.onclick(tvShow.id)
                     }
                 }
 

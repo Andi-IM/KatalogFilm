@@ -2,30 +2,28 @@ package id.airham.moviecatalogue.ui.home
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.navigation.findNavController
+import androidx.navigation.ui.AppBarConfiguration
+import androidx.navigation.ui.setupActionBarWithNavController
+import androidx.navigation.ui.setupWithNavController
 import id.airham.moviecatalogue.R
 import id.airham.moviecatalogue.databinding.ActivityHomeBinding
-
-/**
- *  kelas ini merupakan halaman utama dari aplikasi
- *  kelas ini mengandung tablayout yang berisi 2 fragment, MovieFragment dan TvShowFragment
- *  semua kelas pada project ini mengadaptasi fitur viewBinding
- *
- *  n/b : project ini sudah pernah dibuat ulang sebanyak 3 kali
- *  kendala : testing dan infinityloop saat run apl
- */
 
 class HomeActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_home)
 
         val activityHomeBinding = ActivityHomeBinding.inflate(layoutInflater)
         setContentView(activityHomeBinding.root)
 
-        val sectionPagerAdapter = SectionsPagerAdapter(this, supportFragmentManager)
-        activityHomeBinding.viewPager.adapter = sectionPagerAdapter
-        activityHomeBinding.tabLayout.setupWithViewPager(activityHomeBinding.viewPager)
-
+        val navController = findNavController(R.id.nav_host_fragment)
+        // Passing each menu ID as a set of Ids because each
+        // menu should be considered as top level destinations.
+        val appBarConfiguration = AppBarConfiguration(setOf(
+            R.id.navigation_home, R.id.navigation_tv_show, R.id.navigation_favorite
+        ))
+        setupActionBarWithNavController(navController, appBarConfiguration)
+        activityHomeBinding.navView.setupWithNavController(navController)
         supportActionBar?.elevation = 0f
     }
 }

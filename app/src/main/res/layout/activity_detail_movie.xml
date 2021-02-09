@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.detail.DetailContentActivity">
+    tools:context=".ui.detail.DetailMovieActivity">
 
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
@@ -19,12 +19,18 @@
             app:popupTheme="@style/Theme.MovieCatalogue.PopupOverlay" />
 
     </com.google.android.material.appbar.AppBarLayout>
+
     <androidx.core.widget.NestedScrollView
         android:id="@+id/content"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:visibility="invisible"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
-        <include android:id="@+id/detailItem" layout="@layout/content_detail_content" />
+
+        <include
+            android:id="@+id/detail_item"
+            layout="@layout/content_detail_content" />
+
     </androidx.core.widget.NestedScrollView>
 
     <ProgressBar

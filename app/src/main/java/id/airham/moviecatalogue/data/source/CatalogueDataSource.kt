@@ -20,4 +20,7 @@ interface CatalogueDataSource {
 
     fun getMovie(id: Int): LiveData<Resource<MovieEntity>>
     fun getTvShow(id: Int): LiveData<Resource<TvShowEntity>>
+
+    fun getFavoritedMovies(): LiveData<List<MovieEntity>>
+    fun getFavoritedTvShows(): LiveData<List<TvShowEntity>>
 }

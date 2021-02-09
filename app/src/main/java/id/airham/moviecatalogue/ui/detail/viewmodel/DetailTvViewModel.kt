@@ -24,4 +24,7 @@ class DetailTvViewModel(private val catalogueRepository: CatalogueRepository) : 
     }
 
     fun getTvShow(): LiveData<Resource<TvShowEntity>> = catalogueRepository.getTvShow(itemId)
+    fun setFavorite() {
+
+    }
 }

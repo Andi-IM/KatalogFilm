@@ -1,11 +1,15 @@
 <resources>
     <string name="app_name">MovieCatalogue</string>
-    <string name="title_activity_detail_content">DetailContentActivity</string>
+    <string name="title_activity_detail_movie">DetailMovieActivity</string>
+    <string name="title_activity_detail_tv_show">DetailTvShowActivity</string>
     <!-- Strings used for fragments for navigation -->
 
     <string name="dev_name">andi irham</string>
     <string name="tab_1">Movies</string>
+    <string name="title_home">Movies</string>
     <string name="tab_2">TV SHOWS</string>
+    <string name="title_tv_show">TV Show</string>
+    <string name="title_favorites">Favorite</string>
     <string name="sipnosis">Sipnosis</string>
     <string name="release_date">Tanggal Rilis : %s</string>
     <string name="airing_date">Tanggal Siaran : %s</string>

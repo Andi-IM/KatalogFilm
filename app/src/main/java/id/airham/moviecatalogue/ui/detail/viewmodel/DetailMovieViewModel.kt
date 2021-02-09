@@ -23,4 +23,7 @@ class DetailMovieViewModel(private val catalogueRepository: CatalogueRepository)
     }
 
     fun getMovie(): LiveData<Resource<MovieEntity>> = catalogueRepository.getMovie(itemId)
+    fun setFavorite() {
+
+    }
 }

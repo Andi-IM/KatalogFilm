@@ -13,16 +13,27 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MovieCatalogue"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".ui.splashscreen.SplashScreenActivity"
-                  android:theme="@style/Theme.SplashScreen">
+        <activity
+            android:name=".ui.splashscreen.SplashScreenActivity"
+            android:theme="@style/Theme.SplashScreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity
-            android:name=".ui.detail.DetailContentActivity"
-            android:label="@string/title_activity_detail_content"
+            android:name=".ui.detail.DetailMovieActivity"
+            android:label="@string/title_activity_detail_movie"
+            android:parentActivityName=".ui.home.HomeActivity"
+            android:theme="@style/Theme.MovieCatalogue.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="id.airham.moviecatalogue.ui.home.HomeActivity" />
+        </activity>
+        <activity
+            android:name=".ui.detail.DetailTvShowActivity"
+            android:label="@string/title_activity_detail_tv_show"
             android:parentActivityName=".ui.home.HomeActivity"
             android:theme="@style/Theme.MovieCatalogue.NoActionBar">
             <meta-data

@@ -25,7 +25,7 @@ class MovieAdapter : RecyclerView.Adapter<MovieAdapter.MovieViewHolder>() {
     var clickListener: ItemOnClickListener? = null
 
     interface ItemOnClickListener {
-        fun onclick(type: String, id: Int)
+        fun onclick(id: Int)
     }
 
     fun setMovies(movies: List<MovieEntity>?) {
@@ -39,11 +39,8 @@ class MovieAdapter : RecyclerView.Adapter<MovieAdapter.MovieViewHolder>() {
         viewType: Int
     ): MovieViewHolder {
         return MovieViewHolder(
-            ItemMoviesBinding.inflate(
-                LayoutInflater.from(parent.context),
-                parent,
-                false
-            )
+            ItemMoviesBinding
+                .inflate(LayoutInflater.from(parent.context), parent, false)
         )
     }
 
@@ -72,7 +69,7 @@ class MovieAdapter : RecyclerView.Adapter<MovieAdapter.MovieViewHolder>() {
 
                 if (onClick != null) {
                     itemView.setOnClickListener {
-                        onClick.onclick(movie.type, movie.id)
+                        onClick.onclick(movie.id)
                     }
                 }
 

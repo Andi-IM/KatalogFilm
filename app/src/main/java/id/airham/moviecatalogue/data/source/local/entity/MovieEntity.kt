@@ -32,6 +32,4 @@ data class MovieEntity(
 
     @ColumnInfo(name = "favorited")
     var favorited: Boolean = false,
-
-    val type : String = "movie"
 ) : Parcelable

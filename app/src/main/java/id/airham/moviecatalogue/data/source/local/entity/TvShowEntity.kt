@@ -32,6 +32,4 @@ data class TvShowEntity(
 
     @ColumnInfo(name = "favorited")
     var favorited: Boolean = false,
-
-    val type : String = "tvShow"
 ) : Parcelable
