@@ -25,16 +25,12 @@ class LocalRepository private constructor(private val mCatalogueDao: CatalogueDa
 
     fun insertMovie(movie: List<MovieEntity>) = mCatalogueDao.insertMovies(movie)
 
-    fun updateMovie(movie: MovieEntity) = mCatalogueDao.updateMovie(movie)
-
     fun getAllTvShows(): DataSource.Factory<Int, TvShowEntity> = mCatalogueDao.getTvShow()
 
     fun getFavoritedTvShows(): DataSource.Factory<Int, TvShowEntity> =
         mCatalogueDao.getFavoritedTvShow()
 
     fun insertTvShow(tvShow: List<TvShowEntity>) = mCatalogueDao.insertTvShow(tvShow)
-
-    fun updateTvShow(tvShow: TvShowEntity) = mCatalogueDao.updateTvShow(tvShow)
 
     fun setMovieFavorite(movie: MovieEntity, newState: Boolean) {
         movie.favorited = newState

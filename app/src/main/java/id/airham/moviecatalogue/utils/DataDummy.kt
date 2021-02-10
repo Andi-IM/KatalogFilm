@@ -1,3 +1,5 @@
+@file:Suppress("unused")
+
 package id.airham.moviecatalogue.utils
 
 import com.google.gson.Gson
