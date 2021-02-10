@@ -1,16 +1,23 @@
 package id.airham.moviecatalogue.data.source.remote.network
 
+import id.airham.moviecatalogue.data.source.remote.response.GetMovieDetailResponse
+import id.airham.moviecatalogue.data.source.remote.response.GetTvDetailResponse
 import id.airham.moviecatalogue.data.source.remote.response.MovieResponse
 import id.airham.moviecatalogue.data.source.remote.response.TvShowResponse
-import id.airham.moviecatalogue.utils.Keys
 import retrofit2.Call
 import retrofit2.http.GET
-import retrofit2.http.Query
+import retrofit2.http.Path
 
 interface ApiService {
     @GET("discover/movie")
-    fun getAllMovie(@Query("api_key") apiKey: String = Keys.apiKey()): Call<MovieResponse>
+    fun getAllMovie(): Call<MovieResponse>
+
+    @GET("movie/{id}")
+    fun getMovie(@Path("id") id: Int): Call<GetMovieDetailResponse>
 
     @GET("discover/tv")
-    fun getAllTvShow(@Query("api_key") apiKey: String = Keys.apiKey()): Call<TvShowResponse>
+    fun getAllTvShow(): Call<TvShowResponse>
+
+    @GET("tv/{id}")
+    fun getTVShow(@Path("id") id: Int): Call<GetTvDetailResponse>
 }

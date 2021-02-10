@@ -2,8 +2,9 @@ package id.airham.moviecatalogue.ui.movie
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
-import id.airham.moviecatalogue.data.source.local.entity.MovieEntity
+import androidx.paging.PagedList
 import id.airham.moviecatalogue.data.source.CatalogueRepository
+import id.airham.moviecatalogue.data.source.local.entity.MovieEntity
 import id.airham.moviecatalogue.vo.Resource
 
 /**
@@ -12,7 +13,7 @@ import id.airham.moviecatalogue.vo.Resource
  */
 
 class MovieViewModel(private val catalogueRepository: CatalogueRepository) : ViewModel() {
-    fun getMovies(): LiveData<Resource<List<MovieEntity>>> =
+    fun getMovies(): LiveData<Resource<PagedList<MovieEntity>>> =
         catalogueRepository.getAllMovies()
 }
 

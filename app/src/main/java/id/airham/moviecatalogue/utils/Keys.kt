@@ -1,10 +1,12 @@
 package id.airham.moviecatalogue.utils
 
 object Keys {
+    /**
+     * How to Use
+     *
+     * [var apiKey : String = String(Base64.decode(getApiKey(), Base64.DEFAULT))]
+     * */
 
-    init {
-        System.loadLibrary("native-lib")
-    }
+    external fun getApiKey(): String?
 
-    external fun apiKey(): String
 }

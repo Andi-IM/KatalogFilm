@@ -1,6 +1,7 @@
 package id.airham.moviecatalogue.data.source.local
 
 import androidx.lifecycle.LiveData
+import androidx.paging.DataSource
 import id.airham.moviecatalogue.data.source.local.entity.MovieEntity
 import id.airham.moviecatalogue.data.source.local.entity.TvShowEntity
 import id.airham.moviecatalogue.data.source.local.room.CatalogueDao
@@ -14,9 +15,10 @@ class LocalRepository private constructor(private val mCatalogueDao: CatalogueDa
             INSTANCE ?: LocalRepository(catalogueDao)
     }
 
-    fun getAllMovies(): LiveData<List<MovieEntity>> = mCatalogueDao.getMovies()
+    fun getAllMovies(): DataSource.Factory<Int, MovieEntity> = mCatalogueDao.getMovies()
 
-    fun getFavoritedMovies(): LiveData<List<MovieEntity>> = mCatalogueDao.getFavoritedMovie()
+    fun getFavoritedMovies(): DataSource.Factory<Int, MovieEntity> =
+        mCatalogueDao.getFavoritedMovie()
 
     fun getMovieById(id: Int): LiveData<MovieEntity> =
         mCatalogueDao.getMovieById(id)
@@ -25,9 +27,10 @@ class LocalRepository private constructor(private val mCatalogueDao: CatalogueDa
 
     fun updateMovie(movie: MovieEntity) = mCatalogueDao.updateMovie(movie)
 
-    fun getAllTvShows(): LiveData<List<TvShowEntity>> = mCatalogueDao.getTvShow()
+    fun getAllTvShows(): DataSource.Factory<Int, TvShowEntity> = mCatalogueDao.getTvShow()
 
-    fun getFavoritedTvShows(): LiveData<List<TvShowEntity>> = mCatalogueDao.getFavoritedTvShow()
+    fun getFavoritedTvShows(): DataSource.Factory<Int, TvShowEntity> =
+        mCatalogueDao.getFavoritedTvShow()
 
     fun insertTvShow(tvShow: List<TvShowEntity>) = mCatalogueDao.insertTvShow(tvShow)
 

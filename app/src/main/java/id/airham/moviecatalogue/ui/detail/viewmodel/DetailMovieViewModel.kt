@@ -7,7 +7,6 @@ import androidx.lifecycle.ViewModel
 import id.airham.moviecatalogue.data.source.CatalogueRepository
 import id.airham.moviecatalogue.data.source.local.entity.MovieEntity
 import id.airham.moviecatalogue.vo.Resource
-import kotlin.properties.Delegates
 
 /**
  *  Kelas ini merupakan ViewModel yang digunakan untuk mendpatkan data MovieEntity dari

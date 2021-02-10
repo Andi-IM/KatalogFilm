@@ -1,8 +1,8 @@
 package id.airham.moviecatalogue.data.source.remote.network
 
 import android.content.Context
-import id.airham.moviecatalogue.data.source.remote.response.MovieItem
-import id.airham.moviecatalogue.data.source.remote.response.TvShowItem
+import id.airham.moviecatalogue.data.source.remote.response.MovieResultsItem
+import id.airham.moviecatalogue.data.source.remote.response.TvShowResultsItem
 import okio.IOException
 import org.json.JSONException
 import org.json.JSONObject
@@ -15,18 +15,18 @@ class JsonHelper(private val context: Context) {
             `is`.read(buffer)
             `is`.close()
             String(buffer)
-        } catch (ex: IOException){
+        } catch (ex: IOException) {
             ex.printStackTrace()
             null
         }
     }
 
-    fun loadMovies(): List<MovieItem>{
-        val list = ArrayList<MovieItem>()
+    fun loadMovies(): List<MovieResultsItem> {
+        val list = ArrayList<MovieResultsItem>()
         try {
             val responseObject = JSONObject(parsingfileToString("movie_response.json").toString())
             val listArray = responseObject.getJSONArray("results")
-            for (item in 0 until listArray.length()){
+            for (item in 0 until listArray.length()) {
                 val movie = listArray.getJSONObject(item)
 
                 val id = movie.getInt("id")
@@ -36,14 +36,15 @@ class JsonHelper(private val context: Context) {
                 val releaseDate = movie.getString("release_date")
                 val voteAverage = movie.getDouble("vote_average")
 
-                val movieItem = MovieItem(
+                val movieResultsItem = MovieResultsItem(
                     id,
                     originalTitle,
                     overview,
                     posterPath,
                     releaseDate,
-                    voteAverage)
-                list.add(movieItem)
+                    voteAverage
+                )
+                list.add(movieResultsItem)
             }
         } catch (e: JSONException) {
             e.printStackTrace()
@@ -51,12 +52,12 @@ class JsonHelper(private val context: Context) {
         return list
     }
 
-    fun loadTvShows(): List<TvShowItem> {
-        val list = ArrayList<TvShowItem>()
+    fun loadTvShows(): List<TvShowResultsItem> {
+        val list = ArrayList<TvShowResultsItem>()
         try {
             val responseObject = JSONObject(parsingfileToString("tvshow_response.json").toString())
             val listArray = responseObject.getJSONArray("results")
-            for (item in 0 until listArray.length()){
+            for (item in 0 until listArray.length()) {
                 val tvShow = listArray.getJSONObject(item)
 
                 val id = tvShow.getInt("id")
@@ -66,8 +67,13 @@ class JsonHelper(private val context: Context) {
                 val posterPath = tvShow.getString("poster_path")
                 val voteAverage = tvShow.getDouble("vote_average")
 
-                val tvShowResponse = TvShowItem(
-                    id, originalName, overview, firstAirDate, posterPath, voteAverage
+                val tvShowResponse = TvShowResultsItem(
+                    id,
+                    originalName,
+                    overview,
+                    firstAirDate,
+                    posterPath,
+                    voteAverage
                 )
                 list.add(tvShowResponse)
             }
@@ -76,36 +82,4 @@ class JsonHelper(private val context: Context) {
         }
         return list
     }
-
-    fun loadMovie(id: String): List<MovieItem> {
-        val list = ArrayList<MovieItem>()
-        try {
-            val responseObject = JSONObject(parsingfileToString("movie_response.json").toString())
-            val listArray = responseObject.getJSONArray("results")
-            for (item in 0 until listArray.length()){
-                val movie = listArray.getJSONObject(item)
-
-                val id = movie.getInt("id")
-                val originalTitle = movie.getString("original_title")
-                val overview = movie.getString("overview")
-                val posterPath = movie.getString("poster_path")
-                val releaseDate = movie.getString("release_date")
-                val voteAverage = movie.getDouble("vote_average")
-
-                val movieItem = MovieItem(
-                    id,
-                    originalTitle,
-                    overview,
-                    posterPath,
-                    releaseDate,
-                    voteAverage)
-                list.add(movieItem)
-            }
-        } catch (e: JSONException) {
-            e.printStackTrace()
-        }
-        return list
-    }
-
-
 }

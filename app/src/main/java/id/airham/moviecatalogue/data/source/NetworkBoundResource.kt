@@ -2,8 +2,8 @@ package id.airham.moviecatalogue.data.source
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData
-import id.airham.moviecatalogue.data.source.remote.StatusResponse
 import id.airham.moviecatalogue.data.source.remote.ApiResponse
+import id.airham.moviecatalogue.data.source.remote.StatusResponse
 import id.airham.moviecatalogue.utils.AppExecutors
 import id.airham.moviecatalogue.vo.Resource
 
@@ -29,7 +29,7 @@ abstract class NetworkBoundResource<ResultType, RequestType>(private val mExecut
         }
     }
 
-    protected fun onFetchFailed() {}
+    private fun onFetchFailed() {}
 
     protected abstract fun loadFromDB(): LiveData<ResultType>
 

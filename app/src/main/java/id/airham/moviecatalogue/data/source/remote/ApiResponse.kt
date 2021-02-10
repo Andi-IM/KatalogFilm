@@ -1,8 +1,8 @@
+@file:Suppress("unused", "unused")
+
 package id.airham.moviecatalogue.data.source.remote
 
-import id.airham.moviecatalogue.data.source.remote.StatusResponse.ERROR
-import id.airham.moviecatalogue.data.source.remote.StatusResponse.SUCCESS
-import id.airham.moviecatalogue.data.source.remote.StatusResponse.EMPTY
+import id.airham.moviecatalogue.data.source.remote.StatusResponse.*
 
 class ApiResponse<T>(val status: StatusResponse, val body: T, val message: String?) {
     companion object {
