@@ -12,9 +12,12 @@ import org.junit.Assert.assertNotNull
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
+import org.junit.runner.RunWith
 import org.mockito.Mock
 import org.mockito.Mockito.`when`
+import org.mockito.junit.MockitoJUnitRunner
 
+@RunWith(MockitoJUnitRunner::class)
 class FavMovieViewModelTest {
 
     private lateinit var viewModel: FavMovieViewModel
@@ -39,15 +42,16 @@ class FavMovieViewModelTest {
     @Test
     fun getFavoriteMovie() {
         val dummyMovies = pagedList
-        `when`(dummyMovies.size).thenReturn(0)
+        `when`(dummyMovies.size).thenReturn(20)
         val movies = MutableLiveData<PagedList<MovieEntity>>()
         movies.value = dummyMovies
 
         `when`(catalogueRepository.getFavoritedMovies()).thenReturn(movies)
         val movieEntities = viewModel.getFavorites().value
+
         verify(catalogueRepository).getFavoritedMovies()
         assertNotNull(movieEntities)
-        assertEquals(0, movieEntities?.size)
+        assertEquals(20, movieEntities?.size)
 
         viewModel.getFavorites().observeForever(observer)
         verify(observer).onChanged(dummyMovies)

@@ -63,7 +63,7 @@ class CatalogueRepositoryTest {
     fun getFavoritedMovies() {
         val dataSourceFactory =
             mock(DataSource.Factory::class.java) as DataSource.Factory<Int, MovieEntity>
-        `when`(local.getAllMovies()).thenReturn(dataSourceFactory)
+        `when`(local.getFavoritedMovies()).thenReturn(dataSourceFactory)
         catalogueRepository.getFavoritedMovies()
 
         val movieEntities = Resource.success(mockPagedList(DataDummy.generateMovies()))
@@ -77,7 +77,7 @@ class CatalogueRepositoryTest {
     fun getFavoritedTvShows() {
         val dataSourceFactory =
             mock(DataSource.Factory::class.java) as DataSource.Factory<Int, TvShowEntity>
-        `when`(local.getAllTvShows()).thenReturn(dataSourceFactory)
+        `when`(local.getFavoritedTvShows()).thenReturn(dataSourceFactory)
         catalogueRepository.getFavoritedTvShows()
 
         val tvShowEntities = Resource.success(mockPagedList(DataDummy.generateTvs()))

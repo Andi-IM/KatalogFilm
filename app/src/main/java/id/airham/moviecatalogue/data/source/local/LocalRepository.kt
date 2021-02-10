@@ -20,8 +20,7 @@ class LocalRepository private constructor(private val mCatalogueDao: CatalogueDa
     fun getFavoritedMovies(): DataSource.Factory<Int, MovieEntity> =
         mCatalogueDao.getFavoritedMovie()
 
-    fun getMovieById(id: Int): LiveData<MovieEntity> =
-        mCatalogueDao.getMovieById(id)
+    fun getMovieById(id: Int): LiveData<MovieEntity> = mCatalogueDao.getMovieById(id)
 
     fun insertMovie(movie: List<MovieEntity>) = mCatalogueDao.insertMovies(movie)
 
