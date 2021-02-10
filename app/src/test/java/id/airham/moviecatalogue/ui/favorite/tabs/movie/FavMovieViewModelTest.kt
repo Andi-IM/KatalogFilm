@@ -1,4 +1,4 @@
-package id.airham.moviecatalogue.ui.movie
+package id.airham.moviecatalogue.ui.favorite.tabs.movie
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.MutableLiveData
@@ -7,7 +7,6 @@ import androidx.paging.PagedList
 import com.nhaarman.mockitokotlin2.verify
 import id.airham.moviecatalogue.data.source.CatalogueRepository
 import id.airham.moviecatalogue.data.source.local.entity.MovieEntity
-import id.airham.moviecatalogue.vo.Resource
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertNotNull
 import org.junit.Before
@@ -18,16 +17,9 @@ import org.mockito.Mock
 import org.mockito.Mockito.`when`
 import org.mockito.junit.MockitoJUnitRunner
 
-/**
- *  Test Case pada MovieViewModel
- *  -> Memastikan data movies tidak null.
- *  -> Memastikan jumlah data movie sesuai dengan yang diharapkan.
- */
-
 @RunWith(MockitoJUnitRunner::class)
-class MovieViewModelTest {
-
-    private lateinit var viewModel: MovieViewModel
+class FavMovieViewModelTest {
+    private lateinit var viewModel: FavMovieViewModel
 
     @get:Rule
     var instantTaskExecutorRule = InstantTaskExecutorRule()
@@ -36,30 +28,31 @@ class MovieViewModelTest {
     private lateinit var catalogueRepository: CatalogueRepository
 
     @Mock
-    private lateinit var observer: Observer<Resource<PagedList<MovieEntity>>>
+    private lateinit var observer: Observer<PagedList<MovieEntity>>
 
     @Mock
     private lateinit var pagedList: PagedList<MovieEntity>
 
     @Before
     fun setUp() {
-        viewModel = MovieViewModel(catalogueRepository)
+        viewModel = FavMovieViewModel(catalogueRepository)
     }
 
     @Test
-    fun getMovies() {
-        val dummyMovies = Resource.success(pagedList)
-        `when`(dummyMovies.data?.size).thenReturn(20)
-        val movies = MutableLiveData<Resource<PagedList<MovieEntity>>>()
+    fun getFavoritedMovies() {
+        val dummyMovies = pagedList
+        `when`(dummyMovies.size).thenReturn(20)
+        val movies = MutableLiveData<PagedList<MovieEntity>>()
         movies.value = dummyMovies
 
-        `when`(catalogueRepository.getAllMovies()).thenReturn(movies)
-        val movieEntity = viewModel.getMovies().value?.data
-        verify(catalogueRepository).getAllMovies()
-        assertNotNull(movieEntity)
-        assertEquals(20, movieEntity?.size)
+        `when`(catalogueRepository.getFavoritedMovies()).thenReturn(movies)
+        val movieEntities = viewModel.getFavorites().value
 
-        viewModel.getMovies().observeForever(observer)
+        verify(catalogueRepository).getFavoritedMovies()
+        assertNotNull(movieEntities)
+        assertEquals(20, movieEntities?.size)
+
+        viewModel.getFavorites().observeForever(observer)
         verify(observer).onChanged(dummyMovies)
     }
 }
