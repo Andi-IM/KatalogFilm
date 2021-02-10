@@ -1,6 +1,5 @@
 package id.airham.moviecatalogue.data.source.remote.network
 
-import android.util.Base64
 import id.airham.moviecatalogue.utils.Keys.getApiKey
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
@@ -10,7 +9,6 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 class ApiConfig {
     companion object {
-        private val key = String(Base64.decode(getApiKey(), Base64.DEFAULT))
 
         fun getApiService(): ApiService {
             val loggingInterceptor = HttpLoggingInterceptor()
@@ -20,7 +18,7 @@ class ApiConfig {
                 val original = chain.request()
                 val originalHttpUrl = original.url
                 val url = originalHttpUrl.newBuilder()
-                    .addQueryParameter("api_key", key)
+                    .addQueryParameter("api_key", getApiKey())
                     .build()
 
                 val requestBuilder = original.newBuilder().url(url)
