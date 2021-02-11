@@ -1,5 +1,6 @@
 package id.airham.moviecatalogue.ui.favorite.tabs.tvshow
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -8,6 +9,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import id.airham.moviecatalogue.databinding.FavTvFragmentBinding
+import id.airham.moviecatalogue.ui.detail.DetailTvShowActivity
 import id.airham.moviecatalogue.ui.tvshow.TvShowAdapter
 import id.airham.moviecatalogue.viewmodel.ViewModelFactory
 
@@ -35,13 +37,29 @@ class FavTvFragment : Fragment() {
         binding?.progressBar?.visibility = View.VISIBLE
         viewModel.getFavorites().observe(viewLifecycleOwner, { tvShows ->
             binding?.progressBar?.visibility = View.GONE
-            adapter.setTvShows(tvShows)
+            adapter.submitList(tvShows)
+            adapter.clickListener =
+                (object : TvShowAdapter.ItemOnClickListener {
+                    override fun onclick(id: Int) {
+                        val intent =
+                            Intent(context, DetailTvShowActivity::class.java)
+                        intent.putExtra(DetailTvShowActivity.EXTRA_ID, id)
+                        startActivity(intent)
+                    }
+                })
             adapter.notifyDataSetChanged()
         })
 
-        binding?.rvFavTvShow?.layoutManager = LinearLayoutManager(context)
-        binding?.rvFavTvShow?.setHasFixedSize(true)
-        binding?.rvFavTvShow?.adapter = adapter
+        with(binding?.rvFavTvShow) {
+            this?.layoutManager = LinearLayoutManager(context)
+            this?.setHasFixedSize(true)
+            this?.adapter = adapter
+        }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        _favTvFragmentBinding = null
     }
 
 }

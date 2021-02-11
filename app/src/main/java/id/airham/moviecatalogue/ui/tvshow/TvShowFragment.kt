@@ -9,7 +9,6 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import id.airham.moviecatalogue.databinding.FragmentTvShowBinding
-import id.airham.moviecatalogue.ui.detail.DetailMovieActivity
 import id.airham.moviecatalogue.ui.detail.DetailTvShowActivity
 import id.airham.moviecatalogue.utils.Notify.showToast
 import id.airham.moviecatalogue.viewmodel.ViewModelFactory
@@ -20,16 +19,17 @@ import id.airham.moviecatalogue.vo.Status
  */
 
 class TvShowFragment : Fragment() {
-    private lateinit var fragmentTvShowBinding: FragmentTvShowBinding
+    private var _fragmentTvShowBinding: FragmentTvShowBinding? = null
+    private val binding get() = _fragmentTvShowBinding
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View {
-        fragmentTvShowBinding = FragmentTvShowBinding
+    ): View? {
+        _fragmentTvShowBinding = FragmentTvShowBinding
             .inflate(layoutInflater, container, false)
-        return fragmentTvShowBinding.root
+        return binding?.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -42,35 +42,40 @@ class TvShowFragment : Fragment() {
             viewModel.getTvShows().observe(viewLifecycleOwner, { movies ->
                 if (movies != null) {
                     when (movies.status) {
-                        Status.LOADING -> fragmentTvShowBinding.progressBar.visibility =
+                        Status.LOADING -> binding?.progressBar?.visibility =
                             View.VISIBLE
                         Status.SUCCESS -> {
-                            fragmentTvShowBinding.progressBar.visibility = View.GONE
-                            tvShowAdapter.setTvShows(movies.data)
+                            binding?.progressBar?.visibility = View.GONE
+                            tvShowAdapter.submitList(movies.data)
                             tvShowAdapter.clickListener =
                                 (object : TvShowAdapter.ItemOnClickListener {
                                     override fun onclick(id: Int) {
                                         val intent =
                                             Intent(context, DetailTvShowActivity::class.java)
-                                        intent.putExtra(DetailMovieActivity.EXTRA_ID, id)
+                                        intent.putExtra(DetailTvShowActivity.EXTRA_ID, id)
                                         startActivity(intent)
                                     }
                                 })
                             tvShowAdapter.notifyDataSetChanged()
                         }
                         Status.ERROR -> {
-                            fragmentTvShowBinding.progressBar.visibility = View.GONE
+                            binding?.progressBar?.visibility = View.GONE
                             showToast(context, "Something Error")
                         }
                     }
                 }
             })
 
-            with(fragmentTvShowBinding.rvTvShow) {
-                layoutManager = LinearLayoutManager(context)
-                setHasFixedSize(true)
-                adapter = tvShowAdapter
+            with(binding?.rvTvShow) {
+                this?.layoutManager = LinearLayoutManager(context)
+                this?.setHasFixedSize(true)
+                this?.adapter = tvShowAdapter
             }
         }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        _fragmentTvShowBinding = null
     }
 }

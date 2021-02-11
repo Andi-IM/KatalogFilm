@@ -19,21 +19,21 @@ import id.airham.moviecatalogue.vo.Status
  * Ini merupakan Fragment yang hanya menampilkan daftar film
  */
 class MovieFragment : Fragment() {
-    private lateinit var fragmentMoviesBinding: FragmentMovieBinding
+
+    private var _fragmentMoviesBinding: FragmentMovieBinding? = null
+    private val binding get() = _fragmentMoviesBinding
 
     override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        fragmentMoviesBinding = FragmentMovieBinding
-            .inflate(layoutInflater, container, false)
-        return fragmentMoviesBinding.root
+        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
+    ): View? {
+        _fragmentMoviesBinding = FragmentMovieBinding.inflate(layoutInflater, container, false)
+        return binding?.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         if (activity != null) {
+
             val factory = ViewModelFactory.getInstance(requireActivity())
             val viewModel = ViewModelProvider(this, factory)[MovieViewModel::class.java]
 
@@ -41,11 +41,10 @@ class MovieFragment : Fragment() {
             viewModel.getMovies().observe(viewLifecycleOwner, { movies ->
                 if (movies != null) {
                     when (movies.status) {
-                        Status.LOADING -> fragmentMoviesBinding.progressBar.visibility =
-                            View.VISIBLE
+                        Status.LOADING -> binding?.progressBar?.visibility = View.VISIBLE
                         Status.SUCCESS -> {
-                            fragmentMoviesBinding.progressBar.visibility = View.GONE
-                            movieAdapter.setMovies(movies.data)
+                            binding?.progressBar?.visibility = View.GONE
+                            movieAdapter.submitList(movies.data)
                             movieAdapter.clickListener =
                                 (object : MovieAdapter.ItemOnClickListener {
                                     override fun onclick(id: Int) {
@@ -58,18 +57,23 @@ class MovieFragment : Fragment() {
                             movieAdapter.notifyDataSetChanged()
                         }
                         Status.ERROR -> {
-                            fragmentMoviesBinding.progressBar.visibility = View.GONE
+                            binding?.progressBar?.visibility = View.GONE
                             showToast(context, "Something Error")
                         }
                     }
                 }
             })
 
-            with(fragmentMoviesBinding.rvMovie) {
-                layoutManager = LinearLayoutManager(context)
-                setHasFixedSize(true)
-                adapter = movieAdapter
+            with(binding?.rvMovie) {
+                this?.layoutManager = LinearLayoutManager(context)
+                this?.setHasFixedSize(true)
+                this?.adapter = movieAdapter
             }
         }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        _fragmentMoviesBinding = null
     }
 }

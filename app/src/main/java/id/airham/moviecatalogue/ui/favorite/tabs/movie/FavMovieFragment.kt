@@ -1,13 +1,15 @@
 package id.airham.moviecatalogue.ui.favorite.tabs.movie
 
-import androidx.lifecycle.ViewModelProvider
+import android.content.Intent
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import id.airham.moviecatalogue.databinding.FavMovieFragmentBinding
+import id.airham.moviecatalogue.ui.detail.DetailMovieActivity
 import id.airham.moviecatalogue.ui.movie.MovieAdapter
 import id.airham.moviecatalogue.viewmodel.ViewModelFactory
 
@@ -33,16 +35,32 @@ class FavMovieFragment : Fragment() {
 
             val adapter = MovieAdapter()
             binding?.progressBar?.visibility = View.VISIBLE
-            viewModel.getFavorites().observe(viewLifecycleOwner, {movies ->
+            viewModel.getFavorites().observe(viewLifecycleOwner, { movies ->
                 binding?.progressBar?.visibility = View.GONE
-                adapter.setMovies(movies)
+                adapter.submitList(movies)
+                adapter.clickListener = object : MovieAdapter.ItemOnClickListener {
+                    override fun onclick(id: Int) {
+                        val intent =
+                            Intent(context, DetailMovieActivity::class.java)
+                        intent.putExtra(DetailMovieActivity.EXTRA_ID, id)
+                        startActivity(intent)
+                    }
+
+                }
                 adapter.notifyDataSetChanged()
             })
 
-            binding?.rvFavMovie?.layoutManager = LinearLayoutManager(context)
-            binding?.rvFavMovie?.setHasFixedSize(true)
-            binding?.rvFavMovie?.adapter = adapter
+            with(binding?.rvFavMovie) {
+                this?.layoutManager = LinearLayoutManager(context)
+                this?.setHasFixedSize(true)
+                this?.adapter = adapter
+            }
         }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        _favMovieFragmentBinding = null
     }
 
 }

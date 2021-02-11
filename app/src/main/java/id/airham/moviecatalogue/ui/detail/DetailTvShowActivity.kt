@@ -80,12 +80,10 @@ class DetailTvShowActivity : AppCompatActivity() {
             Glide.with(this)
                 .load("https://image.tmdb.org/t/p/w342/${tvShowEntity.posterPath}")
                 .apply(
-                    RequestOptions
-                        .placeholderOf(R.drawable.ic_loading)
+                    RequestOptions.placeholderOf(R.drawable.ic_loading)
                         .error(R.drawable.ic_error)
                         .override(132, 198)
-                )
-                .into(it)
+                ).into(it)
         }
     }
 

@@ -82,8 +82,8 @@ class DetailMovieActivity : AppCompatActivity() {
                 .apply(
                     RequestOptions.placeholderOf(R.drawable.ic_loading)
                         .error(R.drawable.ic_error)
-                )
-                .into(it)
+                        .override(132, 198)
+                ).into(it)
         }
     }
 

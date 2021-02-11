@@ -20,12 +20,23 @@ object DataDummy {
 
         movies.add(
             MovieEntity(
-                775996,
-                "Outside the Wire",
-                "In the near future, a drone pilot is sent into a deadly militarized zone and must work with an android officer to locate a doomsday device.",
-                "/e6SK2CAbO3ENy52UTzP3lv32peC.jpg",
-                "2021-01-15",
-                6.5
+                373571,
+                "Godzilla: King of the Monsters",
+                "Follows the heroic efforts of the crypto-zoological agency Monarch as its members face off against a battery of god-sized monsters, including the mighty Godzilla, who collides with Mothra, Rodan, and his ultimate nemesis, the three-headed King Ghidorah. When these ancient super-species, thought to be mere myths, rise again, they all vie for supremacy, leaving humanity's very existence hanging in the balance.",
+                "/mzOHg7Q5q9yUmY0b9Esu8Qe6Nnm.jpg",
+                "2019-05-29",
+                6.6
+            )
+        )
+
+        movies.add(
+            MovieEntity(
+                399566,
+                "Godzilla vs. Kong",
+                "In a time when monsters walk the Earth, humanity’s fight for its future sets Godzilla and Kong on a collision course that will see the two most powerful forces of nature on the planet collide in a spectacular battle for the ages.",
+                "/soM5eNHxxS3a0AqgvDgm2djJXZp.jpg",
+                "2021-03-25",
+                0.0
             )
         )
 
@@ -39,6 +50,29 @@ object DataDummy {
                 7.0
             )
         )
+
+        movies.add(
+            MovieEntity(
+                495764,
+                "Birds of Prey (and the Fantabulous Emancipation of One Harley Quinn)",
+                "Harley Quinn joins forces with a singer, an assassin and a police detective to help a young girl who had a hit placed on her after she stole a rare diamond from a crime lord.",
+                "/h4VB6m0RwcicVEZvzftYZyKXs6K.jpg",
+                "2020-02-05",
+                7.1
+            )
+        )
+
+        movies.add(
+            MovieEntity(
+                775996,
+                "Outside the Wire",
+                "In the near future, a drone pilot is sent into a deadly militarized zone and must work with an android officer to locate a doomsday device.",
+                "/e6SK2CAbO3ENy52UTzP3lv32peC.jpg",
+                "2021-01-15",
+                6.5
+            )
+        )
+
 
         movies.add(
             MovieEntity(
@@ -70,28 +104,6 @@ object DataDummy {
                 "/2W4ZvACURDyhiNnSIaFPHfNbny3.jpg",
                 "2020-10-25",
                 5.8
-            )
-        )
-
-        movies.add(
-            MovieEntity(
-                373571,
-                "Godzilla: King of the Monsters",
-                "Follows the heroic efforts of the crypto-zoological agency Monarch as its members face off against a battery of god-sized monsters, including the mighty Godzilla, who collides with Mothra, Rodan, and his ultimate nemesis, the three-headed King Ghidorah. When these ancient super-species, thought to be mere myths, rise again, they all vie for supremacy, leaving humanity's very existence hanging in the balance.",
-                "/mzOHg7Q5q9yUmY0b9Esu8Qe6Nnm.jpg",
-                "2019-05-29",
-                6.6
-            )
-        )
-
-        movies.add(
-            MovieEntity(
-                399566,
-                "Godzilla vs. Kong",
-                "In a time when monsters walk the Earth, humanity’s fight for its future sets Godzilla and Kong on a collision course that will see the two most powerful forces of nature on the planet collide in a spectacular battle for the ages.",
-                "/soM5eNHxxS3a0AqgvDgm2djJXZp.jpg",
-                "2021-03-25",
-                0.0
             )
         )
 
@@ -163,17 +175,6 @@ object DataDummy {
 
         movies.add(
             MovieEntity(
-                495764,
-                "Birds of Prey (and the Fantabulous Emancipation of One Harley Quinn)",
-                "Harley Quinn joins forces with a singer, an assassin and a police detective to help a young girl who had a hit placed on her after she stole a rare diamond from a crime lord.",
-                "/h4VB6m0RwcicVEZvzftYZyKXs6K.jpg",
-                "2020-02-05",
-                7.1
-            )
-        )
-
-        movies.add(
-            MovieEntity(
                 520946,
                 "100% Wolf",
                 "Freddy Lupin, heir to a proud family line of werewolves, is in for a shock when on his 14th birthday his first 'warfing' goes awry, turning him into a ferocious poodle. The pack elders give Freddy until the next moonrise to prove he has the heart of a wolf, or risk being cast out forever. With the help of an unlikely ally in a streetwise stray named Batty, Freddy must prove he's 100% Wolf.",
@@ -232,6 +233,17 @@ object DataDummy {
 
     fun generateTvs(): List<TvShowEntity> {
         val tv = ArrayList<TvShowEntity>()
+
+        tv.add(
+            TvShowEntity(
+                1416,
+                "Grey's Anatomy",
+                "Follows the personal and professional lives of a group of doctors at Seattle’s Grey Sloan Memorial Hospital.",
+                "/clnyhPqj1SNgpAdeSS6a6fwE6Bo.jpg",
+                "2005-03-27",
+                8.2
+            )
+        )
 
         tv.add(
             TvShowEntity(
@@ -343,17 +355,6 @@ object DataDummy {
                 "/sgxawbFB5Vi5OkPWQLNfl3dvkNJ.jpg",
                 "2021-01-08",
                 8.0
-            )
-        )
-
-        tv.add(
-            TvShowEntity(
-                1416,
-                "Grey's Anatomy",
-                "Follows the personal and professional lives of a group of doctors at Seattle’s Grey Sloan Memorial Hospital.",
-                "/clnyhPqj1SNgpAdeSS6a6fwE6Bo.jpg",
-                "2005-03-27",
-                8.2
             )
         )
 
