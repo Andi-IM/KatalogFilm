@@ -18,6 +18,7 @@ import id.airham.moviecatalogue.vo.Resource
  */
 class DetailMovieViewModel(private val catalogueRepository: CatalogueRepository) : ViewModel() {
     private var itemId = MutableLiveData<Int>()
+
     fun setSelectedItem(itemId: Int) {
         this.itemId.value = itemId
     }

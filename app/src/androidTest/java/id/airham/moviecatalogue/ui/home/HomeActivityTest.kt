@@ -4,9 +4,7 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.test.core.app.ActivityScenario
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.IdlingRegistry
-import androidx.test.espresso.action.ViewActions
-import androidx.test.espresso.action.ViewActions.click
-import androidx.test.espresso.action.ViewActions.swipeLeft
+import androidx.test.espresso.action.ViewActions.*
 import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.contrib.RecyclerViewActions.actionOnItemAtPosition
 import androidx.test.espresso.contrib.RecyclerViewActions.scrollToPosition
@@ -153,7 +151,7 @@ class HomeActivityTest {
         )
         onView(withId(R.id.action_favorite)).perform(click())
         onView(withId(R.id.action_favorite)).check(matches(isEnabled()))
-        onView(isRoot()).perform(ViewActions.pressBack())
+        onView(isRoot()).perform(pressBack())
         onView(withId(R.id.navigation_favorite)).perform(click())
         onView(withId(R.id.rv_fav_movie)).check(matches(isDisplayed()))
         onView(withId(R.id.rv_fav_movie)).perform(
@@ -164,35 +162,41 @@ class HomeActivityTest {
         )
         onView(withId(R.id.action_favorite)).perform(click())
         onView(withId(R.id.action_favorite)).check(matches(isEnabled()))
-        onView(isRoot()).perform(ViewActions.pressBack())
+        onView(isRoot()).perform(pressBack())
         onView(withId(R.id.rv_fav_movie)).check(matches(isDisplayed()))
     }
 
     @Test
     fun tvShowFavoriteTest() {
         onView(withId(R.id.navigation_tv_show)).perform(click())
-        onView(withId(R.id.navigation_tv_show)).check(matches(isDisplayed()))
         onView(withId(R.id.rv_tv_show)).perform(
             actionOnItemAtPosition<RecyclerView.ViewHolder>(
-                FIRST_ITEM,
+                0,
                 click()
             )
         )
+        onView(withId(R.id.action_favorite)).check(matches(isDisplayed()))
         onView(withId(R.id.action_favorite)).perform(click())
         onView(withId(R.id.action_favorite)).check(matches(isEnabled()))
-        onView(isRoot()).perform(ViewActions.pressBack())
+        onView(isRoot()).perform(pressBack())
         onView(withId(R.id.navigation_favorite)).perform(click())
+
         onView(withId(R.id.view_pager)).perform(swipeLeft())
         onView(withId(R.id.rv_fav_tv_show)).check(matches(isDisplayed()))
         onView(withId(R.id.rv_fav_tv_show)).perform(
             actionOnItemAtPosition<RecyclerView.ViewHolder>(
-                FIRST_ITEM,
+                0,
                 click()
             )
         )
+
+        /*onView(withId(R.id.name)).check(matches(isDisplayed()))
+        onView(withId(R.id.poster)).check(matches(isDisplayed()))
+
         onView(withId(R.id.action_favorite)).perform(click())
         onView(withId(R.id.action_favorite)).check(matches(isEnabled()))
-        onView(isRoot()).perform(ViewActions.pressBack())
-        onView(withId(R.id.rv_fav_tv_show)).check(matches(isDisplayed()))
+        onView(isRoot()).perform(pressBack())
+        onView(withId(R.id.navigation_favorite)).perform(swipeLeft())
+        onView(withId(R.id.rv_fav_tv_show)).check(matches(isDisplayed()))*/
     }
 }

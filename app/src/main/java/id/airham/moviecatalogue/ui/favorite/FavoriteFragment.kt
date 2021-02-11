@@ -9,22 +9,30 @@ import id.airham.moviecatalogue.databinding.FragmentFavoriteBinding
 
 class FavoriteFragment : Fragment() {
 
-    private lateinit var binding: FragmentFavoriteBinding
+    private var _fragmentFavoriteBinding: FragmentFavoriteBinding? = null
+    private val binding get() = _fragmentFavoriteBinding
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View {
+    ): View? {
         // Inflate the layout for this fragment
-        binding = FragmentFavoriteBinding.inflate(layoutInflater, container, false)
-        return binding.root
+        _fragmentFavoriteBinding = FragmentFavoriteBinding.inflate(layoutInflater, container, false)
+        return binding?.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         if (activity != null) {
-            val sectionPagerAdapter = SectionsPagerAdapter(binding.root.context, childFragmentManager)
-            binding.viewPager.adapter = sectionPagerAdapter
-            binding.tabLayout.setupWithViewPager(binding.viewPager)
+            val sectionPagerAdapter =
+                SectionsPagerAdapter(binding?.root?.context!!, childFragmentManager)
+            binding?.viewPager?.adapter = sectionPagerAdapter
+            binding?.tabLayout?.setupWithViewPager(binding?.viewPager)
         }
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _fragmentFavoriteBinding = null
     }
 }

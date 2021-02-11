@@ -30,6 +30,7 @@ class DetailMovieActivity : AppCompatActivity() {
     }
 
     private var _activityDetailMovieBinding: ActivityDetailMovieBinding? = null
+
     private val mainBinding get() = _activityDetailMovieBinding
     private val contentBinding get() = _activityDetailMovieBinding?.detailItem
 

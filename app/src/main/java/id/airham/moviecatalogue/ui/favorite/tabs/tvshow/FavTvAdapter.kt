@@ -1,4 +1,4 @@
-package id.airham.moviecatalogue.ui.tvshow
+package id.airham.moviecatalogue.ui.favorite.tabs.tvshow
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -11,19 +11,8 @@ import id.airham.moviecatalogue.R
 import id.airham.moviecatalogue.data.source.local.entity.TvShowEntity
 import id.airham.moviecatalogue.databinding.ItemTvShowsBinding
 
-/**
- *  Kelas ini merupakan adapter untuk recyclerview yang ditampilkan pada TvShowFragment.
- *  Item yang ditampilkan diambil dari item_tv_show berupa ringkasan dari siaran Tv.
- *
- *  Sebelum ditampilkan, listMovies dikosongkan terlebih dahulu sebelum diisi oleh data
- *  dari TvShowEntity.
- *
- *  Item yang dapat diklik berasal dari itemview.setOnClickListener, sehingga item dapat melakukan
- *  intent dari HomeActivity (induknya) menuju DetailContentActivty.
- */
-
-class TvShowAdapter :
-    PagedListAdapter<TvShowEntity, TvShowAdapter.TvShowViewHolder>(DIFF_CALLBACK) {
+class FavTvAdapter :
+    PagedListAdapter<TvShowEntity, FavTvAdapter.FavViewHolder>(DIFF_CALLBACK) {
     companion object {
         private val DIFF_CALLBACK = object : DiffUtil.ItemCallback<TvShowEntity>() {
             override fun areItemsTheSame(oldItem: TvShowEntity, newItem: TvShowEntity): Boolean {
@@ -43,28 +32,7 @@ class TvShowAdapter :
         fun onclick(id: Int)
     }
 
-    override fun onCreateViewHolder(
-        parent: ViewGroup,
-        viewType: Int
-    ): TvShowAdapter.TvShowViewHolder {
-        return TvShowViewHolder(
-            ItemTvShowsBinding.inflate(
-                LayoutInflater.from(parent.context),
-                parent,
-                false
-            )
-        )
-    }
-
-    override fun onBindViewHolder(holder: TvShowViewHolder, position: Int) {
-        val tvShow = getItem(position)
-        if (tvShow != null) {
-            holder.bind(tvShow, clickListener)
-        }
-
-    }
-
-    inner class TvShowViewHolder(private val binding: ItemTvShowsBinding) :
+    class FavViewHolder(private val binding: ItemTvShowsBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(tvShow: TvShowEntity, onClick: ItemOnClickListener?) {
             with(binding) {
@@ -72,13 +40,14 @@ class TvShowAdapter :
                 val getStarRating = 5 * (tvShow.voteAverage.toFloat() / 10)
                 tvRating.rating = getStarRating
                 tvAiringDate.text =
-                    itemView.context.resources.getString(R.string.airing_date, tvShow.firstAirDate)
+                    itemView.resources.getString(R.string.release_date, tvShow.firstAirDate)
                 Glide.with(itemView.context)
                     .load("https://image.tmdb.org/t/p/w342/${tvShow.posterPath}")
                     .apply(
                         RequestOptions.placeholderOf(R.drawable.ic_loading)
                             .error(R.drawable.ic_error)
-                    ).into(tvImage)
+                    )
+                    .into(tvImage)
 
                 if (onClick != null) {
                     itemView.setOnClickListener {
@@ -88,4 +57,22 @@ class TvShowAdapter :
             }
         }
     }
+
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FavViewHolder =
+        FavViewHolder(
+            ItemTvShowsBinding.inflate(
+                LayoutInflater.from(parent.context),
+                parent,
+                false
+            )
+        )
+
+    override fun onBindViewHolder(holder: FavViewHolder, position: Int) {
+        val movie = getItem(position)
+        if (movie != null) {
+            holder.bind(movie, clickListener)
+        }
+    }
+
+    fun getSwipedData(swipedPosition: Int): TvShowEntity? = getItem(swipedPosition)
 }

@@ -29,7 +29,7 @@
 
         <include
             android:id="@+id/detail_item"
-            layout="@layout/content_detail_content" />
+            layout="@layout/content_detail_tv_show" />
 
     </androidx.core.widget.NestedScrollView>
 

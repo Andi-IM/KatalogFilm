@@ -1,4 +1,4 @@
-package id.airham.moviecatalogue.ui.movie
+package id.airham.moviecatalogue.ui.favorite.tabs.movie
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -11,18 +11,8 @@ import id.airham.moviecatalogue.R
 import id.airham.moviecatalogue.data.source.local.entity.MovieEntity
 import id.airham.moviecatalogue.databinding.ItemMoviesBinding
 
-/**
- *  Kelas ini merupakan adapter untuk recyclerview yang ditampilkan pada MovieFragment.
- *  Item yang ditampilkan diambil dari item_movie berupa ringkasan dari film.
- *
- *  Sebelum ditampilkan, listMovies dikosongkan terlebih dahulu sebelum diisi oleh data
- *  dari MovieEntity.
- *
- *  Item yang dapat diklik berasal dari itemview.setOnClickListener, sehingga item dapat melakukan
- *  intent dari HomeActivity (induknya) menuju DetailContentActivty.
- */
-
-class MovieAdapter : PagedListAdapter<MovieEntity, MovieAdapter.MovieViewHolder>(DIFF_CALLBACK) {
+class FavMovieAdapter :
+    PagedListAdapter<MovieEntity, FavMovieAdapter.FavViewHolder>(DIFF_CALLBACK) {
     companion object {
         private val DIFF_CALLBACK = object : DiffUtil.ItemCallback<MovieEntity>() {
             override fun areItemsTheSame(oldItem: MovieEntity, newItem: MovieEntity): Boolean {
@@ -42,24 +32,7 @@ class MovieAdapter : PagedListAdapter<MovieEntity, MovieAdapter.MovieViewHolder>
         fun onclick(id: Int)
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MovieViewHolder {
-        return MovieViewHolder(
-            ItemMoviesBinding.inflate(
-                LayoutInflater.from(parent.context),
-                parent,
-                false
-            )
-        )
-    }
-
-    override fun onBindViewHolder(holder: MovieViewHolder, position: Int) {
-        val movie = getItem(position)
-        if (movie != null) {
-            holder.bind(movie, clickListener)
-        }
-    }
-
-    inner class MovieViewHolder(private val binding: ItemMoviesBinding) :
+    class FavViewHolder(private val binding: ItemMoviesBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(movie: MovieEntity, onClick: ItemOnClickListener?) {
             with(binding) {
@@ -81,9 +54,19 @@ class MovieAdapter : PagedListAdapter<MovieEntity, MovieAdapter.MovieViewHolder>
                         onClick.onclick(movie.id)
                     }
                 }
-
             }
         }
     }
-}
 
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FavViewHolder =
+        FavViewHolder(ItemMoviesBinding.inflate(LayoutInflater.from(parent.context), parent, false))
+
+    override fun onBindViewHolder(holder: FavViewHolder, position: Int) {
+        val movie = getItem(position)
+        if (movie != null) {
+            holder.bind(movie, clickListener)
+        }
+    }
+
+    fun getSwipedData(swipedPosition: Int): MovieEntity? = getItem(swipedPosition)
+}
