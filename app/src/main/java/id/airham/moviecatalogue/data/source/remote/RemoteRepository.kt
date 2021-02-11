@@ -7,17 +7,7 @@ import id.airham.moviecatalogue.data.source.remote.response.GetTvDetailResponse
 import id.airham.moviecatalogue.data.source.remote.response.MovieResponse
 import id.airham.moviecatalogue.data.source.remote.response.TvShowResponse
 
-class RemoteRepository private constructor(private val apiService: ApiService) {
-
-    companion object {
-        @Volatile
-        private var instance: RemoteRepository? = null
-
-        fun getInstance(apiService: ApiService): RemoteRepository =
-            instance ?: synchronized(this) {
-                instance ?: RemoteRepository(apiService)
-            }
-    }
+class RemoteRepository(private val apiService: ApiService) {
 
     fun getAllMovies(): LiveData<ApiResponse<MovieResponse>> =
         NetworkHelper.call(apiService.getAllMovie())

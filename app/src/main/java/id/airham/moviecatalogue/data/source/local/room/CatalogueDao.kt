@@ -9,7 +9,7 @@ import id.airham.moviecatalogue.data.source.local.entity.TvShowEntity
 @Dao
 interface CatalogueDao {
     // Movies
-    @Query("SELECT * FROM movieEntities")
+    @Query("SELECT * FROM movieEntities ORDER BY popularity DESC")
     fun getMovies(): DataSource.Factory<Int, MovieEntity>
 
     @Query("SELECT * FROM movieEntities where favorited = 1")
@@ -26,7 +26,7 @@ interface CatalogueDao {
     fun updateMovie(movie: MovieEntity)
 
     // TV SHOW
-    @Query("SELECT * FROM tvShowEntities")
+    @Query("SELECT * FROM tvShowEntities ORDER BY popularity DESC")
     fun getTvShow(): DataSource.Factory<Int, TvShowEntity>
 
     @Query("SELECT * FROM tvShowEntities where favorited = 1")

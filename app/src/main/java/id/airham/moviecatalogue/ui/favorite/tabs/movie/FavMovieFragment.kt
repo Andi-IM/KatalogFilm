@@ -1,11 +1,11 @@
 package id.airham.moviecatalogue.ui.favorite.tabs.movie
 
-import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import id.airham.moviecatalogue.databinding.FavMovieFragmentBinding
 import id.airham.moviecatalogue.ui.movie.MovieAdapter
@@ -33,9 +33,9 @@ class FavMovieFragment : Fragment() {
 
             val adapter = MovieAdapter()
             binding?.progressBar?.visibility = View.VISIBLE
-            viewModel.getFavorites().observe(viewLifecycleOwner, {movies ->
+            viewModel.getFavorites().observe(viewLifecycleOwner, { movies ->
                 binding?.progressBar?.visibility = View.GONE
-                adapter.setMovies(movies)
+                adapter.submitList(movies)
                 adapter.notifyDataSetChanged()
             })
 

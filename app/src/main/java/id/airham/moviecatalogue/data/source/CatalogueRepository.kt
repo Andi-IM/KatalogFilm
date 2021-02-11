@@ -15,24 +15,11 @@ import id.airham.moviecatalogue.data.source.remote.response.TvShowResponse
 import id.airham.moviecatalogue.utils.AppExecutors
 import id.airham.moviecatalogue.vo.Resource
 
-class CatalogueRepository private constructor(
+class CatalogueRepository(
     private val remoteRepository: RemoteRepository,
     private val localRepository: LocalRepository,
     private val appExecutors: AppExecutors
 ) : CatalogueDataSource {
-
-    companion object {
-        @Volatile
-        private var instance: CatalogueRepository? = null
-        fun getInstance(
-            remoteData: RemoteRepository,
-            localData: LocalRepository,
-            appExecutors: AppExecutors
-        ): CatalogueRepository =
-            instance ?: synchronized(this) {
-                instance ?: CatalogueRepository(remoteData, localData, appExecutors)
-            }
-    }
 
     override fun getAllMovies(): LiveData<Resource<PagedList<MovieEntity>>> {
         return object : NetworkBoundResource<PagedList<MovieEntity>, MovieResponse>(appExecutors) {
@@ -63,7 +50,8 @@ class CatalogueRepository private constructor(
                         response.posterPath,
                         response.releaseDate,
                         response.voteAverage,
-                        false
+                        false,
+                        response.popularity
                     )
                     movieList.add(movie)
                 }
@@ -93,22 +81,22 @@ class CatalogueRepository private constructor(
                 remoteRepository.getAllTvShows()
 
             override fun saveCallResult(data: TvShowResponse) {
-                val movieList = ArrayList<MovieEntity>()
+                val tvShowList = ArrayList<TvShowEntity>()
                 for (response in data.results) {
-                    val movie = MovieEntity(
+                    val tvShow = TvShowEntity(
                         response.id,
                         response.originalName,
                         response.overview,
                         response.posterPath,
                         response.firstAirDate,
                         response.voteAverage,
-                        false
+                        false,
+                        response.popularity
                     )
-                    movieList.add(movie)
+                    tvShowList.add(tvShow)
                 }
-                localRepository.insertMovie(movieList)
+                localRepository.insertTvShow(tvShowList)
             }
-
         }.asLiveData()
     }
 
@@ -140,7 +128,8 @@ class CatalogueRepository private constructor(
                     data.posterPath,
                     data.releaseDate,
                     data.voteAverage,
-                    false
+                    false,
+                    data.popularity
                 )
                 movies.add(movie)
                 localRepository.insertMovie(movies)

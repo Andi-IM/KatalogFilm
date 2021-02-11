@@ -39,14 +39,14 @@ class TvShowFragment : Fragment() {
             val viewModel = ViewModelProvider(this, factory)[TvShowViewModel::class.java]
 
             val tvShowAdapter = TvShowAdapter()
-            viewModel.getTvShows().observe(viewLifecycleOwner, { movies ->
-                if (movies != null) {
-                    when (movies.status) {
+            viewModel.getTvShows().observe(viewLifecycleOwner, { tvShow ->
+                if (tvShow != null) {
+                    when (tvShow.status) {
                         Status.LOADING -> fragmentTvShowBinding.progressBar.visibility =
                             View.VISIBLE
                         Status.SUCCESS -> {
                             fragmentTvShowBinding.progressBar.visibility = View.GONE
-                            tvShowAdapter.setTvShows(movies.data)
+                            tvShowAdapter.submitList(tvShow.data)
                             tvShowAdapter.clickListener =
                                 (object : TvShowAdapter.ItemOnClickListener {
                                     override fun onclick(id: Int) {

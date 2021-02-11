@@ -9,13 +9,13 @@ import retrofit2.http.GET
 import retrofit2.http.Path
 
 interface ApiService {
-    @GET("discover/movie")
+    @GET("discover/movie?sort_by=popularity.desc")
     fun getAllMovie(): Call<MovieResponse>
 
     @GET("movie/{id}")
     fun getMovie(@Path("id") id: Int): Call<GetMovieDetailResponse>
 
-    @GET("discover/tv")
+    @GET("discover/tv?sort_by=popularity.desc")
     fun getAllTvShow(): Call<TvShowResponse>
 
     @GET("tv/{id}")

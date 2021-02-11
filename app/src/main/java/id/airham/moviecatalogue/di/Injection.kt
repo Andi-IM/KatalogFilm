@@ -12,10 +12,10 @@ object Injection {
     fun provideRepository(context: Context) : CatalogueRepository{
         val database = CatalogueDatabase.getInstance(context)
 
-        val remoteRepository = RemoteRepository.getInstance(ApiConfig.getApiService())
-        val localRepository = LocalRepository.getInstance(database.catalogueDao())
+        val remoteRepository = RemoteRepository(ApiConfig.getApiService())
+        val localRepository = LocalRepository(database.catalogueDao())
         val appExecutors = AppExecutors()
 
-        return CatalogueRepository.getInstance(remoteRepository, localRepository, appExecutors)
+        return CatalogueRepository(remoteRepository, localRepository, appExecutors)
     }
 }

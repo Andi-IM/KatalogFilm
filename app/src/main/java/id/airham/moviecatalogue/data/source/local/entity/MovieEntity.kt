@@ -32,4 +32,7 @@ data class MovieEntity(
 
     @ColumnInfo(name = "favorited")
     var favorited: Boolean = false,
+
+    @ColumnInfo(name = "popularity")
+    var popularity: Double? = null
 ) : Parcelable

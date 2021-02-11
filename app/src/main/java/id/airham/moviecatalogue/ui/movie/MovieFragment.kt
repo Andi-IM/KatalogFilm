@@ -45,7 +45,7 @@ class MovieFragment : Fragment() {
                             View.VISIBLE
                         Status.SUCCESS -> {
                             fragmentMoviesBinding.progressBar.visibility = View.GONE
-                            movieAdapter.setMovies(movies.data)
+                            movieAdapter.submitList(movies.data)
                             movieAdapter.clickListener =
                                 (object : MovieAdapter.ItemOnClickListener {
                                     override fun onclick(id: Int) {

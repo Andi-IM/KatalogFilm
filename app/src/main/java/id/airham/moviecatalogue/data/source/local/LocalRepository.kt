@@ -6,14 +6,7 @@ import id.airham.moviecatalogue.data.source.local.entity.MovieEntity
 import id.airham.moviecatalogue.data.source.local.entity.TvShowEntity
 import id.airham.moviecatalogue.data.source.local.room.CatalogueDao
 
-class LocalRepository private constructor(private val mCatalogueDao: CatalogueDao) {
-
-    companion object {
-        private var INSTANCE: LocalRepository? = null
-
-        fun getInstance(catalogueDao: CatalogueDao): LocalRepository =
-            INSTANCE ?: LocalRepository(catalogueDao)
-    }
+class LocalRepository(private val mCatalogueDao: CatalogueDao) {
 
     fun getAllMovies(): DataSource.Factory<Int, MovieEntity> = mCatalogueDao.getMovies()
 
