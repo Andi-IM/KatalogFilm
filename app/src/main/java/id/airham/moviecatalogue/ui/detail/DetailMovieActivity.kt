@@ -4,17 +4,17 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
-import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
+import dagger.hilt.android.AndroidEntryPoint
 import id.airham.moviecatalogue.R
 import id.airham.moviecatalogue.data.source.local.entity.MovieEntity
 import id.airham.moviecatalogue.databinding.ActivityDetailMovieBinding
 import id.airham.moviecatalogue.ui.detail.viewmodel.DetailMovieViewModel
 import id.airham.moviecatalogue.utils.Notify.showToast
-import id.airham.moviecatalogue.viewmodel.ViewModelFactory
 import id.airham.moviecatalogue.vo.Status
 
 /**
@@ -45,9 +45,6 @@ class DetailMovieActivity : AppCompatActivity() {
 
         setSupportActionBar(mainBinding?.toolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
-
-        val factory = ViewModelFactory.getInstance(this)
-        movieViewModel = ViewModelProvider(this, factory)[DetailMovieViewModel::class.java]
 
         val extras = intent.extras
         if (extras != null) {

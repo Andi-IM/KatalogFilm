@@ -18,6 +18,7 @@ import id.airham.moviecatalogue.vo.Status
 /**
  * Ini merupakan Fragment yang hanya menampilkan daftar film
  */
+@AndroidEntryPoint
 class MovieFragment : Fragment() {
     private lateinit var fragmentMoviesBinding: FragmentMovieBinding
     private lateinit var adapter: MovieAdapter

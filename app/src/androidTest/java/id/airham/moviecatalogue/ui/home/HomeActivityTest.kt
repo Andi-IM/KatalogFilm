@@ -108,7 +108,7 @@ class HomeActivityTest {
     fun loadMovies() {
         onView(withId(R.id.navigation_movie)).perform(click())
         onView(withId(R.id.rv_movie)).check(matches(isDisplayed()))
-        val movieSize = sampleMovie.value?.body?.results?.size!!
+        val movieSize = sampleMovie.value.body.results.size
         onView(withId(R.id.rv_movie)).perform(scrollToPosition<RecyclerView.ViewHolder>(movieSize))
     }
 
@@ -116,7 +116,7 @@ class HomeActivityTest {
     fun loadDetailMovie() {
         onView(withId(R.id.navigation_movie)).perform(click())
 
-        val results = sampleMovie.value?.body?.results!!
+        val results = sampleMovie.value.body.results
         val firstMovie = results.first()
         // val position = results.indexOf(firstMovie)
 
@@ -144,7 +144,7 @@ class HomeActivityTest {
     fun loadTvShows() {
         onView(withId(R.id.navigation_tv_show)).perform(click())
         onView(withId(R.id.rv_tv_show)).check(matches(isDisplayed()))
-        val tvShowSize = sampleTvShow.value?.body?.results?.size!!
+        val tvShowSize = sampleTvShow.value.body.results.size
         onView(withId(R.id.rv_tv_show))
             .perform(scrollToPosition<RecyclerView.ViewHolder>(tvShowSize))
     }
@@ -152,7 +152,7 @@ class HomeActivityTest {
     @Test
     fun loadDetailTvShow() {
         onView(withId(R.id.navigation_tv_show)).perform(click())
-        val results = sampleTvShow.value?.body?.results!!
+        val results = sampleTvShow.value.body.results
         val firstTvShow = results.first()
         // val position = results.indexOf(firstTvShow)
 

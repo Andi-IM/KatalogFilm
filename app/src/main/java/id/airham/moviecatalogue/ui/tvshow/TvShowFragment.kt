@@ -18,9 +18,12 @@ import id.airham.moviecatalogue.vo.Status
 /**
  * Ini merupakan Fragment yang hanya menampilkan daftar tvShow
  */
-
+@AndroidEntryPoint
 class TvShowFragment : Fragment() {
     private lateinit var fragmentTvShowBinding: FragmentTvShowBinding
+    private lateinit var adapter: TvShowAdapter
+
+    private val viewModel: TvShowViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -35,10 +38,7 @@ class TvShowFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         if (activity != null) {
-            val factory = ViewModelFactory.getInstance(requireActivity())
-            val viewModel = ViewModelProvider(this, factory)[TvShowViewModel::class.java]
 
-            val tvShowAdapter = TvShowAdapter()
             viewModel.getTvShows().observe(viewLifecycleOwner, { tvShow ->
                 if (tvShow != null) {
                     when (tvShow.status) {

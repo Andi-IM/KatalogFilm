@@ -17,7 +17,8 @@ import javax.inject.Inject
  *  id yang diberikan akan dicari pada method {@link getMovie} yang akan mengembalikan data berupa
  *  Entitas Movie.
  */
-class DetailMovieViewModel(private val catalogueRepository: CatalogueRepository) : ViewModel() {
+class DetailMovieViewModel @Inject constructor(private val catalogueRepository: CatalogueRepository) :
+    ViewModel() {
     private var itemId = MutableLiveData<Int>()
     fun setSelectedItem(itemId: Int) {
         this.itemId.value = itemId

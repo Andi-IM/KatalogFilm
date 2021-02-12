@@ -5,6 +5,7 @@ import androidx.paging.DataSource
 import id.airham.moviecatalogue.data.source.local.entity.MovieEntity
 import id.airham.moviecatalogue.data.source.local.entity.TvShowEntity
 import id.airham.moviecatalogue.data.source.local.room.CatalogueDao
+import javax.inject.Inject
 
 class LocalRepository @Inject constructor(private val mCatalogueDao: CatalogueDao) {
 

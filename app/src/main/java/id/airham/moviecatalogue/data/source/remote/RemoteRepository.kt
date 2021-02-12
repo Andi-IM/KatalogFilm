@@ -6,6 +6,7 @@ import id.airham.moviecatalogue.data.source.remote.response.GetMovieDetailRespon
 import id.airham.moviecatalogue.data.source.remote.response.GetTvDetailResponse
 import id.airham.moviecatalogue.data.source.remote.response.MovieResponse
 import id.airham.moviecatalogue.data.source.remote.response.TvShowResponse
+import javax.inject.Inject
 
 class RemoteRepository @Inject constructor(private val apiService: ApiService) {
 

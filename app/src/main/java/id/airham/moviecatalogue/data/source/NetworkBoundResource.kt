@@ -29,7 +29,7 @@ abstract class NetworkBoundResource<ResultType, RequestType>(private val mExecut
         }
     }
 
-    private fun onFetchFailed() {}
+    protected open fun onFetchFailed() {}
 
     protected abstract fun loadFromDB(): LiveData<ResultType>
 
@@ -46,6 +46,7 @@ abstract class NetworkBoundResource<ResultType, RequestType>(private val mExecut
         result.addSource(dbSource) { newData ->
             result.value = Resource.loading(newData)
         }
+
         result.addSource(apiResponse) { response ->
             result.removeSource(apiResponse)
             result.removeSource(dbSource)
