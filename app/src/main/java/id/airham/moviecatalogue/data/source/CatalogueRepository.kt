@@ -15,12 +15,11 @@ import id.airham.moviecatalogue.data.source.remote.response.TvShowResponse
 import id.airham.moviecatalogue.utils.AppExecutors
 import id.airham.moviecatalogue.vo.Resource
 
-class CatalogueRepository(
+class CatalogueRepository @Inject constructor(
     private val remoteRepository: RemoteRepository,
     private val localRepository: LocalRepository,
     private val appExecutors: AppExecutors
 ) : CatalogueDataSource {
-
     override fun getAllMovies(): LiveData<Resource<PagedList<MovieEntity>>> {
         return object : NetworkBoundResource<PagedList<MovieEntity>, MovieResponse>(appExecutors) {
             override fun loadFromDB(): LiveData<PagedList<MovieEntity>> {
@@ -186,4 +185,5 @@ class CatalogueRepository(
 
         return LivePagedListBuilder(localRepository.getFavoritedTvShows(), config).build()
     }
+
 }

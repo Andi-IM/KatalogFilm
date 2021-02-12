@@ -56,7 +56,7 @@ class FakeCatalogueRepository(
                 }
                 localRepository.insertMovie(movieList)
             }
-        }.asLiveData()
+        }.asFlow()
     }
 
     override fun getAllTvShows(): LiveData<Resource<PagedList<TvShowEntity>>> {
@@ -96,7 +96,7 @@ class FakeCatalogueRepository(
                 localRepository.insertMovie(movieList)
             }
 
-        }.asLiveData()
+        }.asFlow()
     }
 
     override fun setMovieFavorite(movie: MovieEntity, state: Boolean) =
@@ -132,7 +132,7 @@ class FakeCatalogueRepository(
                 movies.add(movie)
                 localRepository.insertMovie(movies)
             }
-        }.asLiveData()
+        }.asFlow()
     }
 
     override fun getTvShow(id: Int): LiveData<Resource<TvShowEntity>> {
@@ -162,7 +162,7 @@ class FakeCatalogueRepository(
                 localRepository.insertTvShow(shows)
             }
 
-        }.asLiveData()
+        }.asFlow()
     }
 
     override fun getFavoritedMovies(): LiveData<PagedList<MovieEntity>> {

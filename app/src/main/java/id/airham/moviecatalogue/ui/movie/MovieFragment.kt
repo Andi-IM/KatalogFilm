@@ -6,13 +6,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
+import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
+import dagger.hilt.android.AndroidEntryPoint
 import id.airham.moviecatalogue.databinding.FragmentMovieBinding
 import id.airham.moviecatalogue.ui.detail.DetailMovieActivity
 import id.airham.moviecatalogue.ui.detail.DetailMovieActivity.Companion.EXTRA_ID
 import id.airham.moviecatalogue.utils.Notify.showToast
-import id.airham.moviecatalogue.viewmodel.ViewModelFactory
 import id.airham.moviecatalogue.vo.Status
 
 /**
@@ -20,6 +20,9 @@ import id.airham.moviecatalogue.vo.Status
  */
 class MovieFragment : Fragment() {
     private lateinit var fragmentMoviesBinding: FragmentMovieBinding
+    private lateinit var adapter: MovieAdapter
+
+    private val viewModel: MovieViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -34,10 +37,7 @@ class MovieFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         if (activity != null) {
-            val factory = ViewModelFactory.getInstance(requireActivity())
-            val viewModel = ViewModelProvider(this, factory)[MovieViewModel::class.java]
 
-            val movieAdapter = MovieAdapter()
             viewModel.getMovies().observe(viewLifecycleOwner, { movies ->
                 if (movies != null) {
                     when (movies.status) {
@@ -45,8 +45,8 @@ class MovieFragment : Fragment() {
                             View.VISIBLE
                         Status.SUCCESS -> {
                             fragmentMoviesBinding.progressBar.visibility = View.GONE
-                            movieAdapter.submitList(movies.data)
-                            movieAdapter.clickListener =
+                            adapter.submitList(movies.data)
+                            adapter.clickListener =
                                 (object : MovieAdapter.ItemOnClickListener {
                                     override fun onclick(id: Int) {
                                         val intent =
@@ -55,7 +55,7 @@ class MovieFragment : Fragment() {
                                         startActivity(intent)
                                     }
                                 })
-                            movieAdapter.notifyDataSetChanged()
+                            adapter.notifyDataSetChanged()
                         }
                         Status.ERROR -> {
                             fragmentMoviesBinding.progressBar.visibility = View.GONE
@@ -68,7 +68,7 @@ class MovieFragment : Fragment() {
             with(fragmentMoviesBinding.rvMovie) {
                 layoutManager = LinearLayoutManager(context)
                 setHasFixedSize(true)
-                adapter = movieAdapter
+                adapter = adapter
             }
         }
     }

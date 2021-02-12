@@ -5,8 +5,10 @@ import androidx.lifecycle.ViewModel
 import androidx.paging.PagedList
 import id.airham.moviecatalogue.data.source.CatalogueRepository
 import id.airham.moviecatalogue.data.source.local.entity.TvShowEntity
+import javax.inject.Inject
 
-class FavTvViewModel(private val catalogueRepository: CatalogueRepository) : ViewModel() {
+class FavTvViewModel @Inject constructor(private val catalogueRepository: CatalogueRepository) :
+    ViewModel() {
     fun getFavorites(): LiveData<PagedList<TvShowEntity>> =
         catalogueRepository.getFavoritedTvShows()
 }

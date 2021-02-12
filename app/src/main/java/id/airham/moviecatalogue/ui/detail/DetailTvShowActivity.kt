@@ -23,6 +23,7 @@ import id.airham.moviecatalogue.vo.Status
  *
  *  semua data dikirimkan melalui putExtra
  */
+@AndroidEntryPoint
 class DetailTvShowActivity : AppCompatActivity() {
 
     companion object {
@@ -33,7 +34,7 @@ class DetailTvShowActivity : AppCompatActivity() {
     private val mainBinding get() = _activityDetailTvShowBinding
     private val contentBinding get() = _activityDetailTvShowBinding?.detailItem
 
-    private lateinit var tvViewModel: DetailTvViewModel
+    private val tvViewModel: DetailTvViewModel by viewModels()
     private var menu: Menu? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {

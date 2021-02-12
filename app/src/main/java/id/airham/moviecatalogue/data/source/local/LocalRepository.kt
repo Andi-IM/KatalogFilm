@@ -6,7 +6,7 @@ import id.airham.moviecatalogue.data.source.local.entity.MovieEntity
 import id.airham.moviecatalogue.data.source.local.entity.TvShowEntity
 import id.airham.moviecatalogue.data.source.local.room.CatalogueDao
 
-class LocalRepository(private val mCatalogueDao: CatalogueDao) {
+class LocalRepository @Inject constructor(private val mCatalogueDao: CatalogueDao) {
 
     fun getAllMovies(): DataSource.Factory<Int, MovieEntity> = mCatalogueDao.getMovies()
 
@@ -36,5 +36,6 @@ class LocalRepository(private val mCatalogueDao: CatalogueDao) {
 
     fun getTvShowByid(id: Int): LiveData<TvShowEntity> =
         mCatalogueDao.getTvShowById(id)
+
 
 }

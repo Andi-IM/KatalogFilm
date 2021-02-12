@@ -7,6 +7,7 @@ import androidx.lifecycle.ViewModel
 import id.airham.moviecatalogue.data.source.CatalogueRepository
 import id.airham.moviecatalogue.data.source.local.entity.TvShowEntity
 import id.airham.moviecatalogue.vo.Resource
+import javax.inject.Inject
 
 /**
  *  Kelas ini merupakan ViewModel yang digunakan untuk mendpatkan data MovieEntity dari
@@ -16,7 +17,8 @@ import id.airham.moviecatalogue.vo.Resource
  *  id yang diberikan akan dicari pada method {@link getTvShow} yang akan mengembalikan data berupa
  *  Entitas TvShows.
  */
-class DetailTvViewModel(private val catalogueRepository: CatalogueRepository) : ViewModel() {
+class DetailTvViewModel @Inject constructor(private val catalogueRepository: CatalogueRepository) :
+    ViewModel() {
     private var itemId = MutableLiveData<Int>()
     fun setSelectedItem(itemId: Int) {
         this.itemId.value = itemId

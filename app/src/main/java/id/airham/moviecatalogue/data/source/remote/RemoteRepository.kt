@@ -7,7 +7,7 @@ import id.airham.moviecatalogue.data.source.remote.response.GetTvDetailResponse
 import id.airham.moviecatalogue.data.source.remote.response.MovieResponse
 import id.airham.moviecatalogue.data.source.remote.response.TvShowResponse
 
-class RemoteRepository(private val apiService: ApiService) {
+class RemoteRepository @Inject constructor(private val apiService: ApiService) {
 
     fun getAllMovies(): LiveData<ApiResponse<MovieResponse>> =
         NetworkHelper.call(apiService.getAllMovie())
@@ -17,7 +17,6 @@ class RemoteRepository(private val apiService: ApiService) {
 
     fun getMovieDetail(id: Int): LiveData<ApiResponse<GetMovieDetailResponse>> =
         NetworkHelper.call(apiService.getMovie(id))
-
 
     fun getTvShowDetail(id: Int): LiveData<ApiResponse<GetTvDetailResponse>> =
         NetworkHelper.call(apiService.getTVShow(id))

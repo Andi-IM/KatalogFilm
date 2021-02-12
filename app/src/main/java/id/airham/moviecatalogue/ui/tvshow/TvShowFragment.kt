@@ -6,13 +6,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
+import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
+import dagger.hilt.android.AndroidEntryPoint
 import id.airham.moviecatalogue.databinding.FragmentTvShowBinding
 import id.airham.moviecatalogue.ui.detail.DetailMovieActivity
 import id.airham.moviecatalogue.ui.detail.DetailTvShowActivity
 import id.airham.moviecatalogue.utils.Notify.showToast
-import id.airham.moviecatalogue.viewmodel.ViewModelFactory
 import id.airham.moviecatalogue.vo.Status
 
 /**
@@ -46,8 +46,8 @@ class TvShowFragment : Fragment() {
                             View.VISIBLE
                         Status.SUCCESS -> {
                             fragmentTvShowBinding.progressBar.visibility = View.GONE
-                            tvShowAdapter.submitList(tvShow.data)
-                            tvShowAdapter.clickListener =
+                            adapter.submitList(tvShow.data)
+                            adapter.clickListener =
                                 (object : TvShowAdapter.ItemOnClickListener {
                                     override fun onclick(id: Int) {
                                         val intent =
@@ -56,7 +56,7 @@ class TvShowFragment : Fragment() {
                                         startActivity(intent)
                                     }
                                 })
-                            tvShowAdapter.notifyDataSetChanged()
+                            adapter.notifyDataSetChanged()
                         }
                         Status.ERROR -> {
                             fragmentTvShowBinding.progressBar.visibility = View.GONE
@@ -69,7 +69,7 @@ class TvShowFragment : Fragment() {
             with(fragmentTvShowBinding.rvTvShow) {
                 layoutManager = LinearLayoutManager(context)
                 setHasFixedSize(true)
-                adapter = tvShowAdapter
+                adapter = adapter
             }
         }
     }

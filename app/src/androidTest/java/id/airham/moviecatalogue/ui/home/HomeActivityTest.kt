@@ -15,7 +15,7 @@ import androidx.test.espresso.matcher.ViewMatchers.*
 import androidx.test.platform.app.InstrumentationRegistry
 import id.airham.moviecatalogue.R
 import id.airham.moviecatalogue.data.source.remote.RemoteRepository
-import id.airham.moviecatalogue.data.source.remote.network.ApiConfig
+import id.airham.moviecatalogue.di.NetworkModule
 import id.airham.moviecatalogue.utils.EspressoIdlingResource
 import org.junit.After
 import org.junit.Before
@@ -73,7 +73,7 @@ import org.junit.Test
  */
 
 class HomeActivityTest {
-    private val apiConfig = ApiConfig.getApiService()
+    private val apiConfig = NetworkModule.getApiService()
     private val movieRemote = RemoteRepository(apiConfig)
     private val tvShowRemote = RemoteRepository(apiConfig)
 
