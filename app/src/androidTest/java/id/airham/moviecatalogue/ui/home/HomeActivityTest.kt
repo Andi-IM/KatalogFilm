@@ -269,7 +269,7 @@ class HomeActivityTest {
         onView(withId(R.id.action_favorite)).perform(click())
         onView(withId(R.id.action_favorite)).check(matches(isEnabled()))
         onView(isRoot()).perform(ViewActions.pressBack())
-        onView(withId(R.id.rv_fav_tv_show)).check(hasItemCount(1)) // item exsist, but no data
+        onView(withId(R.id.rv_fav_tv_show)).check(hasItemCount(1)) // item exist, but no data
     }
 
     private fun delay150milis() {
