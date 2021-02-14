@@ -9,6 +9,8 @@ import id.airham.moviecatalogue.data.source.local.entity.TvShowEntity
 import id.airham.moviecatalogue.ui.detail.viewmodel.DetailTvViewModel
 import id.airham.moviecatalogue.utils.DataDummy
 import id.airham.moviecatalogue.vo.Resource
+import org.junit.Assert.assertEquals
+import org.junit.Assert.assertNotNull
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
@@ -37,7 +39,7 @@ class DetailTvViewModelTest {
     
     @Mock
     private lateinit var tvShowObserver: Observer<Resource<TvShowEntity>>
-    
+
     @Before
     fun setUp() {
         viewModel = DetailTvViewModel(catalogueRepository)
@@ -47,11 +49,38 @@ class DetailTvViewModelTest {
     @Test
     fun getTvShow() {
         val tvShowResource = Resource.success(dummyTvSerie)
-        val tvShow = MutableLiveData<Resource<TvShowEntity>>()
-        tvShow.value = tvShowResource
-        
-        `when`(catalogueRepository.getTvShow(tvShowId)).thenReturn(tvShow)
+        val tvShowLiveData = MutableLiveData<Resource<TvShowEntity>>()
+        tvShowLiveData.value = tvShowResource
+
+        `when`(catalogueRepository.getTvShow(tvShowId)).thenReturn(tvShowLiveData)
         viewModel.tvShow.observeForever(tvShowObserver)
         verify(tvShowObserver).onChanged(tvShowResource)
+
+        val tvShow = viewModel.tvShow.value?.data!!
+        assertNotNull(tvShow)
+
+        assertEquals(tvShow.id, tvShow.id)
+        assertEquals(tvShow.originalName, tvShow.originalName)
+        assertEquals(tvShow.overview, tvShow.overview)
+        assertEquals(tvShow.posterPath, tvShow.posterPath)
+        assertEquals(tvShow.firstAirDate, tvShow.firstAirDate)
+        assertEquals(tvShow.voteAverage, tvShow.voteAverage, 0.01)
+    }
+
+    @Test
+    fun setTvShowFavorited() {
+        val tvShowResource = Resource.success(dummyTvSerie)
+        val tvShowData = MutableLiveData<Resource<TvShowEntity>>()
+        tvShowData.value = tvShowResource
+
+        `when`(catalogueRepository.getTvShow(tvShowId)).thenReturn(tvShowData)
+        viewModel.tvShow.observeForever(tvShowObserver)
+        verify(tvShowObserver).onChanged(tvShowResource)
+
+        val tvShow = tvShowData.value?.data!!
+
+        viewModel.setFavorite()
+        verify(catalogueRepository).setTvShowFavorite(tvShow, !tvShow.favorited)
+        assertEquals(dummyTvSerie.favorited, tvShow.favorited)
     }
 }

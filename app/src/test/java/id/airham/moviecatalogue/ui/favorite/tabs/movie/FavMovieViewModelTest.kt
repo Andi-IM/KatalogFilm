@@ -17,6 +17,12 @@ import org.mockito.Mock
 import org.mockito.Mockito.`when`
 import org.mockito.junit.MockitoJUnitRunner
 
+/**
+ *  Test Case Favorite ViewModel
+ *  - Memastikan data Movie Favorite tidak kosong (null)
+ *  - Memastikan data yang masuk (dari dummy) = data yang akan ditampilkan
+ *
+ */
 @RunWith(MockitoJUnitRunner::class)
 class FavMovieViewModelTest {
 
@@ -51,7 +57,7 @@ class FavMovieViewModelTest {
 
         verify(catalogueRepository).getFavoritedMovies()
         assertNotNull(movieEntities)
-        assertEquals(20, movieEntities?.size)
+        assertEquals(dummyMovies.size, movieEntities?.size)
 
         viewModel.getFavorites().observeForever(observer)
         verify(observer).onChanged(dummyMovies)

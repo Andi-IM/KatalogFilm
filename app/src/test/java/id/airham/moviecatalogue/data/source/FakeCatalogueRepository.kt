@@ -15,6 +15,9 @@ import id.airham.moviecatalogue.data.source.remote.response.TvShowResponse
 import id.airham.moviecatalogue.utils.AppExecutors
 import id.airham.moviecatalogue.vo.Resource
 
+/**
+ *  Kelas ini digunakan sebagai pengganti Catalogue Repository yang asli untuk penggunaan fitur mock
+ */
 class FakeCatalogueRepository(
     private val remoteRepository: RemoteRepository,
     private val localRepository: LocalRepository,

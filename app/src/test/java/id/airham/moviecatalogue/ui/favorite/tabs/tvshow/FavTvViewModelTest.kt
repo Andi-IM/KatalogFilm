@@ -16,6 +16,12 @@ import org.mockito.Mock
 import org.mockito.Mockito
 import org.mockito.junit.MockitoJUnitRunner
 
+/**
+ *  Test Case Favorite ViewModel
+ *  - Memastikan data TvShow Favorite tidak kosong (null)
+ *  - Memastikan data yang masuk (dari dummy) = data yang akan ditampilkan
+ *
+ */
 @RunWith(MockitoJUnitRunner::class)
 class FavTvViewModelTest {
 

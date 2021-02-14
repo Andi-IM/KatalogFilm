@@ -9,6 +9,8 @@ import id.airham.moviecatalogue.data.source.local.entity.MovieEntity
 import id.airham.moviecatalogue.ui.detail.viewmodel.DetailMovieViewModel
 import id.airham.moviecatalogue.utils.DataDummy
 import id.airham.moviecatalogue.vo.Resource
+import org.junit.Assert.assertEquals
+import org.junit.Assert.assertNotNull
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
@@ -47,11 +49,40 @@ class DetailMovieViewModelTest {
     @Test
     fun getMovie() {
         val movieResource = Resource.success(dummyMovies)
-        val movie = MutableLiveData<Resource<MovieEntity>>()
-        movie.value = movieResource
+        val movieLiveData = MutableLiveData<Resource<MovieEntity>>()
+        movieLiveData.value = movieResource
 
-        `when`(catalogueRepository.getMovie(movieId)).thenReturn(movie)
+        `when`(catalogueRepository.getMovie(movieId)).thenReturn(movieLiveData)
+
         viewModel.movie.observeForever(movieObserver)
         verify(movieObserver).onChanged(movieResource)
+
+        val movie = viewModel.movie.value?.data!!
+        assertNotNull(movie)
+
+        assertEquals(dummyMovies.id, movie.id)
+        assertEquals(dummyMovies.originalTitle, movie.originalTitle)
+        assertEquals(dummyMovies.overview, movie.overview)
+        assertEquals(dummyMovies.posterPath, movie.posterPath)
+        assertEquals(dummyMovies.releaseDate, movie.releaseDate)
+        assertEquals(dummyMovies.voteAverage, movie.voteAverage, 0.01)
+        assertEquals(dummyMovies.favorited, movie.favorited)
+    }
+
+    @Test
+    fun setMovieFavorited() {
+        val movieResource = Resource.success(dummyMovies)
+        val movieLiveData = MutableLiveData<Resource<MovieEntity>>()
+        movieLiveData.value = movieResource
+
+        `when`(catalogueRepository.getMovie(movieId)).thenReturn(movieLiveData)
+        viewModel.movie.observeForever(movieObserver)
+        viewModel.setFavorite()
+        verify(movieObserver).onChanged(movieResource)
+
+        val movie = movieLiveData.value?.data!!
+        catalogueRepository.setMovieFavorite(movie, !movie.favorited)
+
+        assertEquals(dummyMovies.favorited, movie.favorited)
     }
 }

@@ -3,6 +3,7 @@ package id.airham.moviecatalogue.data.source
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.paging.DataSource
 import com.nhaarman.mockitokotlin2.verify
+import com.nhaarman.mockitokotlin2.verifyNoMoreInteractions
 import id.airham.moviecatalogue.data.source.local.LocalRepository
 import id.airham.moviecatalogue.data.source.local.entity.MovieEntity
 import id.airham.moviecatalogue.data.source.local.entity.TvShowEntity
@@ -18,6 +19,24 @@ import org.junit.Test
 import org.mockito.Mockito.`when`
 import org.mockito.Mockito.mock
 
+/**
+ *  ## Test Case in Catalogue Repo Test
+ * - Mendapatkan Data Movie : <br />
+ *   -- Memastikan Movie tidak kosong (null)
+ *   -- Memastikan Data Local yang didapat = Data Remote
+ *
+ * - Mendapatkan Data TvShow
+ *   -- Memastikan TvShow tidak kosong (null)
+ *   -- Memastikan Data local yang didapat = Data Remote
+ *
+ * - Mendapatkan Data Movie yang difavoritkan
+ *   -- Memastikan Favorite Movie tidak kosong (null)
+ *
+ * - Mendapatkan Data Tv yang difavoritkan
+ *   -- Memastikan Favorite Tv Show tidak kosong (null)
+ *
+ */
+
 @Suppress("UNCHECKED_CAST")
 class CatalogueRepositoryTest {
 
@@ -31,7 +50,10 @@ class CatalogueRepositoryTest {
     private val catalogueRepository = FakeCatalogueRepository(remote, local, appExecutors)
 
     private val movieResponses = DataDummy.generateMovies()
+    private val sampleMovie = movieResponses[0]
+
     private val tvShowResponses = DataDummy.generateTvs()
+    private val sampleTvShow = tvShowResponses[0]
 
     @Test
     fun getAllMovies() {
@@ -60,6 +82,14 @@ class CatalogueRepositoryTest {
     }
 
     @Test
+    fun setFavoriteMovie() {
+        local.setMovieFavorite(sampleMovie, true)
+
+        verify(local).setMovieFavorite(sampleMovie, true)
+        verifyNoMoreInteractions(local)
+    }
+
+    @Test
     fun getFavoritedMovies() {
         val dataSourceFactory =
             mock(DataSource.Factory::class.java) as DataSource.Factory<Int, MovieEntity>
@@ -67,10 +97,18 @@ class CatalogueRepositoryTest {
         catalogueRepository.getFavoritedMovies()
 
         val movieEntities = Resource.success(mockPagedList(DataDummy.generateMovies()))
+
         verify(local).getFavoritedMovies()
         assertNotNull(movieEntities)
         assertEquals(movieResponses.size.toLong(), movieEntities.data?.size?.toLong())
+    }
 
+    @Test
+    fun setFavoriteTvShow() {
+        local.setTvShowFavorite(sampleTvShow, true)
+
+        verify(local).setTvShowFavorite(sampleTvShow, true)
+        verifyNoMoreInteractions(local)
     }
 
     @Test
@@ -83,6 +121,7 @@ class CatalogueRepositoryTest {
         val tvShowEntities = Resource.success(mockPagedList(DataDummy.generateTvs()))
         verify(local).getFavoritedTvShows()
         assertNotNull(tvShowEntities.data)
-        assertEquals(tvShowResponses.size.toLong(), tvShowEntities.data?.size?.toLong())
     }
+
+
 }

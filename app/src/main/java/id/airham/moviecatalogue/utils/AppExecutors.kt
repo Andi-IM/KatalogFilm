@@ -1,5 +1,3 @@
-@file:Suppress("unused", "unused")
-
 package id.airham.moviecatalogue.utils
 
 import android.os.Handler

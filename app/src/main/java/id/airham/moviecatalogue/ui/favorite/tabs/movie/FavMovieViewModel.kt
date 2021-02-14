@@ -8,4 +8,9 @@ import id.airham.moviecatalogue.data.source.local.entity.MovieEntity
 
 class FavMovieViewModel(private val catalogueRepository: CatalogueRepository) : ViewModel() {
     fun getFavorites(): LiveData<PagedList<MovieEntity>> = catalogueRepository.getFavoritedMovies()
+
+    fun setFavorite(movieEntity: MovieEntity) {
+        val newState = !movieEntity.favorited
+        catalogueRepository.setMovieFavorite(movieEntity, newState)
+    }
 }

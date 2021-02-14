@@ -1,10 +1,11 @@
 package id.airham.moviecatalogue.ui.splashscreen
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
+import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.WindowCompat
 import id.airham.moviecatalogue.databinding.ActivitySplashScreenBinding
 import id.airham.moviecatalogue.ui.home.HomeActivity
 
@@ -24,6 +25,8 @@ class SplashScreenActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         activitySplashScreenBinding = ActivitySplashScreenBinding.inflate(layoutInflater)
         setContentView(activitySplashScreenBinding.root)
+
+        WindowCompat.setDecorFitsSystemWindows(window, false)
 
         Handler(Looper.getMainLooper()).postDelayed({
             startActivity(Intent(this@SplashScreenActivity, HomeActivity::class.java))

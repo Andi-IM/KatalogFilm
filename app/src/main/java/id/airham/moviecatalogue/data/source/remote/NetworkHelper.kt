@@ -25,10 +25,8 @@ object NetworkHelper {
                 Log.e(TAG, "Error: " + response.errorBody()?.string())
                 returnVal.postValue(null)
             }
-
-            decrementIdlingResource()
         }
-
+        decrementIdlingResource()
         return returnVal
     }
 

@@ -16,6 +16,7 @@
     android:orientation="vertical"
     app:cardElevation="4dp"
     app:cardCornerRadius="4dp"
+    android:id="@+id/cv_tv_show"
     app:cardUseCompatPadding="true">
 
     <androidx.constraintlayout.widget.ConstraintLayout
