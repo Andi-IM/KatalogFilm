@@ -134,13 +134,13 @@ class HomeActivityTest {
     }
 
     @Test
-    fun test1() { // openMovieNavigation
+    fun openMovieNavigation() {
         onView(withId(R.id.navigation_movie)).perform(click())
         onView(withId(R.id.navigation_movie)).check(matches(isDisplayed()))
     }
 
     @Test
-    fun test2() { // loadMovies
+    fun loadMovies() {
         onView(withId(R.id.navigation_movie)).perform(click())
         onView(withId(R.id.rv_movie)).check(matches(isDisplayed()))
         val movieSize = sampleMovie.value?.body?.results?.size!!
@@ -148,7 +148,7 @@ class HomeActivityTest {
     }
 
     @Test
-    fun test3() { // loadDetailMovie
+    fun loadDetailMovie() {
         onView(withId(R.id.navigation_movie)).perform(click())
         val results = sampleMovie.value?.body?.results!!
         val firstMovie = results.first()
@@ -169,13 +169,13 @@ class HomeActivityTest {
     }
 
     @Test
-    fun test4() { // openTvShowNavigation
+    fun openTvShowNavigation() {
         onView(withId(R.id.navigation_tv_show)).perform(click())
         onView(withId(R.id.navigation_tv_show)).check(matches(isDisplayed()))
     }
 
     @Test
-    fun test5() { // loadTvShows
+    fun loadTvShows() { //
         onView(withId(R.id.navigation_tv_show)).perform(click())
         onView(withId(R.id.rv_tv_show)).check(matches(isDisplayed()))
         val tvShowSize = sampleTvShow.value?.body?.results?.size!!
@@ -184,7 +184,7 @@ class HomeActivityTest {
     }
 
     @Test
-    fun test6() { // loadDetailTvShow
+    fun loadDetailTvShow() {
         onView(withId(R.id.navigation_tv_show)).perform(click())
         val results = sampleTvShow.value?.body?.results!!
         val firstTvShow = results.first()
@@ -204,7 +204,7 @@ class HomeActivityTest {
     }
 
     @Test
-    fun test7() { // openFavoriteNavigation
+    fun openFavoriteNavigation() {
         onView(withId(R.id.navigation_favorite)).perform(click())
         onView(withId(R.id.navigation_favorite)).check(matches(isDisplayed()))
         onView(withId(R.id.view_pager)).check(matches(isDisplayed()))
@@ -212,7 +212,7 @@ class HomeActivityTest {
     }
 
     @Test
-    fun test8() { // onMovieSetFavorite
+    fun onMovieSetFavorite() {
         onView(withId(R.id.navigation_movie)).perform(click())
         onView(withId(R.id.rv_movie)).perform(
             actionOnItemAtPosition<RecyclerView.ViewHolder>(
@@ -242,7 +242,7 @@ class HomeActivityTest {
     }
 
     @Test
-    fun test9() { // onTvShowSetFavorite
+    fun onTvShowSetFavorite() {
         onView(withId(R.id.navigation_tv_show)).perform(click())
         onView(withId(R.id.rv_tv_show)).perform(
             actionOnItemAtPosition<RecyclerView.ViewHolder>(
@@ -255,9 +255,8 @@ class HomeActivityTest {
         onView(withId(R.id.action_favorite)).check(matches(isEnabled()))
         onView(isRoot()).perform(ViewActions.pressBack())
         onView(withId(R.id.navigation_favorite)).perform(click())
-        onView(withId(R.id.view_pager)).perform(swipeLeft())
+        onView(withId(R.id.view_pager)).perform(swipeLeft(), swipeLeft())
 
-        delay150milis()
         onView(withId(R.id.rv_fav_tv_show)).check(hasItemCount(1))
         onView(withId(R.id.rv_fav_tv_show)).perform(
             actionOnItemAtPosition<RecyclerView.ViewHolder>(
@@ -270,13 +269,5 @@ class HomeActivityTest {
         onView(withId(R.id.action_favorite)).check(matches(isEnabled()))
         onView(isRoot()).perform(ViewActions.pressBack())
         onView(withId(R.id.rv_fav_tv_show)).check(hasItemCount(1)) // item exist, but no data
-    }
-
-    private fun delay150milis() {
-        try {
-            Thread.sleep(150)
-        } catch (e: InterruptedException) {
-            e.printStackTrace()
-        }
     }
 }
