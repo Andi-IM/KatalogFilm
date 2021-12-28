@@ -1,12 +1,10 @@
 package id.airham.moviecatalogue.ui.detail.viewmodel
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.Transformations
-import androidx.lifecycle.ViewModel
-import id.airham.moviecatalogue.data.source.CatalogueRepository
-import id.airham.moviecatalogue.data.source.local.entity.TvShowEntity
-import id.airham.moviecatalogue.vo.Resource
+import androidx.lifecycle.*
+import dagger.hilt.android.lifecycle.HiltViewModel
+import my.id.airham.core.data.Resource
+import my.id.airham.core.domain.model.TvShow
+import my.id.airham.core.domain.usecase.CatalogueUseCase
 import javax.inject.Inject
 
 /**
@@ -17,25 +15,26 @@ import javax.inject.Inject
  *  id yang diberikan akan dicari pada method {@link getTvShow} yang akan mengembalikan data berupa
  *  Entitas TvShows.
  */
-class DetailTvViewModel @Inject constructor(private val catalogueRepository: CatalogueRepository) :
+@HiltViewModel
+class DetailTvViewModel @Inject constructor(private val catalogueUseCase: CatalogueUseCase) :
     ViewModel() {
     private var itemId = MutableLiveData<Int>()
     fun setSelectedItem(itemId: Int) {
         this.itemId.value = itemId
     }
 
-    var tvShow: LiveData<Resource<TvShowEntity>> =
+    var tvShow: LiveData<Resource<TvShow>> =
         Transformations.switchMap(itemId) { mId ->
-            catalogueRepository.getTvShow(mId)
+            catalogueUseCase.getTvShow(mId).asLiveData()
         }
 
-    fun setFavorite() {
+    fun setFavoriteTvShow() {
         val tvShow = tvShow.value
-        if (tvShow != null) {
+        if (tvShow != null){
             val tvShowData = tvShow.data
 
             tvShowData?.let {
-                catalogueRepository.setTvShowFavorite(it, !it.favorited)
+                catalogueUseCase.setTvShowFavorite(it, !it.favorited)
             }
         }
     }

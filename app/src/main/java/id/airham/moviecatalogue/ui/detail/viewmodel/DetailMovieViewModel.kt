@@ -1,12 +1,10 @@
 package id.airham.moviecatalogue.ui.detail.viewmodel
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.Transformations
-import androidx.lifecycle.ViewModel
-import id.airham.moviecatalogue.data.source.CatalogueRepository
-import id.airham.moviecatalogue.data.source.local.entity.MovieEntity
-import id.airham.moviecatalogue.vo.Resource
+import androidx.lifecycle.*
+import dagger.hilt.android.lifecycle.HiltViewModel
+import my.id.airham.core.data.Resource
+import my.id.airham.core.domain.model.Movie
+import my.id.airham.core.domain.usecase.CatalogueUseCase
 import javax.inject.Inject
 
 /**
@@ -17,25 +15,26 @@ import javax.inject.Inject
  *  id yang diberikan akan dicari pada method {@link getMovie} yang akan mengembalikan data berupa
  *  Entitas Movie.
  */
-class DetailMovieViewModel @Inject constructor(private val catalogueRepository: CatalogueRepository) :
+@HiltViewModel
+class DetailMovieViewModel @Inject constructor(private val catalogueUseCase: CatalogueUseCase) :
     ViewModel() {
     private var itemId = MutableLiveData<Int>()
     fun setSelectedItem(itemId: Int) {
         this.itemId.value = itemId
     }
 
-    var movie: LiveData<Resource<MovieEntity>> =
+    var movie: LiveData<Resource<Movie>> =
         Transformations.switchMap(itemId) { mId ->
-            catalogueRepository.getMovie(mId)
+            catalogueUseCase.getMovie(mId).asLiveData()
         }
 
-    fun setFavorite() {
+    fun setFavoriteMovie() {
         val movie = movie.value
         if (movie != null){
             val movieData = movie.data
 
             movieData?.let {
-                catalogueRepository.setMovieFavorite(it, !it.favorited)
+                catalogueUseCase.setMovieFavorite(it, !it.favorited)
             }
         }
     }

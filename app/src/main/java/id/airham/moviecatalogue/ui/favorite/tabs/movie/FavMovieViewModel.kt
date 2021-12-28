@@ -1,13 +1,13 @@
 package id.airham.moviecatalogue.ui.favorite.tabs.movie
 
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
-import androidx.paging.PagedList
-import id.airham.moviecatalogue.data.source.CatalogueRepository
-import id.airham.moviecatalogue.data.source.local.entity.MovieEntity
+import androidx.lifecycle.asLiveData
+import dagger.hilt.android.lifecycle.HiltViewModel
+import my.id.airham.core.domain.usecase.CatalogueUseCase
 import javax.inject.Inject
 
-class FavMovieViewModel @Inject constructor(private val catalogueRepository: CatalogueRepository) :
+@HiltViewModel
+class FavMovieViewModel @Inject constructor(catalogueUseCase: CatalogueUseCase) :
     ViewModel() {
-    fun getFavorites(): LiveData<PagedList<MovieEntity>> = catalogueRepository.getFavoritedMovies()
+        val favMovie = catalogueUseCase.getFavoritedMovies().asLiveData()
 }

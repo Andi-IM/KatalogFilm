@@ -13,17 +13,26 @@ import id.airham.moviecatalogue.ui.movie.MovieAdapter
 
 @AndroidEntryPoint
 class FavMovieFragment : Fragment() {
-
-    private var _favMovieFragmentBinding: FavMovieFragmentBinding? = null
-    private val binding get() = _favMovieFragmentBinding
-
     private val viewModel: FavMovieViewModel by viewModels()
+
+    private var _binding: FavMovieFragmentBinding? = null
+    private val binding get() = _binding!!
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        _favMovieFragmentBinding = FavMovieFragmentBinding.inflate(inflater, container, false)
-        return binding?.root
+        _binding = FavMovieFragmentBinding.inflate(inflater, container, false)
+        return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        if (activity != null){
+            val movieAdapter = MovieAdapter()
+            movieAdapter.clickListener
+        }
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {

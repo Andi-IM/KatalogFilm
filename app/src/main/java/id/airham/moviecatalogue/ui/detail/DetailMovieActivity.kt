@@ -3,7 +3,6 @@ package id.airham.moviecatalogue.ui.detail
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
-import android.view.View
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
@@ -11,11 +10,9 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import dagger.hilt.android.AndroidEntryPoint
 import id.airham.moviecatalogue.R
-import id.airham.moviecatalogue.data.source.local.entity.MovieEntity
 import id.airham.moviecatalogue.databinding.ActivityDetailMovieBinding
 import id.airham.moviecatalogue.ui.detail.viewmodel.DetailMovieViewModel
-import id.airham.moviecatalogue.utils.Notify.showToast
-import id.airham.moviecatalogue.vo.Status
+import my.id.airham.core.domain.model.Movie
 
 /**
  *  Kelas ini merupakan activity yang mendapatkan data dari item movie
@@ -27,7 +24,7 @@ import id.airham.moviecatalogue.vo.Status
 class DetailMovieActivity : AppCompatActivity() {
 
     companion object {
-        const val EXTRA_ID = "extra_id"
+        const val EXTRA_DATA = "extra_id"
     }
 
     private var _activityDetailContentBinding: ActivityDetailMovieBinding? = null
@@ -46,31 +43,12 @@ class DetailMovieActivity : AppCompatActivity() {
         setSupportActionBar(mainBinding?.toolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
-        val extras = intent.extras
-        if (extras != null) {
-            val id = extras.getInt(EXTRA_ID)
-            movieViewModel.setSelectedItem(id)
-
-            movieViewModel.movie.observe(this, { movie ->
-                if (movie != null) {
-                    when (movie.status) {
-                        Status.LOADING -> mainBinding?.progressBar?.visibility = View.VISIBLE
-                        Status.SUCCESS -> if (movie.data != null) {
-                            mainBinding?.progressBar?.visibility = View.GONE
-                            mainBinding?.content?.visibility = View.VISIBLE
-                            showMovie(movie.data)
-                        }
-                        Status.ERROR -> {
-                            mainBinding?.progressBar?.visibility = View.GONE
-                            showToast(this, "Something Error")
-                        }
-                    }
-                }
-            })
-        }
+        val detailMovie = intent.getParcelableExtra<Movie>(EXTRA_DATA)
+        movieViewModel.setSelectedItem(detailMovie?.id!!)
+        showMovie(detailMovie)
     }
 
-    private fun showMovie(movieEntity: MovieEntity) {
+    private fun showMovie(movieEntity: Movie) {
         contentBinding?.name?.text = movieEntity.originalTitle
         contentBinding?.sinopsis?.text = movieEntity.overview
         contentBinding?.date?.text = movieEntity.releaseDate
@@ -85,31 +63,20 @@ class DetailMovieActivity : AppCompatActivity() {
         }
     }
 
-    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
         menuInflater.inflate(R.menu.menu_detail, menu)
         this.menu = menu
         movieViewModel.movie.observe(this, { movie ->
             if (movie != null) {
-                when (movie.status) {
-                    Status.LOADING -> mainBinding?.progressBar?.visibility = View.VISIBLE
-                    Status.SUCCESS -> if (movie.data != null) {
-                        mainBinding?.progressBar?.visibility = View.GONE
-                        val state = movie.data.favorited
-                        setFavoriteState(state)
-                    }
-                    Status.ERROR -> {
-                        mainBinding?.progressBar?.visibility = View.GONE
-                        showToast(this, "Something Error")
-                    }
-                }
+                setFavoriteState(movie.data?.favorited!!)
             }
         })
-        return true
+        return super.onCreateOptionsMenu(menu)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         if (item.itemId == R.id.action_favorite) {
-            movieViewModel.setFavorite()
+            movieViewModel.setFavoriteMovie()
             return true
         }
         return super.onOptionsItemSelected(item)

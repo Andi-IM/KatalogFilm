@@ -1,11 +1,9 @@
 package id.airham.moviecatalogue.ui.movie
 
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
-import androidx.paging.PagedList
-import id.airham.moviecatalogue.data.source.CatalogueRepository
-import id.airham.moviecatalogue.data.source.local.entity.MovieEntity
-import id.airham.moviecatalogue.vo.Resource
+import androidx.lifecycle.asLiveData
+import dagger.hilt.android.lifecycle.HiltViewModel
+import my.id.airham.core.domain.usecase.CatalogueUseCase
 import javax.inject.Inject
 
 /**
@@ -13,9 +11,9 @@ import javax.inject.Inject
  *  berisi fungsi getMovie yang mendapatkan data dari DataDummy.generateMovies()
  */
 
-class MovieViewModel @Inject constructor(private val catalogueRepository: CatalogueRepository) :
+@HiltViewModel
+class MovieViewModel @Inject constructor(catalogueUseCase: CatalogueUseCase) :
     ViewModel() {
-    fun getMovies(): LiveData<Resource<PagedList<MovieEntity>>> =
-        catalogueRepository.getAllMovies()
+    val movies = catalogueUseCase.getAllMovies().asLiveData()
 }
 

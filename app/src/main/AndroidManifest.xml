@@ -16,6 +16,7 @@
         tools:ignore="AllowBackup,GoogleAppIndexingWarning">
         <activity
             android:name=".ui.splashscreen.SplashScreenActivity"
+            android:exported="true"
             android:theme="@style/Theme.SplashScreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -25,6 +26,7 @@
         </activity>
         <activity
             android:name=".ui.detail.DetailMovieActivity"
+            android:exported="true"
             android:label="@string/title_activity_detail_movie"
             android:parentActivityName=".ui.home.HomeActivity"
             android:theme="@style/Theme.MovieCatalogue.NoActionBar">
@@ -34,6 +36,7 @@
         </activity>
         <activity
             android:name=".ui.detail.DetailTvShowActivity"
+            android:exported="true"
             android:label="@string/title_activity_detail_tv_show"
             android:parentActivityName=".ui.home.HomeActivity"
             android:theme="@style/Theme.MovieCatalogue.NoActionBar">
@@ -41,7 +44,9 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="id.airham.moviecatalogue.ui.home.HomeActivity" />
         </activity>
-        <activity android:name=".ui.home.HomeActivity" />
+        <activity
+            android:name=".ui.home.HomeActivity"
+            android:exported="true" />
     </application>
 
 </manifest>

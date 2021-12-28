@@ -8,8 +8,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import id.airham.moviecatalogue.R
-import id.airham.moviecatalogue.data.source.local.entity.MovieEntity
 import id.airham.moviecatalogue.databinding.ItemMoviesBinding
+import my.id.airham.core.domain.model.Movie
 
 /**
  *  Kelas ini merupakan adapter untuk recyclerview yang ditampilkan pada MovieFragment.
@@ -22,15 +22,15 @@ import id.airham.moviecatalogue.databinding.ItemMoviesBinding
  *  intent dari HomeActivity (induknya) menuju DetailContentActivty.
  */
 
-class MovieAdapter : PagedListAdapter<MovieEntity, MovieAdapter.MovieViewHolder>(DIFF_CALLBACK) {
+class MovieAdapter : PagedListAdapter<Movie, MovieAdapter.MovieViewHolder>(DIFF_CALLBACK) {
 
     companion object {
-        private val DIFF_CALLBACK = object : DiffUtil.ItemCallback<MovieEntity>() {
-            override fun areItemsTheSame(oldItem: MovieEntity, newItem: MovieEntity): Boolean {
+        private val DIFF_CALLBACK = object : DiffUtil.ItemCallback<Movie>() {
+            override fun areItemsTheSame(oldItem: Movie, newItem: Movie): Boolean {
                 return oldItem.id == newItem.id
             }
 
-            override fun areContentsTheSame(oldItem: MovieEntity, newItem: MovieEntity): Boolean {
+            override fun areContentsTheSame(oldItem: Movie, newItem: Movie): Boolean {
                 return oldItem == newItem
             }
         }
@@ -59,7 +59,7 @@ class MovieAdapter : PagedListAdapter<MovieEntity, MovieAdapter.MovieViewHolder>
 
     inner class MovieViewHolder(private val binding: ItemMoviesBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        fun bind(movie: MovieEntity, onClick: ItemOnClickListener?) {
+        fun bind(movie: Movie, onClick: ItemOnClickListener?) {
             with(binding) {
                 movieName.text = movie.originalTitle
                 val getStarRating = 5 * (movie.voteAverage.toFloat() / 10)

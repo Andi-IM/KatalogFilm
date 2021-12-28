@@ -12,7 +12,6 @@
         android:theme="@style/Theme.MovieCatalogue.AppBarOverlay">
 
         <androidx.appcompat.widget.Toolbar
-            android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             android:background="?attr/colorPrimary"
@@ -27,14 +26,11 @@
         android:visibility="invisible"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-        <include
-            android:id="@+id/detail_item"
-            layout="@layout/content_detail_content" />
+        <include layout="@layout/content_detail_content" />
 
     </androidx.core.widget.NestedScrollView>
 
     <ProgressBar
-        android:id="@+id/progress_bar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_anchor="@id/content"

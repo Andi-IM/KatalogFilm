@@ -20,10 +20,10 @@ import id.airham.moviecatalogue.vo.Status
  */
 @AndroidEntryPoint
 class TvShowFragment : Fragment() {
+    private val viewModel: TvShowViewModel by viewModels()
+
     private lateinit var fragmentTvShowBinding: FragmentTvShowBinding
     private lateinit var adapter: TvShowAdapter
-
-    private val viewModel: TvShowViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -52,7 +52,7 @@ class TvShowFragment : Fragment() {
                                     override fun onclick(id: Int) {
                                         val intent =
                                             Intent(context, DetailTvShowActivity::class.java)
-                                        intent.putExtra(DetailMovieActivity.EXTRA_ID, id)
+                                        intent.putExtra(DetailMovieActivity.EXTRA_DATA, id)
                                         startActivity(intent)
                                     }
                                 })

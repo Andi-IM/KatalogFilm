@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
+import dagger.hilt.android.AndroidEntryPoint
 import id.airham.moviecatalogue.databinding.ActivitySplashScreenBinding
 import id.airham.moviecatalogue.ui.home.HomeActivity
 
@@ -13,6 +14,7 @@ import id.airham.moviecatalogue.ui.home.HomeActivity
  *  activity ini akan sleep selama 2000ms
  */
 
+@AndroidEntryPoint
 class SplashScreenActivity : AppCompatActivity() {
     private lateinit var activitySplashScreenBinding: ActivitySplashScreenBinding
 
@@ -29,6 +31,5 @@ class SplashScreenActivity : AppCompatActivity() {
             startActivity(Intent(this@SplashScreenActivity, HomeActivity::class.java))
             finish()
         }, DELAY_TIME_IN_MILIS.toLong())
-
     }
 }

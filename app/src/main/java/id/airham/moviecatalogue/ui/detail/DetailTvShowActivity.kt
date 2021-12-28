@@ -3,7 +3,6 @@ package id.airham.moviecatalogue.ui.detail
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
-import android.view.View
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
@@ -11,11 +10,9 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import dagger.hilt.android.AndroidEntryPoint
 import id.airham.moviecatalogue.R
-import id.airham.moviecatalogue.data.source.local.entity.TvShowEntity
 import id.airham.moviecatalogue.databinding.ActivityDetailTvShowBinding
 import id.airham.moviecatalogue.ui.detail.viewmodel.DetailTvViewModel
-import id.airham.moviecatalogue.utils.Notify.showToast
-import id.airham.moviecatalogue.vo.Status
+import my.id.airham.core.domain.model.TvShow
 
 /**
  *  Kelas ini merupakan activity yang mendapatkan data dari item tvShow
@@ -27,7 +24,7 @@ import id.airham.moviecatalogue.vo.Status
 class DetailTvShowActivity : AppCompatActivity() {
 
     companion object {
-        const val EXTRA_ID = "extra_id"
+        const val EXTRA_DATA = "extra_data"
     }
 
     private var _activityDetailTvShowBinding: ActivityDetailTvShowBinding? = null
@@ -46,72 +43,44 @@ class DetailTvShowActivity : AppCompatActivity() {
         setSupportActionBar(mainBinding?.toolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
-        val extras = intent.extras
-        if (extras != null) {
-            val id = extras.getInt(EXTRA_ID)
-            tvViewModel.setSelectedItem(id)
+        val detailTvShow = intent.getParcelableExtra<TvShow>(EXTRA_DATA)
+        tvViewModel.setSelectedItem(detailTvShow?.id!!)
+        showTv(detailTvShow)
+    }
 
-            tvViewModel.tvShow.observe(this, { tvShow ->
-                if (tvShow != null) {
-                    when (tvShow.status) {
-                        Status.LOADING -> mainBinding?.progressBar?.visibility = View.VISIBLE
-                        Status.SUCCESS -> if (tvShow.data != null) {
-                            mainBinding?.progressBar?.visibility = View.GONE
-                            mainBinding?.content?.visibility = View.VISIBLE
-                            showTv(tvShow.data)
-                        }
-                        Status.ERROR -> {
-                            mainBinding?.progressBar?.visibility = View.GONE
-                            showToast(this, "Something Error")
-                        }
-                    }
-                }
-            })
+    private fun showTv(detailTvShow: TvShow?) {
+        detailTvShow.let {
+            contentBinding?.name?.text = detailTvShow?.originalName
+            contentBinding?.sinopsis?.text = detailTvShow?.overview
+            contentBinding?.date?.text = detailTvShow?.firstAirDate
+            contentBinding?.poster?.let {
+                Glide.with(this)
+                    .load("https://image.tmdb.org/t/p/w342/${detailTvShow?.posterPath}")
+                    .apply(
+                        RequestOptions
+                            .placeholderOf(R.drawable.ic_loading)
+                            .error(R.drawable.ic_error)
+                            .override(132, 198)
+                    )
+                    .into(it)
+            }
         }
     }
 
-    private fun showTv(tvShowEntity: TvShowEntity) {
-        contentBinding?.name?.text = tvShowEntity.originalName
-        contentBinding?.sinopsis?.text = tvShowEntity.overview
-        contentBinding?.date?.text = tvShowEntity.firstAirDate
-        contentBinding?.poster?.let {
-            Glide.with(this)
-                .load("https://image.tmdb.org/t/p/w342/${tvShowEntity.posterPath}")
-                .apply(
-                    RequestOptions
-                        .placeholderOf(R.drawable.ic_loading)
-                        .error(R.drawable.ic_error)
-                        .override(132, 198)
-                )
-                .into(it)
-        }
-    }
-
-    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
         menuInflater.inflate(R.menu.menu_detail, menu)
         this.menu = menu
         tvViewModel.tvShow.observe(this, { tvShow ->
             if (tvShow != null) {
-                when (tvShow.status) {
-                    Status.LOADING -> mainBinding?.progressBar?.visibility = View.VISIBLE
-                    Status.SUCCESS -> if (tvShow.data != null) {
-                        mainBinding?.progressBar?.visibility = View.GONE
-                        val state = tvShow.data.favorited
-                        setFavoriteState(state)
-                    }
-                    Status.ERROR -> {
-                        mainBinding?.progressBar?.visibility = View.GONE
-                        showToast(this, "Something Error")
-                    }
-                }
+                setFavoriteState(tvShow.data?.favorited!!)
             }
         })
-        return true
+        return super.onCreateOptionsMenu(menu)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         if (item.itemId == R.id.action_favorite) {
-            tvViewModel.setFavorite()
+            tvViewModel.setFavoriteTvShow()
             return true
         }
         return super.onOptionsItemSelected(item)

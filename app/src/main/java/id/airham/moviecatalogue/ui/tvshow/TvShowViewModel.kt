@@ -1,11 +1,9 @@
 package id.airham.moviecatalogue.ui.tvshow
 
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
-import androidx.paging.PagedList
-import id.airham.moviecatalogue.data.source.CatalogueRepository
-import id.airham.moviecatalogue.data.source.local.entity.TvShowEntity
-import id.airham.moviecatalogue.vo.Resource
+import androidx.lifecycle.asLiveData
+import dagger.hilt.android.lifecycle.HiltViewModel
+import my.id.airham.core.domain.usecase.CatalogueUseCase
 import javax.inject.Inject
 
 /**
@@ -13,8 +11,8 @@ import javax.inject.Inject
  *  berisi fungsi getTvShow yang mendapatkan data dari DataDummy.generateTvs()
  */
 
-class TvShowViewModel @Inject constructor(private val catalogueRepository: CatalogueRepository) :
+@HiltViewModel
+class TvShowViewModel @Inject constructor(catalogueUseCase: CatalogueUseCase) :
     ViewModel() {
-    fun getTvShows(): LiveData<Resource<PagedList<TvShowEntity>>> =
-        catalogueRepository.getAllTvShows()
+        val tvShows = catalogueUseCase.getAllTvShows().asLiveData()
 }
