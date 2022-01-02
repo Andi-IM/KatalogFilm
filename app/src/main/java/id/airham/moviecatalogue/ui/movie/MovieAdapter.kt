@@ -2,7 +2,7 @@ package id.airham.moviecatalogue.ui.movie
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.paging.PagedListAdapter
+import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
@@ -22,7 +22,7 @@ import id.airham.moviecatalogue.databinding.ItemMoviesBinding
  *  intent dari HomeActivity (induknya) menuju DetailContentActivty.
  */
 
-class MovieAdapter : PagedListAdapter<MovieEntity, MovieAdapter.MovieViewHolder>(DIFF_CALLBACK) {
+class MovieAdapter : PagingDataAdapter<MovieEntity, MovieAdapter.MovieViewHolder>(DIFF_CALLBACK) {
 
     companion object {
         private val DIFF_CALLBACK = object : DiffUtil.ItemCallback<MovieEntity>() {
@@ -64,8 +64,6 @@ class MovieAdapter : PagedListAdapter<MovieEntity, MovieAdapter.MovieViewHolder>
                 movieName.text = movie.originalTitle
                 val getStarRating = 5 * (movie.voteAverage.toFloat() / 10)
                 movieRating.rating = getStarRating
-                movieReleaseDate.text =
-                    itemView.resources.getString(R.string.release_date, movie.releaseDate)
                 Glide.with(itemView.context)
                     .load("https://image.tmdb.org/t/p/w342/${movie.posterPath}")
                     .apply(

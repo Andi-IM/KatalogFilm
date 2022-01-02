@@ -5,8 +5,8 @@
     <!-- Strings used for fragments for navigation -->
 
     <string name="dev_name">andi irham</string>
-    <string name="tab_1">Movies</string>
     <string name="title_home">Movies</string>
+    <string name="tab_1">Movies</string>
     <string name="tab_2">TV SHOWS</string>
     <string name="title_tv_show">TV Show</string>
     <string name="title_favorites">Favorite</string>
